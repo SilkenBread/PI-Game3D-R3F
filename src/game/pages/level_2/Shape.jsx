@@ -16,9 +16,6 @@ export default function Shape(props) {
     }
 
     return (<>
-        <RigidBody position={[0,0,0]} type="fixed">
-
-        </RigidBody>
         <RigidBody position={props.position} type="fixed" colliders={false}>
             <mesh
                 castShadow
