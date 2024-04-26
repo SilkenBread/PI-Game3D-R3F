@@ -7,6 +7,10 @@ import WelcomeText from "./game/pages/level_2/WelcomeText";
 import { CuboidCollider, Physics, RigidBody } from "@react-three/rapier";
 import { Suspense } from "react";
 import Shape from "./game/pages/level_2/Shape";
+import { Perf } from "r3f-perf";
+import { Physics } from "@react-three/rapier";
+import WelcomeText from "./WelcomeText";
+import { Canvas } from "@react-three/fiber";
 
 export const Level2 = (props) => {
     return (
