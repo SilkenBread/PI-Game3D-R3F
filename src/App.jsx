@@ -5,18 +5,23 @@ import World2 from './game/pages/level_2/World';
 import Lights from "./game/pages/level_2/Lights";
 import { Perf } from "r3f-perf";
 import WelcomeText from "./game/pages/level_2/WelcomeText";
+import { Physics } from "@react-three/rapier";
+import { Suspense } from "react";
 
 const App = () => {
     return (
         <>
             <Perf position="top-left" />
+            <Suspense fallback={null} >
             <Lights />
             <BakeShadows />
             <Environments />
             <OrbitControls makeDefault />
-            <World2>
-                <WelcomeText />
-            </World2>
+            <Physics debug={true}>
+                <World2/>
+            </Physics>
+            </Suspense>
+            <WelcomeText />
             {/* <ambientLight />
             <directionalLight position={[10, 10, 5]} />
             <World /> */}

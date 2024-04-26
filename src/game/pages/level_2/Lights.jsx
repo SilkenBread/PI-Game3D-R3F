@@ -23,7 +23,7 @@ const Lights = () => {
             />
         <directionalLight
                 castShadow={true}
-                position={[-1, 0.3, -1]}
+                position={[-1, 0.5, -1]}
                 color={new Color(0xE77502)}
                 intensity={5}
                 shadow-mapSize={[2048,2048]}
@@ -38,14 +38,14 @@ const Lights = () => {
                 color={new Color("FF0000")}
                 intensity={8}
             /> */}
-        <spotLight
+        {/* <spotLight
             ref={spotLightRef}
             position={[0, 2, 0]}
             color={colorSL}
             angle={Math.PI / 3}
             intensity={intensitySL}
             distance={2}
-            />
+            /> */}
         <hemisphereLight
             position={[2, 30, -2]}
             skyColor={new Color(0xE77502)}
