@@ -1,8 +1,7 @@
 import { Center, Float, Html, Text, Text3D } from "@react-three/drei";
 
 const WelcomeText = (props) => {
-    const text = "Estacion Planetaria 2";
-
+   
     return (
         <Float
             speed={1.5}
@@ -23,7 +22,7 @@ const WelcomeText = (props) => {
                     size={0.25}
                 >
                     <meshDepthMaterial/>
-                    {text}
+                    {props.text}
                 </Text3D>
             </Center>
         </Float>

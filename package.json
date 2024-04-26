@@ -25,6 +25,7 @@
     "react-router-dom": "^6.23.0",
     "react-scripts": "^5.0.1",
     "socket.io-client": "^4.7.5",
+    "sweetalert2": "^11.10.8",
     "three": "^0.163.0",
     "vercel": "^34.1.1"
   },
@@ -39,5 +40,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.3"
   }
 }
