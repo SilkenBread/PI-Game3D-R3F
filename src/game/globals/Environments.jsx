@@ -10,14 +10,7 @@ export default function Environments() {
             luminance={1}
             sunPosition={[-1, 0, -1]}
         />
-        <Sparkles
-            color={"#FF7D33"}
-            count={100}
-            size={4}
-            scale={1}
-            speed={0.5}
-            position={[-4.5, 0.5, -4.5]}
-        />
+        
         <Stars
             radius={100}
             depth={50}
