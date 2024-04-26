@@ -1,5 +1,5 @@
 import { OrbitControls } from "@react-three/drei";
-import World from './game/pages/level_one/World';
+import World from './game/pages/level_3/World';
 
 const App = () => {
     return (
