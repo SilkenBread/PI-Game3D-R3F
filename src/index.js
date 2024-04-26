@@ -7,11 +7,8 @@ import { Loader } from "@react-three/drei";
 const root = createRoot(document.getElementById("root"));
 
 root.render(<>
-    <Canvas
-        shadows={true}
-    >
+   
         <App />
-    </Canvas>
-    <Loader />
+
     </>
 );
