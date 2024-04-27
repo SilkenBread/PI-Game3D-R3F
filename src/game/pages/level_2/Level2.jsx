@@ -28,7 +28,7 @@ export const Level2 = (props) => {
                     <Lights />
                     {/* <BakeShadows /> */}
                     <Environments />
-                    <Physics debug={false} gravity={[0, -1.4, 0]}>
+                    <Physics debug={true} gravity={[0, -1.4, 0]}>
                         <World2 />
                         <Avatar />
                         <Shape position={[0, 0, 0]} />

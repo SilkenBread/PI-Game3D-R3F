@@ -3,7 +3,7 @@ import { ConeCollider, ConvexHullCollider, CuboidCollider, MeshCollider, RapierC
 import { useRef } from "react";
 
 export default function Shape(props) {
-    const { nodes, materials } = useGLTF('/assets/models/level_2/world2.glb')
+    const { nodes, materials } = useGLTF('/assets/models/level_2/world/world2.glb')
     const shapeRockRef = useRef()
     const shapeRockRef1 = useRef()
     const shapeCubeRef = useRef()

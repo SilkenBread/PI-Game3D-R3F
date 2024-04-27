@@ -3,7 +3,7 @@ import { useGLTF, useTexture } from '@react-three/drei'
 import { ConeCollider, CuboidCollider, RigidBody } from '@react-three/rapier';
 
 export default function World2(props) {
-  const { nodes, materials } = useGLTF('/assets/models/level_2/world2.glb')
+  const { nodes, materials } = useGLTF('/assets/models/level_2/world/world2.glb')
 
   return (<>
     <RigidBody position={[0, 4, 7.2]} type="fixed">

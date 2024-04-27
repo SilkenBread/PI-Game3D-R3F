@@ -1,5 +1,5 @@
 import { OrbitControls, useKeyboardControls } from "@react-three/drei";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAvatar } from "../../../../context/AvatarContext";
 import { useFrame } from "@react-three/fiber";
 import { Quaternion, Vector3 } from "three";
@@ -11,9 +11,11 @@ export default function Controls() {
     let walkDirection = new Vector3();
     let rotateAngle = new Vector3(0, 1, 0);
     let rotateQuaternion = new Quaternion();
-    const velocity = 3;
+    const velocity = 1;
     let cameraTarget = new Vector3();
     const desiredDistance = 2;
+    const [runSound] = useState(new Audio("/assets/sounds/FastWalking.wav"));
+    const [play, setPlay] = useState(false);
 
     const getDirectionOffset = (forward, backward, leftward, rightward) => {
         if (leftward && forward) return Math.PI / 4;
@@ -27,17 +29,29 @@ export default function Controls() {
     }
 
     useEffect(() => {
-        return sub(
-            (state) => state.forward,
+        const unsubscribe = sub(
+            (state) => state.forward || state.backward || state.leftward || state.rightward,
             (pressed) => {
-                console.log("forward", pressed);
+                setAvatar({ ...avatar, animation: pressed ? "Walk" : "Idle" });
             }
-        )
-    }, [])
+        );
+        return () => unsubscribe();
+    }, [avatar, setAvatar, sub, get]);
+
+    useEffect(() => {
+        if (play) {
+            runSound.currentTime = 0;
+            runSound.volume = Math.random()
+            runSound.play()
+        } else {
+            runSound.pause()
+        }
+    }, [play])
 
     useFrame((state, delta) => {
         const { forward, backward, leftward, rightward } = get()
         if (forward || backward || leftward || rightward) {
+            setPlay(true)
             const directionOffset = getDirectionOffset(forward, backward, leftward, rightward)
             const currentTranslation = avatar.body?.translation()
 
@@ -68,10 +82,11 @@ export default function Controls() {
             )
 
             avatar.body?.setTranslation(
-                {x: newPosition.x,
-                y: newPosition.y,
-                z: newPosition.z
-            }, true);
+                {
+                    x: newPosition.x,
+                    y: newPosition.y,
+                    z: newPosition.z
+                }, true);
 
             avatar.body.setRotation(
                 new Quaternion({
@@ -111,6 +126,7 @@ export default function Controls() {
 
         } else {
             avatar.body?.sleep()
+            setPlay(false)
         }
 
         const pressed = get().back
