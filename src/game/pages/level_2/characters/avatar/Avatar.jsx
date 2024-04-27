@@ -10,13 +10,13 @@ export default function Avatar() {
     const { nodes, materials, animations } = useGLTF('/assets/models/level_2/avatar/Robot.glb')
 
     const { actions } = useAnimations(animations, avatarRef);
-    console.log(nodes);
-    useEffect(() => {
-        setAvatar({
-            ref: avatarRef.current,
-            body: avatarBodyRef.current,
-        });
-    }, [avatarBodyRef.current, avatarRef.current]);
+
+    // useEffect(() => {
+    //     setAvatar({
+    //         ref: avatarRef.current,
+    //         body: avatarBodyRef.current,
+    //     });
+    // }, [avatarBodyRef.current, avatarRef.current]);
 
     useEffect(() => {
         actions[avatar.animation]?.reset().fadeIn(0.5).play();
@@ -28,8 +28,8 @@ export default function Avatar() {
     }, [actions, avatar.animation]);
 
     return (
-        <RigidBody ref={avatarBodyRef} position={[5.3, 0.7, -4.35]} type="dynamic" colliders={false}>
-            <group ref={avatarRef} name="Scene">
+        // <RigidBody ref={avatarBodyRef} position={[5.3, 0.7, -4.35]} type="dynamic" colliders={false}>
+            <group ref={avatarRef} name="Scene" position-y={-0.25}>
                 <group name="Armature" rotation={[Math.PI / 2, 0, 0]} scale={0.002}>
                     <skinnedMesh
                         name="Abdomen"
@@ -130,8 +130,8 @@ export default function Avatar() {
                     <primitive object={nodes.mixamorigHips} />
                 </group>
             </group>
-            <CapsuleCollider args={[0.2, 0.25]} position={[0, 0.06, 0]} />
-        </RigidBody>
+        //     <CapsuleCollider args={[0.2, 0.25]} position={[0, 0.06, 0]} />
+        // </RigidBody>
     )
 }
 
