@@ -7,7 +7,7 @@ export default function Avatar(props) {
     const avatarRef = useRef();
     const avatarBodyRef = useRef();
     const { avatar, setAvatar } = useAvatar();
-    const { nodes, materials, animations } = useGLTF('assets/models/level_2/avatar/Robot.glb')
+    const { nodes, materials, animations } = useGLTF('assets/models/characters/Robot.glb')
 
     const { actions } = useAnimations(animations, avatarRef);
     console.log(nodes);
@@ -135,4 +135,4 @@ export default function Avatar(props) {
     )
 }
 
-useGLTF.preload('assets/models/level_2/avatar/Robot.glb')
+useGLTF.preload('assets/models/characters/Robot.glb')
