@@ -13,6 +13,7 @@ import Ghost from "./Ghost";
 
 import Contronls from "../../globals/controls/Controls";
 import Avatar from "../../globals/player/Avatar";
+import Avatar2 from "../../globals/player/Avatar2";
 import useMovements from "../../../utils/key-movements";
 
 // import WelcomeText from "../level_2/abstractions/WelcomeText";
@@ -39,7 +40,7 @@ export const Level4 = (props) => {
 
                         <Physics debug={true} gravity={[0, -1.4, 0]}>
                             <World />
-                            <Avatar position={[0, 3.1, 4]} scale={0.002} />
+                            <Avatar2 position={[0, 3.1, 4]} scale={0.002} />
                         </Physics>
 
                         {/* <Knight position={[0, 2.5, 4]} scale={[0.45, 0.45, 0.45]} /> */}
