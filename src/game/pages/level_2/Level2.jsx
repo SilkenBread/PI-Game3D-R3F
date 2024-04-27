@@ -7,8 +7,8 @@ import Environments from "../../globals/Environments";
 import Lights from "./lights/Lights";
 import Shape from "./world/Shape";
 import World2 from "./world/World";
-import Contronls from "./controls/Controls";
-import Avatar from "./characters/avatar/Avatar";
+import Contronls from "../../globals/controls/Controls";
+import Avatar from "../../globals/player/Avatar";
 import useMovements from "../../../utils/key-movements";
 import WelcomeText from "../../globals/WelcomeText";
 
@@ -29,7 +29,7 @@ export const Level2 = (props) => {
                     <Environments />
                     <Physics debug={true} gravity={[0, -1.4, 0]}>
                         <World2 />
-                        <Avatar />
+                        <Avatar position={[5.3, 0.7, -4.35]} scale={0.002} />
                         <Shape position={[0, 0, 0]} />
                     </Physics>
                     <WelcomeText text = {props.text} position= {props.position} size={props.size}/>
