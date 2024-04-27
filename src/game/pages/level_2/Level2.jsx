@@ -11,6 +11,8 @@ import Contronls from "../../globals/controls/Controls";
 import Avatar from "../../globals/player/Avatar";
 import useMovements from "../../../utils/key-movements";
 import WelcomeText from "../../globals/WelcomeText";
+import Ecctrl from "ecctrl";
+import Avatar2 from "../../globals/player/Avatar2";
 
 export const Level2 = (props) => {
     const map = useMovements();
@@ -27,12 +29,24 @@ export const Level2 = (props) => {
                 <Suspense fallback={null} >
                     <Lights />
                     <Environments />
-                    <Physics debug={true} gravity={[0, -1.4, 0]}>
+                    <Physics debug={false} gravity={[0, -1.4, 0]}>
                         <World2 />
-                        <Avatar position={[5.3, 0.7, -4.35]} scale={0.002} />
+                        <Ecctrl
+                            camInitDis={-2}
+                            camMaxDis={-2}
+                            camInitDir= {{x: 0, y: 97}}
+                            position={[31, 0.5, -22]}
+                            jumpVel={1}
+                            moveImpulsePointY={1}
+                            maxVelLimit= {2}
+                            springK={0}
+                            floatHeight= {0}
+                        >
+                            <Avatar2 scale={0.002} />
+                        </Ecctrl>
                         <Shape position={[0, 0, 0]} />
                     </Physics>
-                    <WelcomeText text = {props.text} position= {props.position} size={props.size}/>
+                    <WelcomeText text={props.text} position={props.position} size={props.size} rotation={props.rotation} />
                 </Suspense>
                 <Contronls />
             </Canvas>

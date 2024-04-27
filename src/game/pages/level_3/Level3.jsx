@@ -8,11 +8,11 @@ import World from "./World";
 import Contronls from "../../globals/controls/Controls";
 import Avatar from "../../globals/player/Avatar";
 import useMovements from "../../../utils/key-movements";
-
 import { Canvas } from "@react-three/fiber";
 import Lights from "../level_3/lights/Lights";
 import Golemmonk from "./Golemmonk";
 import WelcomeText from "../../globals/WelcomeText";
+import Ecctrl from "ecctrl";
 
 export const Level3 = (props) => {
     const map = useMovements();
@@ -31,9 +31,20 @@ export const Level3 = (props) => {
                         <Lights />
                         <BakeShadows />
                         <Environments />
-                        <Physics debug={true} gravity={[0, -1.4, 0]}>
+                        <Physics debug={false} gravity={[0, -1.4, 0]}>
                             <World />
-                            <Avatar position={[5.3, -0.7, -4.35]} scale={0.002} />
+                            <Ecctrl
+                                camInitDis={-2}
+                                camMaxDis={-2}
+                                position={[5.3, -0.7, -4.35]}
+                                jumpVel={1}
+                                moveImpulsePointY={1}
+                                maxVelLimit={2}
+                                springK={0}
+                                floatHeight={0}
+                            >
+                                <Avatar scale={0.002} />
+                            </Ecctrl>
                         </Physics>
                         <WelcomeText text={props.text} position={props.position} size={props.size} rotation={props.rotation} />
                         {/* <Golemmonk position = {[ww]}/> */}

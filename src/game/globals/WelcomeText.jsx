@@ -21,7 +21,7 @@ const WelcomeText = (props) => {
                     size={props.size}
                     rotation={props.rotation}
                 >
-                    <meshStandardMaterial />
+                    <meshNormalMaterial />
                     {props.text}
                 </Text3D>
             </Center>

@@ -4,33 +4,32 @@ import { useMemo, useRef } from "react";
 import { Color, SpotLightHelper } from "three";
 
 const Lights = () => {
-    const spotLightRef = useRef(null);
-    // useHelper(spotLightRef, SpotLightHelper)
+    // const directionalRef = useRef(null);
+    // useHelper(directionalRef, SpotLightHelper)
     // const optionsSpotlight = useMemo(() => {
     //     return {
-    //         intensitySL: { value: 10, min: 0, max: 100, step: 1 },
-    //         colorSL: { value: "#FF0000" },
+    //         positionED: { value: [-32, 9, -19] },
+    //         intensitySL: { value: 9, min: 0, max: 100, step: 1 },
+    //         colorSL: { value: "#8d6b49" },
     //     }
     // }, [])
 
-    // const { intensitySL, colorSL } = useControls("Spotlight", optionsSpotlight)
+    // const { positionED, intensitySL, colorSL } = useControls("LigthsControls", optionsSpotlight)
 
     return <>
-        <ambientLight
-        color={new Color("FF7D33")}
-        intensity={1}
-        />
         <directionalLight
+            // ref={directionalRef}
             castShadow={true}
-            position={[-1, 0.5, -1]}
-            color={new Color(0xE77502)}
-            intensity={5}
+            position={[-32, 9, -19]}
+            color={"#8d6b49"}
+            intensity={9}
+            distance={1000}
             shadow-mapSize={[2048, 2048]}
-            shadow-camera-far={50}
-            shadow-camera-left={-10}
+            shadow-camera-far={500}
+            shadow-camera-left={-100}
             shadow-camera-right={10}
-            shadow-camera-top={10}
-            shadow-camera-bottom={-10}
+            shadow-camera-top={100}
+            shadow-camera-bottom={-100}
         />
         <hemisphereLight
             position={[2, 30, -2]}
@@ -40,11 +39,11 @@ const Lights = () => {
         />
         <Sparkles
             color={"#FF7D33"}
-            count={100}
-            size={4}
-            scale={1}
+            count={1000}
+            size={6}
+            scale={3}
             speed={0.5}
-            position={[-4.5, 0.5, -4.5]}
+            position={[-22, 0, -23]}
         />
     </>
 }

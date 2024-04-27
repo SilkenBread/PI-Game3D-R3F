@@ -6,17 +6,17 @@ export default function World2(props) {
   const { nodes, materials } = useGLTF('/assets/models/level_2/world/world2.glb')
 
   return (<>
-    <RigidBody position={[0, 4, 7.2]} type="fixed">
-      <CuboidCollider args={[7, 4, 0.1]} />
+    <RigidBody position={[0, 0, 38.5]} type="fixed">
+      <CuboidCollider args={[40, 20, 0.1]} />
     </RigidBody>
-    <RigidBody position={[0, 4, -7.2]} type="fixed">
-      <CuboidCollider args={[7, 4, 0.1]} />
+    <RigidBody position={[0, 0, -34]} type="fixed">
+      <CuboidCollider args={[40, 4, 0.1]} />
     </RigidBody>
-    <RigidBody position={[7.2, 4, 0]} type="fixed">
-      <CuboidCollider args={[0.1, 4, 7]} />
+    <RigidBody position={[38.5, 0, 0]} type="fixed">
+      <CuboidCollider args={[0.1, 4, 40]} />
     </RigidBody>
-    <RigidBody position={[-7.2, 4, 0]} type="fixed">
-      <CuboidCollider args={[0.1, 4, 7]} />
+    <RigidBody position={[-36, 0, 0]} type="fixed">
+      <CuboidCollider args={[0.1, 20, 40]} />
     </RigidBody>
 
     <group dispose={null}>
@@ -44,14 +44,17 @@ export default function World2(props) {
             geometry={nodes.Base.geometry}
             material={materials['Material.001']}
           />
-        </RigidBody>
-
-        <RigidBody type="fixed" colliders="cuboid">
           <mesh
             castShadow
             receiveShadow
-            geometry={nodes.Telescopio.geometry}
-            material={materials['Material.008']}
+            geometry={nodes.Cueva.geometry}
+            material={materials['Material.006']}
+          />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Montaña.geometry}
+            material={materials['Material.006']}
           />
           <mesh
             castShadow
@@ -59,6 +62,9 @@ export default function World2(props) {
             geometry={nodes.Soporte.geometry}
             material={materials['Material.003']}
           />
+        </RigidBody>
+
+        <RigidBody type="fixed" colliders="cuboid">
           <mesh
             castShadow
             receiveShadow
@@ -71,14 +77,8 @@ export default function World2(props) {
           <mesh
             castShadow
             receiveShadow
-            geometry={nodes.Cueva.geometry}
-            material={materials['Material.006']}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Montaña.geometry}
-            material={materials['Material.006']}
+            geometry={nodes.Telescopio.geometry}
+            material={materials['Material.008']}
           />
           <group>
             <mesh
