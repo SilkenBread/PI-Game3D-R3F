@@ -10,7 +10,7 @@ import World2 from "./world/World";
 import Contronls from "./controls/Controls";
 import Avatar from "./characters/avatar/Avatar";
 import useMovements from "../../../utils/key-movements";
-import WelcomeText from "./abstractions/WelcomeText";
+import WelcomeText from "../../globals/WelcomeText";
 
 export const Level2 = (props) => {
     const map = useMovements();
@@ -26,14 +26,13 @@ export const Level2 = (props) => {
                 <Perf position="top-left" />
                 <Suspense fallback={null} >
                     <Lights />
-                    {/* <BakeShadows /> */}
                     <Environments />
                     <Physics debug={true} gravity={[0, -1.4, 0]}>
                         <World2 />
                         <Avatar />
                         <Shape position={[0, 0, 0]} />
                     </Physics>
-                    {/* <WelcomeText text = {props.text}/> */}
+                    <WelcomeText text = {props.text} position= {props.position} size={props.size}/>
                 </Suspense>
                 <Contronls />
             </Canvas>
