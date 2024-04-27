@@ -1,7 +1,6 @@
 
 import { BakeShadows, OrbitControls } from "@react-three/drei";
 import Environments from "../../globals/Environments";
-
 import { Perf } from "r3f-perf";
 import { Physics } from "@react-three/rapier";
 import { Suspense } from "react";

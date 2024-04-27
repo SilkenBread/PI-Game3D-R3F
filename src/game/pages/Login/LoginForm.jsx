@@ -60,14 +60,14 @@ export const LoginForm = ({ onSubmit }) => {
           </div>
 
           <div className="mb-6 text-blue-500">
-            <a className="hover:underline">¿Has olvidado tu contraseña?</a>
+            <a className="hover:underline">Unete a la experiencia Hoze</a>
           </div>
           <NavLink to='/Level2'>
             <button
               // onClick={handleSubmit}
               className="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md py-2 px-4 w-full"
             >
-              Ingresar
+              Jugar
             </button>
           </NavLink>
         </form>
