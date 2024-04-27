@@ -1,13 +1,13 @@
 import { CapsuleCollider, RigidBody } from "@react-three/rapier";
 import { useEffect, useRef } from "react";
-import { useAvatar } from "../../../../../context/AvatarContext";
+import { useAvatar } from "../../../context/AvatarContext";
 import { useAnimations, useGLTF } from "@react-three/drei";
 
-export default function Avatar() {
+export default function Avatar(props) {
     const avatarRef = useRef();
     const avatarBodyRef = useRef();
     const { avatar, setAvatar } = useAvatar();
-    const { nodes, materials, animations } = useGLTF('/assets/models/level_2/avatar/Robot.glb')
+    const { nodes, materials, animations } = useGLTF('assets/models/level_2/avatar/Robot.glb')
 
     const { actions } = useAnimations(animations, avatarRef);
     console.log(nodes);
@@ -28,9 +28,9 @@ export default function Avatar() {
     }, [actions, avatar.animation]);
 
     return (
-        <RigidBody ref={avatarBodyRef} position={[5.3, 0.7, -4.35]} type="dynamic" colliders={false}>
+        <RigidBody ref={avatarBodyRef} position={props.position} type="dynamic" colliders={false}>
             <group ref={avatarRef} name="Scene">
-                <group name="Armature" rotation={[Math.PI / 2, 0, 0]} scale={0.002}>
+                <group name="Armature" rotation={[Math.PI / 2, 0, 0]} scale={props.scale}>
                     <skinnedMesh
                         name="Abdomen"
                         geometry={nodes.Abdomen.geometry}
@@ -135,4 +135,4 @@ export default function Avatar() {
     )
 }
 
-useGLTF.preload('/assets/models/level_2/avatar/Robot.glb')
+useGLTF.preload('assets/models/level_2/avatar/Robot.glb')

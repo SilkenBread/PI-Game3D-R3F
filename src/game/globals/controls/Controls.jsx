@@ -1,6 +1,6 @@
 import { OrbitControls, useKeyboardControls } from "@react-three/drei";
 import { useEffect, useRef, useState } from "react";
-import { useAvatar } from "../../../../context/AvatarContext";
+import { useAvatar } from "../../../context/AvatarContext";
 import { useFrame } from "@react-three/fiber";
 import { Quaternion, Vector3 } from "three";
 
@@ -11,10 +11,10 @@ export default function Controls() {
     let walkDirection = new Vector3();
     let rotateAngle = new Vector3(0, 1, 0);
     let rotateQuaternion = new Quaternion();
-    const velocity = 1;
+    const velocity = 1.2;
     let cameraTarget = new Vector3();
     const desiredDistance = 2;
-    const [runSound] = useState(new Audio("/assets/sounds/FastWalking.wav"));
+    const [runSound] = useState(new Audio("assets/sounds/FastWalking.wav"));
     const [play, setPlay] = useState(false);
 
     const getDirectionOffset = (forward, backward, leftward, rightward) => {
