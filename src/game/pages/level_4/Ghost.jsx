@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export default  function Ghost(props) {
-  const { nodes, materials } = useGLTF('assets/models/level_4/goshVillan.glb')
+  const { nodes, materials } = useGLTF('assets/models/characters/goshVillan.glb')
   return (
     <group {...props} dispose={null} >
       <mesh geometry={nodes.body.geometry} material={materials.PrimaryColor} />
@@ -15,4 +15,4 @@ export default  function Ghost(props) {
   )
 }
 
-useGLTF.preload('assets/models/level_4/goshVillan.glb')
+useGLTF.preload('assets/models/characters/goshVillan.glb')

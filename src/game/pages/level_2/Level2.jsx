@@ -7,11 +7,12 @@ import Environments from "../../globals/Environments";
 import Lights from "./lights/Lights";
 import Shape from "./world/Shape";
 import World2 from "./world/World";
-import Contronls from "./controls/Controls";
-import Avatar from "./characters/avatar/Avatar";
+import Contronls from "../../globals/controls/Controls";
+import Avatar from "../../globals/player/Avatar";
 import useMovements from "../../../utils/key-movements";
 import WelcomeText from "../../globals/WelcomeText";
 import Ecctrl from "ecctrl";
+import Avatar2 from "../../globals/player/Avatar2";
 
 export const Level2 = (props) => {
     const map = useMovements();
@@ -30,22 +31,22 @@ export const Level2 = (props) => {
                     <Environments />
                     <Physics debug={false} gravity={[0, -1.4, 0]}>
                         <World2 />
-                        <Ecctrl 
+                        <Ecctrl
                             camInitDis={-2}
                             camMaxDis={-2}
-                            position={[5.3, 1, -4.35]}
+                            camInitDir= {{x: 0, y: 97}}
+                            position={[31, 0.5, -22]}
                             jumpVel={1}
-                            moveImpulsePointY={0.2}
-                            maxVelLimit= {1.2}
+                            moveImpulsePointY={1}
+                            maxVelLimit= {2}
                             springK={0}
-                            capsuleRadius= {0.3}
                             floatHeight= {0}
                         >
-                            <Avatar />
+                            <Avatar2 scale={0.002} />
                         </Ecctrl>
                         <Shape position={[0, 0, 0]} />
                     </Physics>
-                    <WelcomeText text={props.text} position={props.position} size={props.size} />
+                    <WelcomeText text={props.text} position={props.position} size={props.size} rotation={props.rotation} />
                 </Suspense>
                 <Contronls />
             </Canvas>
