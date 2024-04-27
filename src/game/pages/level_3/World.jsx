@@ -8,7 +8,6 @@ export default function World(props) {
             {/* INICIO */}
             <RigidBody type="fixed" colliders="trimesh">
                 <mesh
-                    castShadow
                     receiveShadow
                     geometry={nodes.BaseInicio.geometry}
                     material={materials.BrownStone}
@@ -18,7 +17,6 @@ export default function World(props) {
 
             <RigidBody type="fixed" colliders="hull">
                 <mesh
-                    castShadow
                     receiveShadow
                     geometry={nodes.FloorInicio.geometry}
                     material={materials.Sand}
@@ -30,7 +28,6 @@ export default function World(props) {
             {/* OBSTACULOS */}
             <RigidBody type="fixed" colliders="cuboid">
                 <mesh
-                    castShadow
                     receiveShadow
                     geometry={nodes.InitCubeBase.geometry}
                     material={materials['BrownStone.001']}
@@ -41,7 +38,6 @@ export default function World(props) {
             <group position={[0.247, -1.068, 6.332]}>
                 <RigidBody type="fixed" colliders="cuboid">
                     <mesh
-                        castShadow
                         receiveShadow
                         geometry={nodes.CubeRotation4_1.geometry}
                         material={materials['BrownStone.001']}
@@ -49,7 +45,6 @@ export default function World(props) {
                 </RigidBody>
                 <RigidBody type="fixed" colliders="cuboid">
                     <mesh
-                        castShadow
                         receiveShadow
                         geometry={nodes.CubeRotation4_2.geometry}
                         material={materials.Sand}
@@ -60,7 +55,6 @@ export default function World(props) {
             <group position={[0.524, -1.068, 2.602]}>
                 <RigidBody type="fixed" colliders="cuboid">
                     <mesh
-                        castShadow
                         receiveShadow
                         geometry={nodes.CubeRotation1_1.geometry}
                         material={materials['BrownStone.001']}
@@ -69,7 +63,6 @@ export default function World(props) {
 
                 <RigidBody type="fixed" colliders="cuboid">
                     <mesh
-                        castShadow
                         receiveShadow
                         geometry={nodes.CubeRotation1_2.geometry}
                         material={materials.Sand}
@@ -80,7 +73,6 @@ export default function World(props) {
             <group position={[0.527, -1.076, 3.701]}>
                 <RigidBody type="fixed" colliders="cuboid">
                     <mesh
-                        castShadow
                         receiveShadow
                         geometry={nodes.CubeRotation2_1.geometry}
                         material={materials['BrownStone.001']}
@@ -89,7 +81,6 @@ export default function World(props) {
 
                 <RigidBody type="fixed" colliders="cuboid">
                     <mesh
-                        castShadow
                         receiveShadow
                         geometry={nodes.CubeRotation2_2.geometry}
                         material={materials.Sand}
@@ -100,7 +91,6 @@ export default function World(props) {
             <group position={[0.494, -1.071, 5.258]}>
                 <RigidBody type="fixed" colliders="cuboid">
                     <mesh
-                        castShadow
                         receiveShadow
                         geometry={nodes.CubeRotation3_1.geometry}
                         material={materials['BrownStone.001']}
@@ -109,7 +99,6 @@ export default function World(props) {
 
                 <RigidBody type="fixed" colliders="cuboid">
                     <mesh
-                        castShadow
                         receiveShadow
                         geometry={nodes.CubeRotation3_2.geometry}
                         material={materials.Sand}
@@ -120,7 +109,6 @@ export default function World(props) {
             {/* LABERINTO */}
             <RigidBody type="fixed" colliders="trimesh">
                 <mesh
-                    castShadow
                     receiveShadow
                     geometry={nodes.WallsLaberinto.geometry}
                     material={materials.Rocas}
@@ -130,7 +118,6 @@ export default function World(props) {
 
             <RigidBody type="fixed" colliders="hull">
                 <mesh
-                    castShadow
                     receiveShadow
                     geometry={nodes.FloorLaberinto.geometry}
                     material={materials.Sand}
@@ -140,7 +127,6 @@ export default function World(props) {
 
             <RigidBody type="fixed" colliders="hull">
                 <mesh
-                    castShadow
                     receiveShadow
                     geometry={nodes.BaseLaberinto.geometry}
                     material={materials['BrownStone.001']}
