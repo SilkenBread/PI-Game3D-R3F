@@ -42,7 +42,7 @@ export const Level2 = (props) => {
                             springK={0}
                             floatHeight= {0}
                         >
-                            <Avatar2 scale={0.002} />
+                            <Avatar scale={0.002} />
                         </Ecctrl>
                         <Shape position={[0, 0, 0]} />
                     </Physics>
