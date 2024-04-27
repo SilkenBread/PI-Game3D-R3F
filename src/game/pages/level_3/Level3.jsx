@@ -1,15 +1,13 @@
 
 import { BakeShadows, OrbitControls } from "@react-three/drei";
 import Environments from "../../globals/Environments";
-
 import { Perf } from "r3f-perf";
 import { Physics } from "@react-three/rapier";
 import { Suspense } from "react";
 import World from "./World";
 import { Canvas } from "@react-three/fiber";
-import WelcomeText from "../level_2/WelcomeText";
-import Lights from "./Lights";
-
+import Lights from "../level_2/lights/Lights";
+import WelcomeText from "../level_2/abstractions/WelcomeText";
 
 export const Level3 = (props) => {
     return (

@@ -20,7 +20,7 @@ export const NavigationRoutes = () => {
         <Routes>
           <Route>
             <Route exact path="/" element={<Login />} />
-            <Route exact path="/Level2" element={<Level2 text={text} />} />
+            <Route exact path="/Level2" element={<Level2 text={text1} />} />
             <Route exact path="/Level3" element={<Level3 text={text1}  />} />
           </Route>
           {/* <Route element={<PrivateRoutes />}>
