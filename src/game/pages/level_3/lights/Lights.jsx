@@ -23,8 +23,16 @@ const Ligths = () => {
 
     return (
         <>
-            <ambientLight />
-            <mesh ref={targetRef} position={[0, 0, 0]} />
+            <directionalLight
+                // ref={directionalRef}
+                castShadow={true}
+                position={[-32, 70, -19]}
+                color={"#8d6b49"}
+                intensity={7.5}
+                distance={2000}
+                shadow-mapSize={[2048, 2048]}
+            />
+            {/* <mesh ref={targetRef} position={[0, 0, 0]} />
             <mesh ref={targetRef2} position={[0, 0, 86]} />
 
             <spotLight
@@ -47,8 +55,7 @@ const Ligths = () => {
                 angle={0.610865}
                 decay={1.3}
                 target={targetRef2.current}
-            />
-
+            /> */}
         </>
     );
 };

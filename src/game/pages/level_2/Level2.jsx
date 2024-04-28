@@ -13,12 +13,14 @@ import useMovements from "../../../utils/key-movements";
 import WelcomeText from "../../globals/WelcomeText";
 import Ecctrl from "ecctrl";
 import Avatar2 from "../../globals/player/Avatar2";
+import Logout from "../../../components/logout/Logout";
 
 export const Level2 = (props) => {
     const map = useMovements();
 
     return (
         <KeyboardControls map={map}>
+            <Logout prev={'/Level1'} next={'/Level3'} />
             <Canvas
                 camera={{
                     position: [0, 3, 8],

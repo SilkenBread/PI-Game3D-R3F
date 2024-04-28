@@ -7,12 +7,14 @@ import { Suspense } from "react";
 import World from "./World";
 import Contronls from "../../globals/controls/Controls";
 import Avatar from "../../globals/player/Avatar";
+import Avatar2 from "../../globals/player/Avatar2";
 import useMovements from "../../../utils/key-movements";
 import { Canvas } from "@react-three/fiber";
 import Lights from "../level_3/lights/Lights";
 import Golemmonk from "./Golemmonk";
 import WelcomeText from "../../globals/WelcomeText";
 import Ecctrl from "ecctrl";
+import Logout from "../../../components/logout/Logout";
 
 export const Level3 = (props) => {
     const map = useMovements();
@@ -20,6 +22,7 @@ export const Level3 = (props) => {
     return (
         <>
             <KeyboardControls map={map}>
+                <Logout prev={'/Level2'} next={'/Level4'} />
                 <Canvas
                     camera={{
                         position: [0, 4, 8],
@@ -36,8 +39,8 @@ export const Level3 = (props) => {
                             <Ecctrl
                                 camInitDis={-2}
                                 camMaxDis={-2}
-                                position={[5.3, -0.7, -4.35]}
-                                jumpVel={1}
+                                position={[0, 0, 0.1]}
+                                jumpVel={3}
                                 moveImpulsePointY={1}
                                 maxVelLimit={2}
                                 springK={0}
