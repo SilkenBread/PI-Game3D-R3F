@@ -40,8 +40,8 @@ export const Level1 = (props) => {
                                 position={[0, 2, 0]}
                                 jumpVel={2.5}
                                 slopJumpMult={0.1}
-                                moveImpulsePointY={1}
-                                maxVelLimit={2}
+                                moveImpulsePointY={1.5}
+                                maxVelLimit={3}
                                 springK={0}
                                 floatHeight={0}
                             >

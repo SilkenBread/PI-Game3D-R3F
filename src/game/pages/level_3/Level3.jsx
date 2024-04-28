@@ -39,7 +39,7 @@ export const Level3 = (props) => {
                             <Ecctrl
                                 camInitDis={-2}
                                 camMaxDis={-2}
-                                position={[0, 0, 0.1]}
+                                position={[0, 0, 90]}
                                 jumpVel={3}
                                 moveImpulsePointY={1}
                                 maxVelLimit={2}
