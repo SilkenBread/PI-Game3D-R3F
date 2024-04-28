@@ -2,7 +2,7 @@ import { useHelper } from "@react-three/drei";
 import { useControls } from "leva";
 import { useMemo, useRef } from "react";
 import { DirectionalLightHelper, PointLightHelper } from "three";
-import { distance } from "three/examples/jsm/nodes/Nodes.js";
+import { color, distance } from "three/examples/jsm/nodes/Nodes.js";
 
 const Lights = () => {
   const directionalRef = useRef(null);
@@ -25,48 +25,49 @@ const Lights = () => {
 
   return (
     <>
-      <mesh ref={targetRef} position={[0, 250, 250]} />
+      <mesh ref={targetRef} position={[0, 0, -25]} />
 
       <directionalLight
-        intensity={0.8}
+        intensity={0.3}
         castShadow={true}
-        position={[125, 450, 200]}
+        position={[0, 90, -100]}
+        distance = {200}
         target={targetRef.current}
       />
 
-    <pointLight
-        position={[7,74,-138]}
+      <pointLight
+        position={[0, 5, -16]}
         color={"#9a99ff"}
-        intensity={19097}
-        castShadow = {true}
-        distance={150}
+        intensity={260}
+        castShadow={true}
+        distance={30}
         decay={2.05}
       />
 
       <pointLight
-        position={[68,144,-420]}
-        color={"#ff99da"}
-        intensity={19097}
-        castShadow = {true}
-        distance={150}
+        position={[13.9, 20.5, -60.6]}
+        color={"#ffc799"}
+        intensity={260}
+        castShadow={true}
+        distance={35}
         decay={2.05}
       />
 
       <pointLight
-        position={[178,251,-144]}
-        color={"#db99ff"}
-        intensity={19097}
-        castShadow = {true}
-        distance={150}
+        position={[27.7, 39.7, -15.3]}
+        color={"#e399ff"}
+        intensity={260}
+        castShadow={true}
+        distance={36}
         decay={2.05}
       />
 
-    <pointLight
-        position={[-47,387,-351]}
-        color={"#f56d6d"}
-        intensity={19097}
-        castShadow = {true}
-        distance={150}
+      <pointLight
+        position={[-7.9,61.7,-49.8]}
+        color={"#ef5252"}
+        intensity={260}
+        castShadow={true}
+        distance={36}
         decay={2.05}
       />
     </>
