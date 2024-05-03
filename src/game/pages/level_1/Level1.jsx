@@ -32,18 +32,19 @@ export const Level1 = (props) => {
                         <Lights />
                         <BakeShadows />
                         <Environments />
-                        <Physics debug={false} gravity={[0, -2.5, 0]}>
+                        <Physics debug={false} gravity={[0, -9, 0]}>
                             <World />
                             <Ecctrl
                                 camInitDis={-5}
                                 camMaxDis={-2}
                                 position={[0, 2, 0]}
-                                jumpVel={2.5}
+                                jumpVel={4.5}
                                 slopJumpMult={0.1}
                                 moveImpulsePointY={1.5}
-                                maxVelLimit={3}
+                                maxVelLimit={5}
                                 springK={0}
                                 floatHeight={0}
+                                sprintJumpMult = {1.0}
                             >
                                 <Avatar2 scale={0.002} />
                             </Ecctrl>
