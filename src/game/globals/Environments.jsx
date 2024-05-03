@@ -1,14 +1,16 @@
-import { Sky, Sparkles, Stars } from "@react-three/drei"
+import { Stars } from "@react-three/drei"
 
-export default function Environments() {
+const Enviroments = (props) => {
     return <>
         <Stars
-            radius={270}
+            radius={props.radius}
             depth={1}
-            count={25000}
+            count={props.count}
             factor={4}
             saturation={0}
             fade={true}
         />
     </>
 }
+
+export default Enviroments;
