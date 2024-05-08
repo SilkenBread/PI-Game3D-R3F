@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
-import { RigidBody } from "@react-three/rapier";
+import { CuboidCollider, RigidBody } from "@react-three/rapier";
 
 export default function World(props) {
   const { nodes, materials } = useGLTF(
@@ -8,6 +8,9 @@ export default function World(props) {
   );
   return (
     <group {...props} dispose={null}>
+      <RigidBody type="fixed" colliders="cuboid" position={[10,-5,-40]}>
+        <CuboidCollider args={[130, 0.1, 150]} />
+      </RigidBody>
       <RigidBody type="fixed" colliders="trimesh">
         <mesh
           receiveShadow
