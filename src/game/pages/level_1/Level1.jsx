@@ -17,6 +17,8 @@ import Ecctrl from "ecctrl";
 import Avatar2 from "../../globals/player/Avatar2";
 import Logout from "../../../components/logout/Logout";
 import WorldOp from "./World";
+import Villain1 from "../../globals/villains/Villain1";
+import Rewards from "../../globals/rewards/Rewards";
 
 export const Level1 = (props) => {
   const map = useMovements();
@@ -32,30 +34,41 @@ export const Level1 = (props) => {
           shadows={true}
         >
           <Perf position="top-left" />
+          <OrbitControls />
           <Suspense fallback={null}>
             <Lights />
-            <BakeShadows />
+            {/* <BakeShadows /> */}
             <Environments
-            radius = {100}
-            count = {3500} 
+              radius={100}
+              count={3500}
             />
-            <Physics debug={false} gravity={[0, -9, 0]}>
+            <Physics debug={true} gravity={[0, -9, 0]}>
               {/* <World /> */}
               <WorldOp />
               <Ecctrl
-                camInitDis={-5}
+              debug={false}
+                capsuleHalfHeight={0.7} 
+                capsuleRadius={0.4}
+                autoBalanceSpringK={8}
+                autoBalanceDampingC={0.1}
+                autoBalanceSpringOnY={0.6}
+                autoBalanceDampingOnY={0.025}
+                camInitDis={-5} 
                 camMaxDis={-2}
-                position={[0, 2, 0]}
+                position={[-7.9, 52.5, -45]}
                 jumpVel={4.5}
-                slopJumpMult={0.1}
+                slopJumpMult={0.25}
                 moveImpulsePointY={1.5}
                 maxVelLimit={4.5}
                 springK={0}
                 floatHeight={0}
                 sprintJumpMult={1.0}
               >
-                <Avatar2 scale={0.002} />
+                <Avatar2 scale={0.004} />
+
               </Ecctrl>
+              <Villain1 position={[-7.9, 52.5, -55]} />
+              {/* <Rewards position={[0,0,0]}/> */}
             </Physics>
             <WelcomeText
               text={props.text}

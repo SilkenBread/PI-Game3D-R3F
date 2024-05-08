@@ -37,7 +37,7 @@ const Lights = () => {
 
       <pointLight
         position={[0, 5, -16]}
-        color={"#9a99ff"}
+        color={"#ef5252"}
         intensity={260}
         castShadow={true}
         distance={30}
@@ -64,7 +64,7 @@ const Lights = () => {
 
       <pointLight
         position={[-7.9,61.7,-49.8]}
-        color={"#ef5252"}
+        color={"#9a99ff"}
         intensity={260}
         castShadow={true}
         distance={36}
