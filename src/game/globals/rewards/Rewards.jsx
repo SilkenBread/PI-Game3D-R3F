@@ -3,11 +3,11 @@ import { useGLTF } from '@react-three/drei'
 import { useFrame } from "@react-three/fiber"
 import { RigidBody } from '@react-three/rapier'
 
-export default function Rewards({ position }) {
+export default function Rewards(props)  {
     const rewardsChasisERef = useRef(null)
     const rewardsChasisIRef = useRef(null)
     const rewardsNucleoRef = useRef(null)
-    const { nodes, materials } = useGLTF('assets/models/characters/villains/Reward.glb')
+    const { nodes, materials } = useGLTF('assets/models/Reward.glb')
 
     const amplitude = 0.2
 
@@ -35,36 +35,34 @@ export default function Rewards({ position }) {
     })
 
     return (<>
-        return (
         <group {...props} dispose={null}>
             <mesh
                 castShadow
                 receiveShadow
                 geometry={nodes.ChasisE.geometry}
-                material={nodes.ChasisE.material}
+                
             />
             <mesh
                 castShadow
                 receiveShadow
                 geometry={nodes.ChasisI.geometry}
-                material={nodes.ChasisI.material}
+                
             />
             <mesh
                 castShadow
                 receiveShadow
                 geometry={nodes.Nucleo_1.geometry}
-                material={nodes.Nucleo_1.material}
+                
             />
             <mesh
                 castShadow
                 receiveShadow
                 geometry={nodes.Nucleo_2.geometry}
-                material={nodes.Nucleo_2.material}
+                
             />
         </group>
-        )
     </>
     )
 }
 
-useGLTF.preload('assets/models/characters/villains/Reward.glb')
+useGLTF.preload('assets/models/Reward.glb')

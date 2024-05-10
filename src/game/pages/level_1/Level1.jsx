@@ -18,8 +18,8 @@ import Avatar2 from "../../globals/player/Avatar2";
 import Logout from "../../../components/logout/Logout";
 import WorldOp from "./World";
 import Villain1 from "../../globals/villains/Villain1";
-import Rewards from "../../globals/rewards/Rewards";
 import MainLayaout from "../../layouts/MainLayaout";
+import Reward from "../../globals/reward/Reward";
 
 
 export const Level1 = (props) => {
@@ -45,7 +45,7 @@ export const Level1 = (props) => {
               radius={100}
               count={3500}
             />
-            <Physics debug={false} gravity={[0, -9, 0]}>
+            <Physics debug={true} gravity={[0, -9, 0]}>
               {/* <World /> */}
               <WorldOp />
               <Ecctrl
@@ -71,7 +71,7 @@ export const Level1 = (props) => {
 
               </Ecctrl>
               <Villain1 position={[-7.9, 52.5, -55]} />
-              {/* <Rewards position={[0,0,0]}/> */}
+              <Reward position= {[0,3,0]}/>
             </Physics>
             <WelcomeText
               text={props.text}
