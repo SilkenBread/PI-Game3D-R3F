@@ -19,6 +19,8 @@ import Logout from "../../../components/logout/Logout";
 import WorldOp from "./World";
 import Villain1 from "../../globals/villains/Villain1";
 import Rewards from "../../globals/rewards/Rewards";
+import MainLayaout from "../../layouts/MainLayaout";
+
 
 export const Level1 = (props) => {
   const map = useMovements();
@@ -26,7 +28,8 @@ export const Level1 = (props) => {
   return (
     <>
       <KeyboardControls map={map}>
-        <Logout prev={"/"} next={"/Level2"} />
+      <MainLayaout />
+        {/* <Logout prev={"/"} next={"/Level2"} /> */}
         <Canvas
           camera={{
             position: [0, 4, 8],
@@ -42,18 +45,18 @@ export const Level1 = (props) => {
               radius={100}
               count={3500}
             />
-            <Physics debug={true} gravity={[0, -9, 0]}>
+            <Physics debug={false} gravity={[0, -9, 0]}>
               {/* <World /> */}
               <WorldOp />
               <Ecctrl
               debug={false}
-                capsuleHalfHeight={0.7} 
-                capsuleRadius={0.4}
+                capsuleHalfHeight={0.5} 
+                capsuleRadius={0.38}
                 autoBalanceSpringK={8}
                 autoBalanceDampingC={0.1}
-                autoBalanceSpringOnY={0.6}
+                autoBalanceSpringOnY={0.1}
                 autoBalanceDampingOnY={0.025}
-                camInitDis={-5} 
+                camInitDis={-5}
                 camMaxDis={-2}
                 position={[-7.9, 52.5, -45]}
                 jumpVel={4.5}
@@ -62,9 +65,9 @@ export const Level1 = (props) => {
                 maxVelLimit={4.5}
                 springK={0}
                 floatHeight={0}
-                sprintJumpMult={1.0}
+                sprintJumpMult={1.3}
               >
-                <Avatar2 scale={0.004} />
+                <Avatar2 scale={0.003} />
 
               </Ecctrl>
               <Villain1 position={[-7.9, 52.5, -55]} />
