@@ -26,17 +26,15 @@ export default function Controls() {
                 attack: state.attack,
                 death: state.death,
             }),
-            ({ walk, run, jump, attack, death }) => {
-                if (jump) {
+            (pressed) => {
+                if (pressed.jump) {
                     setAvatar({ ...avatar, animation: 'Jump' })
-                } else if (run) {
+                } else if (pressed.run) {
                     setAvatar({ ...avatar, animation: 'Run' })
-                } else if (walk) {
+                } else if (pressed.walk) {
                     setAvatar({ ...avatar, animation: 'Walk' })
-                } else if (attack) {
+                } else if (pressed.attack) {
                     setAvatar({ ...avatar, animation: 'Attack' })
-                } else if (death) {
-                    setAvatar({ ...avatar, animation: 'Death' })
                 } else {
                     setAvatar({ ...avatar, animation: 'Idle' })
                 }
