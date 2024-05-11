@@ -18,6 +18,7 @@
     "@types/three": "^0.163.0",
     "dependencies": "^0.0.1",
     "ecctrl": "^1.0.77",
+    "firebase": "^10.11.1",
     "jotai": "^2.8.0",
     "r3f-perf": "^7.2.1",
     "react": "^18.2.0",

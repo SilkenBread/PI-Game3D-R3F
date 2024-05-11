@@ -1,11 +1,14 @@
-import { NavigationRoutes } from "./Routes/NavigationRoutes";
+import { AuthProvider } from "./context/AuthContext";
 import { AvatarProvider } from "./context/AvatarContext";
+import { NavigationRoutes } from "./Routes/NavigationRoutes";
 
 const App = () => {
     return (
-        <AvatarProvider>
-            <NavigationRoutes />
-        </AvatarProvider>
+        <AuthProvider>
+            <AvatarProvider>
+                <NavigationRoutes />
+            </AvatarProvider>
+        </AuthProvider>
     );
 }
 

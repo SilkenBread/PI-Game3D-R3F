@@ -1,5 +1,4 @@
 import { createContext, useContext, useState } from "react";
-import { func } from "three/examples/jsm/nodes/Nodes.js";
 
 export const avatarContext = createContext ();
 
