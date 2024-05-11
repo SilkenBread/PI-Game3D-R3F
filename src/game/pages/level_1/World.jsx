@@ -8,7 +8,7 @@ export default function World(props) {
   );
   return (
     <group {...props} dispose={null}>
-      <RigidBody type="fixed" colliders="cuboid" position={[10,-5,-40]}>
+      <RigidBody type="fixed" colliders="cuboid" position={[10, -5, -40]}>
         <CuboidCollider args={[130, 0.1, 150]} />
       </RigidBody>
       <RigidBody type="fixed" colliders="trimesh">
@@ -51,8 +51,24 @@ export default function World(props) {
       <RigidBody type="fixed" colliders="trimesh">
         <mesh
           castShadow
+          geometry={nodes.TreeCheckPoint1.geometry}
+          material={nodes.TreeCheckPoint1.material}
+        />
+      </RigidBody>
+
+      <RigidBody type="fixed" colliders="trimesh">
+        <mesh
+          castShadow
           geometry={nodes.CheckPoints3.geometry}
           material={materials["Material.002"]}
+        />
+      </RigidBody>
+
+      <RigidBody type="fixed" colliders="trimesh">
+        <mesh
+          castShadow
+          geometry={nodes.TreeCheckPoint2.geometry}
+          material={nodes.TreeCheckPoint2.material}
         />
       </RigidBody>
 

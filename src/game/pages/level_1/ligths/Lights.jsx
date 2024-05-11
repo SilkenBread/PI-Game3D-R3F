@@ -9,29 +9,41 @@ const Lights = () => {
   const pointLigthRef = useRef(null);
   const targetRef = useRef();
 
-  // useHelper(pointLigthRef, PointLightHelper);
+  useHelper(pointLigthRef, PointLightHelper);
 
   // const optionPointLigh = useMemo(() => {
   //   return {
-  //     positionED: { value: [0, 91, -80] },
-  //     colorED: {value: "#9AFFD7"},
-  //     intensityED: {value: 1200},
-  //     distanceED: {value: 150},
-  //     decayED: {value: 1.9}
+  //     positionED: { value: [-30, 14, -59] },
+  //     colorED: { value: "#9AFFD7" },
+  //     intensityED: { value: 1200 },
+  //     distanceED: { value: 150 },
+  //     decayED: { value: 1.9 },
   //   };
   // });
 
-  // const { positionED,colorED,intensityED,distanceED,decayED } = useControls("LigthsControls", optionPointLigh);
+  // const { positionED, colorED, intensityED, distanceED, decayED } = useControls(
+  //   "LigthsControls",
+  //   optionPointLigh
+  // );
 
   return (
     <>
       <mesh ref={targetRef} position={[0, 0, -25]} />
 
+      {/* <pointLight
+      ref={pointLigthRef}
+        position={positionED}
+        color={colorED}
+        intensity={intensityED}
+        distance={distanceED}
+        decay={decayED}
+      /> */}
+
       <directionalLight
-        intensity={0.3}
+        intensity={0.4}
         castShadow={true}
         position={[0, 90, -100]}
-        distance = {200}
+        distance={200}
         target={targetRef.current}
       />
 
@@ -63,12 +75,69 @@ const Lights = () => {
       />
 
       <pointLight
-        position={[-7.9,61.7,-49.8]}
+        position={[-7.9, 61.7, -49.8]}
         color={"#9a99ff"}
         intensity={260}
         castShadow={true}
         distance={36}
         decay={2.05}
+      />
+
+      <pointLight
+        position={[35, 23, -92]}
+        color={"#cec176"}
+        intensity={50}
+        distance={8}
+        decay={1.8}
+      />
+
+      <pointLight
+        position={[-1, 38, -4]}
+        color={"#cec176"}
+        intensity={30}
+        distance={8}
+        decay={1.8}
+      />
+
+      {/*Luces para las recompensas en orden de 1 a 5*/}
+      <pointLight
+        position={[-29.5, 17.5, -57.5]}
+        color={"#ffffff"}
+        intensity={80}
+        distance={5}
+        decay={1.9}
+      />
+
+      <pointLight
+        position={[23.5, 22.5, -70.5]}
+        color={"#ffffff"}
+        intensity={80}
+        distance={5}
+        decay={1.9}
+      />
+
+      <pointLight
+        position={[50.5, 22.5, -36.5]}
+        color={"#ffffff"}
+        intensity={80}
+        distance={5}
+        decay={1.9}
+      />
+
+      <pointLight
+        position={[27.5, 32.5, -14.5]}
+        color={"#ffffff"}
+        intensity={80}
+        distance={5}
+        decay={1.9}
+      />
+
+      <pointLight
+        position={[-48.5, 52.5, -0.5]}
+        color={"#ffffff"}
+        intensity={80}
+        distance={5}
+        decay={1.9}
       />
     </>
   );

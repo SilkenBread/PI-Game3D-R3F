@@ -1,7 +1,10 @@
 import React from "react";
+
 import "./stylesLayaout.css";
+import { useAvatar } from "../../context/AvatarContext";
 
 export default function MainLayaout() {
+  const {avatar,setAvatar} = useAvatar();
   return (
     <div className="main-scren">
       <header className="header-game">
@@ -13,11 +16,11 @@ export default function MainLayaout() {
 
       <section className="info-boxes">
         <div className="reward-box">
-          <text className="rewards-counting">10</text>
+          <text className="rewards-counting">{avatar.recompensas}</text>
           <img src="/assets/images/uiImages/rewardsDeco.png" alt="rewards" />
         </div>
         <div className="life-box">
-          <text className="life-counting">3</text>
+          <text className="life-counting">{avatar.vidas}</text>
           <img src="/assets/images/uiImages/lifeDeco.png" alt="lifes" />
         </div>
         <div className="player-info">

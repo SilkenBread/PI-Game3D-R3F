@@ -20,6 +20,7 @@ import WorldOp from "./World";
 import Villain1 from "../../globals/villains/Villain1";
 import MainLayaout from "../../layouts/MainLayaout";
 import Reward from "../../globals/reward/Reward";
+import RewardLevel1 from "./rewards/RewardLevel1";
 
 
 export const Level1 = (props) => {
@@ -45,8 +46,7 @@ export const Level1 = (props) => {
               radius={100}
               count={3500}
             />
-            <Physics debug={true} gravity={[0, -9, 0]}>
-              {/* <World /> */}
+            <Physics debug={false} gravity={[0, -9, 0]}>
               <WorldOp />
               <Ecctrl
               debug={false}
@@ -58,7 +58,7 @@ export const Level1 = (props) => {
                 autoBalanceDampingOnY={0.025}
                 camInitDis={-5}
                 camMaxDis={-2}
-                position={[-7.9, 52.5, -45]}
+                position={[-7.9, 55.5, -45]}
                 jumpVel={4.5}
                 slopJumpMult={0.25}
                 moveImpulsePointY={1.5}
@@ -71,7 +71,7 @@ export const Level1 = (props) => {
 
               </Ecctrl>
               <Villain1 position={[-7.9, 52.5, -55]} />
-              <Reward position= {[0,3,0]}/>
+              <RewardLevel1/>
             </Physics>
             <WelcomeText
               text={props.text}
