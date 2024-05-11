@@ -16,6 +16,7 @@ export function AvatarProvider({children}) {
         body: null,
         animation: "Idle",
         vidas: 5,
+        recompensas: 0
     });
 
     return (
