@@ -21,6 +21,7 @@ import Villain1 from "../../globals/villains/Villain1";
 import MainLayaout from "../../layouts/MainLayaout";
 import Reward from "../../globals/reward/Reward";
 import RewardLevel1 from "./rewards/RewardLevel1";
+import Menu from "../../globals/menu/Menu";
 
 
 export const Level1 = (props) => {
@@ -28,8 +29,9 @@ export const Level1 = (props) => {
 
   return (
     <>
-      <KeyboardControls map={map}>
+      <KeyboardControls map={map}> 
       <MainLayaout />
+      <Menu/>
         {/* <Logout prev={"/"} next={"/Level2"} /> */}
         <Canvas
           camera={{

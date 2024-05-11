@@ -8,7 +8,7 @@ export default function MainLayaout() {
   return (
     <div className="main-scren">
       <header className="header-game">
-        <text className="tittleLevel">ALPHACENTAURY</text>
+        <text className="tittleLevel">ETERNA CELESTIA</text>
         <div className="title-deco">
           <img src="/assets/images/uiImages/tittle.png" alt="detalistitlle" />
         </div>

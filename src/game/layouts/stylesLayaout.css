@@ -93,9 +93,11 @@ text {
 
 .menu-box {
     background-color:transparent;
+    position: fixed;
+    z-index: 1;
     width: 100%;
     height: 100%;
-
+    justify-content: center;
 }
 
 .contend-box {
@@ -106,8 +108,8 @@ text {
     align-items: center;
     width: 70%;
     height: 55%;
-    background-color: rgba(0, 0, 0, 0.404);
-    border: 2px solid black;
+    background-color: rgba(0, 0, 0, 0);
+    
     padding: 5px;
     border-radius: 1rem;
     scale: 0.6;
@@ -132,7 +134,7 @@ text {
     width: 157px;
     height: 150px;
     overflow: visible;
-    background: rgba(0, 0, 0, 0.651);
+    background: rgb(0, 0, 0);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -166,7 +168,7 @@ text {
 }
 
 .contend-box button:hover {
-    box-shadow: 0 5px 20px rgba(18, 129, 92, 0.452);
+    box-shadow: 0 5px 20px rgba(12, 105, 74, 0.89);
 }
 
 .contend-box button:hover:before {
@@ -193,3 +195,58 @@ text {
     text-align: center;
     letter-spacing: 5px;
 }
+
+.modal {
+    position: fixed;
+    width: 60%; 
+    height: 64%;
+    top: 15%;
+    left: 20%; 
+    z-index: 2; 
+    /* overflow: auto;  */
+  }
+  
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 25px;
+    top: 0;
+    left: 0;
+    transition-duration: 1.5s;
+    animation: fade-in 2s;
+    background-color: black;  
+  }
+
+
+  .modal-content:hover {
+    box-shadow: 0 5px 20px rgba(18, 129, 92, 0.452);
+    border: 2px solid rgb(9, 199, 104);
+    border-radius: 25px;
+    transition-duration: 1.5s;  
+}
+
+@keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+
+
+
