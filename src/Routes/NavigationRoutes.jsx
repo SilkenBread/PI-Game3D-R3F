@@ -21,7 +21,6 @@ export const NavigationRoutes = () => {
     <BrowserRouter>
       <Routes>
         <Route exact path="/" element={<Login />} />
-        <Route exact path="/test" element={<Menu />} />
         <Route exact path="/Level1" element={<Level1 text={main_text_l1} position={[0, 1, 3.5]} size={0.3} rotation={[0, 97.40, 0]} />} />
         <Route exact path="/Level2" element={<Level2 text={main_text_l2} position={[30, 2, -23.5]} size={0.3} rotation={[0, 345, 0]} />} />
         <Route exact path="/Level3" element={<Level3 text={main_text_l3} position={[18, 4, 48]} size={2} rotation={[0, 97.35, 0]} />} />

@@ -217,7 +217,7 @@ text {
     top: 0;
     left: 0;
     transition-duration: 1.5s;
-    animation: fade-in 2s;
+    animation: fade-in 1s;
     background-color: black;  
   }
 
