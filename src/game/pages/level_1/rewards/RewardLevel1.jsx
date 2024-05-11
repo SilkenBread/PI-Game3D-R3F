@@ -7,6 +7,7 @@ import { log } from "three/examples/jsm/nodes/Nodes.js";
 
 export default function RewardLevel1(props) {
   const { avatar, setAvatar } = useAvatar();
+  const [rewardSound] = useState(new Audio("/assets/sounds/Reward.wav"));
   const [rewardsData, setRewardsData] = useState([
     { position: [-29.5, 14, -57.5], id: 1 },
     { position: [23, 20, -71], id: 2 }, //[23, 20, -71.5] //Original 23.5, 20, -70.5
@@ -17,6 +18,9 @@ export default function RewardLevel1(props) {
   ]);
 
   const onRecolectReward = (id) => {
+    rewardSound.currentTime = 0
+    rewardSound.volume = 0.75
+    rewardSound.play()
     setRewardsData(rewardsData.filter((rewardOb) => rewardOb.id !== id));
     setAvatar({ ...avatar, recompensas: avatar.recompensas + 1 });
     console.log(avatar.recompensas);
