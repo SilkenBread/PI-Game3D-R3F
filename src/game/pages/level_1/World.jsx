@@ -6,9 +6,15 @@ export default function World(props) {
   const { nodes, materials } = useGLTF(
     "assets/models/level_1/FirstLevelOP.glb"
   );
+
+  const onCollisionEnterLimit = (e) => {
+    console.log("Collision with limit", e);
+    {<Level1 text={main_text_l1} positionAvatar={[0, 2, 0]} size={0.3} rotation={[0, 97.40, 0]} />}
+  }
+
   return (
     <group {...props} dispose={null}>
-      <RigidBody type="fixed" colliders="cuboid" position={[10, -5, -40]}>
+      <RigidBody type="fixed" colliders="cuboid" position={[10, -5, -40]} onCollisionEnter={(e) => onCollisionEnterLimit(e)}>
         <CuboidCollider args={[130, 0.1, 150]} />
       </RigidBody>
       <RigidBody type="fixed" colliders="trimesh">

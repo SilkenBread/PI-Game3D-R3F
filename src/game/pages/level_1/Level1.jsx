@@ -67,7 +67,7 @@ export const Level1 = (props) => {
           }}
           shadows={true}
         >
-          <Perf position="top-left" />
+          {/* <Perf position="top-left" /> */}
           <OrbitControls />
 
           <Lights />
