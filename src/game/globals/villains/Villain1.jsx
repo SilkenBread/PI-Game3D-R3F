@@ -5,9 +5,11 @@ import { RigidBody } from '@react-three/rapier'
 import { useAvatar } from '../../../context/AvatarContext'
 import Avatar2 from '../player/Avatar2'
 import * as THREE from "three";
+import { useVillain } from '../../../context/villainContext'
 
 export default function Villain1({ position }) {
   const villain1BodyRef = useRef(null)
+  const villain1BodyType = useRef('kinematicPosition')
   const Cube1Ref = useRef(null)
   const Cube2Ref = useRef(null)
   const Cube3Ref = useRef(null)
@@ -18,7 +20,9 @@ export default function Villain1({ position }) {
   const Cube8Ref = useRef(null)
   const { nodes, materials } = useGLTF('assets/models/characters/villains/HipostasisElementalPysco.glb')
 
-  let villainVidas = 100
+  const [deathSound] = useState(new Audio("/assets/sounds/DeathVillain.wav"));
+  const [hurtSound] = useState(new Audio("/assets/sounds/Hurt.wav"));
+  const [hitSound] = useState(new Audio("/assets/sounds/Hit.wav"));
 
   const [currentAnimation, setCurrentAnimation] = useState('Idle');
   const yRotationAxies = new THREE.Vector3(0, 0, 0);
@@ -26,6 +30,9 @@ export default function Villain1({ position }) {
 
   const [crono, setCrono] = useState(0);
   const [direction, setDirection] = useState(true);
+
+  const { avatar, setAvatar } = useAvatar();
+  const { villain, setVillain } = useVillain();
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -42,215 +49,241 @@ export default function Villain1({ position }) {
     return () => clearTimeout(timer);
   }, [currentAnimation]);
 
-  function Idle(moveY) {
-    villain1BodyRef.current?.setTranslation({
-      x: villain1BodyRef.current?.translation().x,
-      y: moveY,
-      z: villain1BodyRef.current?.translation().z
-    }, true)
+  function Idle(moveY, active) {
+    if (active) {
+      villain1BodyRef.current?.setTranslation({
+        x: villain1BodyRef.current?.translation().x,
+        y: moveY,
+        z: villain1BodyRef.current?.translation().z
+      }, true)
 
-    villain1BodyRef.current?.setNextKinematicRotation(
-      quaternionRotation.setFromAxisAngle(yRotationAxies.setY(-1), crono * 0.4)
-    );
+      villain1BodyRef.current?.setNextKinematicRotation(
+        quaternionRotation.setFromAxisAngle(yRotationAxies.setY(-1), crono * 0.4)
+      );
 
-    Cube1Ref.current?.setTranslation({
-      x: position[0],
-      y: moveY,
-      z: position[2]
-    }, true)
-    Cube2Ref.current?.setTranslation({
-      x: Cube1Ref.current?.translation().x,
-      y: moveY,
-      z: Cube1Ref.current?.translation().z
-    }, true)
+      Cube1Ref.current?.setTranslation({
+        x: position[0],
+        y: moveY,
+        z: position[2]
+      }, true)
+      Cube2Ref.current?.setTranslation({
+        x: Cube1Ref.current?.translation().x,
+        y: moveY,
+        z: Cube1Ref.current?.translation().z
+      }, true)
 
-    Cube3Ref.current?.setTranslation({
-      x: Cube1Ref.current?.translation().x,
-      y: moveY,
-      z: Cube1Ref.current?.translation().z
-    }, true)
+      Cube3Ref.current?.setTranslation({
+        x: Cube1Ref.current?.translation().x,
+        y: moveY,
+        z: Cube1Ref.current?.translation().z
+      }, true)
 
-    Cube4Ref.current?.setTranslation({
-      x: Cube1Ref.current?.translation().x,
-      y: moveY,
-      z: Cube1Ref.current?.translation().z
-    }, true)
+      Cube4Ref.current?.setTranslation({
+        x: Cube1Ref.current?.translation().x,
+        y: moveY,
+        z: Cube1Ref.current?.translation().z
+      }, true)
 
-    Cube5Ref.current?.setTranslation({
-      x: Cube1Ref.current?.translation().x,
-      y: moveY,
-      z: Cube1Ref.current?.translation().z
-    }, true)
+      Cube5Ref.current?.setTranslation({
+        x: Cube1Ref.current?.translation().x,
+        y: moveY,
+        z: Cube1Ref.current?.translation().z
+      }, true)
 
-    Cube6Ref.current?.setTranslation({
-      x: Cube1Ref.current?.translation().x,
-      y: moveY,
-      z: Cube1Ref.current?.translation().z
-    }, true)
+      Cube6Ref.current?.setTranslation({
+        x: Cube1Ref.current?.translation().x,
+        y: moveY,
+        z: Cube1Ref.current?.translation().z
+      }, true)
 
-    Cube7Ref.current?.setTranslation({
-      x: Cube1Ref.current?.translation().x,
-      y: moveY,
-      z: Cube1Ref.current?.translation().z
-    }, true)
+      Cube7Ref.current?.setTranslation({
+        x: Cube1Ref.current?.translation().x,
+        y: moveY,
+        z: Cube1Ref.current?.translation().z
+      }, true)
 
-    Cube8Ref.current?.setTranslation({
-      x: Cube1Ref.current?.translation().x,
-      y: moveY,
-      z: Cube1Ref.current?.translation().z
-    }, true)
+      Cube8Ref.current?.setTranslation({
+        x: Cube1Ref.current?.translation().x,
+        y: moveY,
+        z: Cube1Ref.current?.translation().z
+      }, true)
 
-    Cube1Ref.current?.setNextKinematicRotation(
-      quaternionRotation.setFromAxisAngle(yRotationAxies.setY(1), crono * 0.25)
-    );
-    Cube2Ref.current?.setNextKinematicRotation(
-      quaternionRotation.setFromAxisAngle(yRotationAxies.setY(1), crono * 0.25)
-    );
-    Cube3Ref.current?.setNextKinematicRotation(
-      quaternionRotation.setFromAxisAngle(yRotationAxies.setY(1), crono * 0.25)
-    );
-    Cube4Ref.current?.setNextKinematicRotation(
-      quaternionRotation.setFromAxisAngle(yRotationAxies.setY(1), crono * 0.25)
-    );
-    Cube5Ref.current?.setNextKinematicRotation(
-      quaternionRotation.setFromAxisAngle(yRotationAxies.setY(1), crono * 0.25)
-    );
-    Cube6Ref.current?.setNextKinematicRotation(
-      quaternionRotation.setFromAxisAngle(yRotationAxies.setY(1), crono * 0.25)
-    );
-    Cube7Ref.current?.setNextKinematicRotation(
-      quaternionRotation.setFromAxisAngle(yRotationAxies.setY(1), crono * 0.25)
-    );
-    Cube8Ref.current?.setNextKinematicRotation(
-      quaternionRotation.setFromAxisAngle(yRotationAxies.setY(1), crono * 0.25)
-    );
+      Cube1Ref.current?.setNextKinematicRotation(
+        quaternionRotation.setFromAxisAngle(yRotationAxies.setY(1), crono * 0.25)
+      );
+      Cube2Ref.current?.setNextKinematicRotation(
+        quaternionRotation.setFromAxisAngle(yRotationAxies.setY(1), crono * 0.25)
+      );
+      Cube3Ref.current?.setNextKinematicRotation(
+        quaternionRotation.setFromAxisAngle(yRotationAxies.setY(1), crono * 0.25)
+      );
+      Cube4Ref.current?.setNextKinematicRotation(
+        quaternionRotation.setFromAxisAngle(yRotationAxies.setY(1), crono * 0.25)
+      );
+      Cube5Ref.current?.setNextKinematicRotation(
+        quaternionRotation.setFromAxisAngle(yRotationAxies.setY(1), crono * 0.25)
+      );
+      Cube6Ref.current?.setNextKinematicRotation(
+        quaternionRotation.setFromAxisAngle(yRotationAxies.setY(1), crono * 0.25)
+      );
+      Cube7Ref.current?.setNextKinematicRotation(
+        quaternionRotation.setFromAxisAngle(yRotationAxies.setY(1), crono * 0.25)
+      );
+      Cube8Ref.current?.setNextKinematicRotation(
+        quaternionRotation.setFromAxisAngle(yRotationAxies.setY(1), crono * 0.25)
+      );
+    }
   }
 
-  function openCubes(timeCube, amplitudeCube, velocityCube, moveY) {
-    villain1BodyRef.current?.setTranslation({
-      x: villain1BodyRef.current?.translation().x,
-      y: moveY,
-      z: villain1BodyRef.current?.translation().z
-    }, true)
+  function openCubes(timeCube, amplitudeCube, velocityCube, moveY, active) {
+    if (active) {
+      villain1BodyRef.current?.setTranslation({
+        x: villain1BodyRef.current?.translation().x,
+        y: moveY,
+        z: villain1BodyRef.current?.translation().z
+      }, true)
 
-    villain1BodyRef.current?.setNextKinematicRotation(
-      quaternionRotation.setFromAxisAngle(yRotationAxies.setY(-1), crono * 0.4)
-    );
+      villain1BodyRef.current?.setNextKinematicRotation(
+        quaternionRotation.setFromAxisAngle(yRotationAxies.setY(-1), crono * 0.4)
+      );
 
-    Cube1Ref.current?.setTranslation({
-      x: Cube1Ref.current?.translation().x,
-      y: Cube1Ref.current?.translation().y,
-      z: -amplitudeCube * Math.cos(timeCube / velocityCube) - 51
-    }, true)
+      Cube1Ref.current?.setTranslation({
+        x: Cube1Ref.current?.translation().x,
+        y: Cube1Ref.current?.translation().y,
+        z: -amplitudeCube * Math.cos(timeCube / velocityCube) - 51
+      }, true)
 
-    Cube4Ref.current?.setTranslation({
-      x: amplitudeCube * Math.cos(timeCube / velocityCube) - 12,
-      y: Cube4Ref.current?.translation().y,
-      z: Cube4Ref.current?.translation().z
-    }, true)
+      Cube4Ref.current?.setTranslation({
+        x: amplitudeCube * Math.cos(timeCube / velocityCube) - 12,
+        y: Cube4Ref.current?.translation().y,
+        z: Cube4Ref.current?.translation().z
+      }, true)
 
-    Cube6Ref.current?.setTranslation({
-      x: Cube6Ref.current?.translation().x,
-      y: Cube6Ref.current?.translation().y,
-      z: amplitudeCube * Math.cos(timeCube / velocityCube) - 59
-    }, true)
+      Cube6Ref.current?.setTranslation({
+        x: Cube6Ref.current?.translation().x,
+        y: Cube6Ref.current?.translation().y,
+        z: amplitudeCube * Math.cos(timeCube / velocityCube) - 59
+      }, true)
 
-    Cube7Ref.current?.setTranslation({
-      x: -amplitudeCube * Math.cos(timeCube / velocityCube) - 4,
-      y: Cube7Ref.current?.translation().y,
-      z: Cube7Ref.current?.translation().z
-    }, true)
+      Cube7Ref.current?.setTranslation({
+        x: -amplitudeCube * Math.cos(timeCube / velocityCube) - 4,
+        y: Cube7Ref.current?.translation().y,
+        z: Cube7Ref.current?.translation().z
+      }, true)
 
-    Cube5Ref.current?.setTranslation({
-      x: amplitudeCube * Math.cos(timeCube / velocityCube) - 12,
-      y: Cube5Ref.current?.translation().y,
-      z: Cube5Ref.current?.translation().z
-    }, true)
+      Cube5Ref.current?.setTranslation({
+        x: amplitudeCube * Math.cos(timeCube / velocityCube) - 12,
+        y: Cube5Ref.current?.translation().y,
+        z: Cube5Ref.current?.translation().z
+      }, true)
 
-    Cube8Ref.current?.setTranslation({
-      x: Cube8Ref.current?.translation().x,
-      y: Cube8Ref.current?.translation().y,
-      z: -amplitudeCube * Math.cos(timeCube / velocityCube) - 51
-    }, true)
+      Cube8Ref.current?.setTranslation({
+        x: Cube8Ref.current?.translation().x,
+        y: Cube8Ref.current?.translation().y,
+        z: -amplitudeCube * Math.cos(timeCube / velocityCube) - 51
+      }, true)
 
-    Cube2Ref.current?.setTranslation({
-      x: -amplitudeCube * Math.cos(timeCube / velocityCube) - 4,
-      y: Cube2Ref.current?.translation().y,
-      z: Cube2Ref.current?.translation().z
-    }, true)
+      Cube2Ref.current?.setTranslation({
+        x: -amplitudeCube * Math.cos(timeCube / velocityCube) - 4,
+        y: Cube2Ref.current?.translation().y,
+        z: Cube2Ref.current?.translation().z
+      }, true)
 
-    Cube3Ref.current?.setTranslation({
-      x: Cube3Ref.current?.translation().x,
-      y: Cube3Ref.current?.translation().y,
-      z: amplitudeCube * Math.cos(timeCube / velocityCube) - 59
-    }, true)
+      Cube3Ref.current?.setTranslation({
+        x: Cube3Ref.current?.translation().x,
+        y: Cube3Ref.current?.translation().y,
+        z: amplitudeCube * Math.cos(timeCube / velocityCube) - 59
+      }, true)
+    }
   }
+
+  const changeToDynamic = () => {
+    setVillain({ ...villain, death: true });
+    villain1BodyType.current = 'dynamic';
+    deathSound.currentTime = 0
+    deathSound.volume = 0.5
+    deathSound.play()
+  };
 
   useFrame(() => {
-    if (currentAnimation === 'Idle') {
-      setCrono(0);
-      if (direction) {
-        setCrono(crono + 0.1);
-      } else {
-        if (crono > 0) {
-          setCrono(crono - 0.1);
+    if (villain.death) {
+      Idle(0, false)
+      openCubes(crono, 4, 4, 0, false)
+    } else {
+      if (currentAnimation === 'Idle') {
+        setCrono(0);
+        if (direction) {
+          setCrono(crono + 0.1);
+        } else {
+          if (crono > 0) {
+            setCrono(crono - 0.1);
+          }
         }
-      }
-      const moveY = Math.cos(crono / 2) * 0.5 + position[1];
-      Idle(moveY)
-    } else if (currentAnimation === 'openCubes') {
-      setCrono(0);
-      if (direction) {
-        setCrono(crono + 0.1);
-      } else {
-        if (crono > 0) {
-          setCrono(crono - 0.1);
+        const moveY = Math.cos(crono / 2) * 0.5 + position[1];
+        Idle(moveY, true)
+      } else if (currentAnimation === 'openCubes') {
+        setCrono(0);
+        if (direction) {
+          setCrono(crono + 0.1);
+        } else {
+          if (crono > 0) {
+            setCrono(crono - 0.1);
+          }
         }
+        const moveY = Math.cos(crono / 2) * -0.5 + 51;
+        openCubes(crono, 4, 4, moveY, true)
       }
-      const moveY = Math.cos(crono / 2) * -0.5 + position[1];
-      openCubes(crono, 4, 4, moveY)
     }
 
   })
 
-  const { avatar, setAvatar } = useAvatar();
-
   const onCollisionEnterBody = (e) => {
-    if (villainVidas > 0) {
-      villainVidas -=  10;
-      console.log('Vidas villano: ', villainVidas)
-    } else {
-      console.log('Villain defeated!')
-    }
+
   }
 
   const onCollisionExitBody = (e) => {
-    // console.log('collisionBodyExit', e)
+    if (!villain.death) {
+      if (villain.vidas > 0) {
+        setVillain({ ...villain, vidas: villain.vidas - 10 });
+        console.log('collisionExitBody', e, villain.vidas)
+      } else {
+        changeToDynamic()
+      }
+    }
+    hitSound.currentTime = 0
+    hitSound.volume = 0.5
+    hitSound.play()
   }
 
   const onCollisionEnterCube = (e) => {
-    if (e.other.colliderObject.id == 438 || e.other.colliderObject.id == 435) {
-      // console.log('collisionCubeEnter', e.other)
+    if (!villain.death) {
+      if (e.other.colliderObject.id == 438 || e.other.colliderObject.id == 435) {
+        // console.log('collisionCubeEnter', e.other)
 
-      Avatar2.avatarCollider.current.applyImpulse([10, 0, 0], true);
+        Avatar2.avatarCollider.current.applyImpulse([10, 0, 0], true);
 
+      }
     }
 
   };
 
   const onCollisionExitCube = (e) => {
-    if (avatar.vidas > 0) {
-      setAvatar({ ...avatar, vidas: avatar.vidas - 1 });
-      console.log('collisionCubeExit', e, avatar.vidas)
-    } else {
-      setAvatar({ ...avatar, animation: 'Death' })
+    if (!villain.death) {
+      if (avatar.vidas > 0) {
+        setAvatar({ ...avatar, vidas: avatar.vidas - 1 });
+      } else {
+        setAvatar({ ...avatar, animation: 'Death' })
+      }
     }
+    hurtSound.currentTime = 0
+    hurtSound.volume = 0.25
+    hurtSound.play()
   }
 
   return (<>
     <RigidBody
       ref={villain1BodyRef}
-      type="kinematicPosition"
+      type={villain1BodyType.current}
       colliders="hull"
       position={position}
       onCollisionEnter={(e) => onCollisionEnterBody(e)}
@@ -264,7 +297,7 @@ export default function Villain1({ position }) {
     </RigidBody>
 
     <RigidBody ref={Cube1Ref}
-      type="kinematicPosition"
+      type={villain1BodyType.current}
       colliders={'cuboid'}
       position={position}
       onCollisionEnter={(e) => onCollisionEnterCube(e)}
@@ -283,7 +316,7 @@ export default function Villain1({ position }) {
     </RigidBody>
 
     <RigidBody ref={Cube2Ref}
-      type="kinematicPosition"
+      type={villain1BodyType.current}
       colliders={'cuboid'}
       position={position}
       onCollisionEnter={(e) => onCollisionEnterCube(e)}
@@ -302,7 +335,7 @@ export default function Villain1({ position }) {
     </RigidBody>
 
     <RigidBody ref={Cube3Ref}
-      type="kinematicPosition"
+      type={villain1BodyType.current}
       colliders={'cuboid'}
       position={position}
       onCollisionEnter={(e) => onCollisionEnterCube(e)}
@@ -321,7 +354,7 @@ export default function Villain1({ position }) {
     </RigidBody>
 
     <RigidBody ref={Cube4Ref}
-      type="kinematicPosition"
+      type={villain1BodyType.current}
       colliders={'cuboid'}
       position={position}
       onCollisionEnter={(e) => onCollisionEnterCube(e)}
@@ -340,7 +373,7 @@ export default function Villain1({ position }) {
     </RigidBody>
 
     <RigidBody ref={Cube5Ref}
-      type="kinematicPosition"
+      type={villain1BodyType.current}
       colliders={'cuboid'}
       position={position}
       onCollisionEnter={(e) => onCollisionEnterCube(e)}
@@ -359,7 +392,7 @@ export default function Villain1({ position }) {
     </RigidBody>
 
     <RigidBody ref={Cube6Ref}
-      type="kinematicPosition"
+      type={villain1BodyType.current}
       colliders={'cuboid'}
       position={position}
       onCollisionEnter={(e) => onCollisionEnterCube(e)}
@@ -378,7 +411,7 @@ export default function Villain1({ position }) {
     </RigidBody>
 
     <RigidBody ref={Cube7Ref}
-      type="kinematicPosition"
+      type={villain1BodyType.current}
       colliders={'cuboid'}
       position={position}
       onCollisionEnter={(e) => onCollisionEnterCube(e)}
@@ -397,7 +430,7 @@ export default function Villain1({ position }) {
     </RigidBody>
 
     <RigidBody ref={Cube8Ref}
-      type="kinematicPosition"
+      type={villain1BodyType.current}
       colliders={'cuboid'}
       position={position}
       onCollisionEnter={(e) => onCollisionEnterCube(e)}
