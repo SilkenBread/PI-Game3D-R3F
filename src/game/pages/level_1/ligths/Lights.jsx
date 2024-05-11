@@ -40,7 +40,7 @@ const Lights = () => {
       /> */}
 
       <directionalLight
-        intensity={0.4}
+        intensity={0.6}
         castShadow={true}
         position={[0, 90, -100]}
         distance={200}
