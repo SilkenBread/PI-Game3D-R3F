@@ -13,9 +13,33 @@ export default function Controls() {
 
     useEffect(() => {
         const unsubscribe = sub(
-            (state) => state.forward || state.backward || state.leftward || state.rightward,
-            (pressed) => {
-                setAvatar({ ...avatar, animation: pressed ? "Walk" : "Idle" });
+            (state) => ({
+                walk:
+                    state.forward || state.backward || state.leftward || state.rightward,
+                run:
+                    state.run &&
+                    (state.forward ||
+                        state.backward ||
+                        state.leftward ||
+                        state.rightward),
+                jump: state.jump,
+                attack: state.attack,
+                death: state.death,
+            }),
+            ({ walk, run, jump, attack, death }) => {
+                if (jump) {
+                    setAvatar({ ...avatar, animation: 'Jump' })
+                } else if (run) {
+                    setAvatar({ ...avatar, animation: 'Run' })
+                } else if (walk) {
+                    setAvatar({ ...avatar, animation: 'Walk' })
+                } else if (attack) {
+                    setAvatar({ ...avatar, animation: 'Attack' })
+                } else if (death) {
+                    setAvatar({ ...avatar, animation: 'Death' })
+                } else {
+                    setAvatar({ ...avatar, animation: 'Idle' })
+                }
             }
         );
         return () => unsubscribe();
