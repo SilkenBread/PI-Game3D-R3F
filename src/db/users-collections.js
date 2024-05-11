@@ -7,7 +7,17 @@ import { db } from "../firebase/firebase.config"
  * Collection reference to the 'users' collection in Firestore.
  * @type {CollectionReference<DocumentData>}
  */
-const usersRef = collection(db, "users")
+const userCollection = collection(db, "user")
+
+const userParams = {
+    level: 1,
+    checkpointsLevel1: {
+        1: false,
+        2: false,
+        3: false,
+    }
+}
+
 
 /**
  * Creates a new user document in Firestore.
@@ -15,11 +25,16 @@ const usersRef = collection(db, "users")
  * @returns {Promise<DocumentReference>} A promise that resolves with the reference to the newly created user document.
  */
 const createUser = async (userData) => {
+    const user = {
+        ...userData,
+        ...userParams
+    }
+
     try {
-        const res = await addDoc(usersRef, userData);
-        return res;
+        const res = await addDoc(userCollection, user);
+        return { success: true, message: "User created successfully", data: res };
     } catch (error) {
-        return error;
+        return { success: false, message: error.message }
     }
 }
 
@@ -30,19 +45,26 @@ const createUser = async (userData) => {
  */
 const readUser = async (userEmail) => {
     try {
-        const userSnapshot = getDocs(
-            query(usersRef, where("email", "==", userEmail))
-        );
+        const res = await getDocs(
+            query(userCollection, where('email', '==', userEmail))
+        )
 
-        if (userSnapshot.empty) {
-            return { success: false, message: "User not found" }
+        if (res.empty) {
+            return {
+                success: false,
+                data: null,
+            }
         }
-        
-        const userData = userSnapshot.docs.map((doc) => doc.data());
-        return { success: true, data: userData };
-
+        const data = res.docs.map((doc) => doc.data())
+        return {
+            success: true,
+            data,
+        }
     } catch (error) {
-        return error;
+        return {
+            success: false,
+            error,
+        }
     }
 }
 
@@ -54,7 +76,7 @@ const readUser = async (userEmail) => {
  */
 const updateUser = async (userEmail, userData) => {
     try {
-        const userSnapshot = await getDocs(query(usersRef, where("email", "==", userEmail)));
+        const userSnapshot = await getDocs(query(userCollection, where("email", "==", userEmail)));
 
         const userDoc = userSnapshot.docs[0];
         await userDoc.ref.update(userData);
