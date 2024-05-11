@@ -9,6 +9,7 @@ export default function Reward(props) {
   const rewardsChasisERef = useRef(null);
   const rewardsChasisIRef = useRef(null);
   const rewardsNucleoRef = useRef(null);
+  const rewardsNucleoRef2 = useRef(null);
   const [crono, setCrono] = useState(0);
 
   const amplitude = 0.2;
@@ -18,6 +19,10 @@ export default function Reward(props) {
   useFrame(({ clock }) => {
     setCrono(crono + 0.1);
     rewardsNucleoRef.current?.setNextKinematicRotation(
+      quaternionRotation.setFromAxisAngle(yRotationAxies.setX(1), crono * 0.1)
+    );
+
+    rewardsNucleoRef2.current?.setNextKinematicRotation(
       quaternionRotation.setFromAxisAngle(yRotationAxies.setX(1), crono * 0.1)
     );
 
@@ -39,9 +44,21 @@ export default function Reward(props) {
       >
         <mesh
           castShadow
-          receiveShadow
-          geometry={nodes.Nucleo.geometry}
-          material={nodes.Nucleo.material}
+          geometry={nodes.Nucleo_1.geometry}
+          material={materials.secondColor}
+        />
+      </RigidBody>
+
+      <RigidBody
+        ref={rewardsNucleoRef2}
+        type="kinematicPosition"
+        colliders="hull"
+      >
+        <mesh
+          castShadow
+          
+          geometry={nodes.Nucleo_2.geometry}
+          material={materials['Material.001']}
         />
       </RigidBody>
 
@@ -52,9 +69,9 @@ export default function Reward(props) {
       >
         <mesh
           castShadow
-          receiveShadow
+          
           geometry={nodes.ChasisI.geometry}
-          material={nodes.ChasisI.material}
+          material={materials['Material.001']}
         />
       </RigidBody>
 
@@ -65,9 +82,9 @@ export default function Reward(props) {
       >
         <mesh
           castShadow
-          receiveShadow
+          
           geometry={nodes.ChasisE.geometry}
-          material={nodes.ChasisE.material}
+          material={materials['Material.001']}
         />
       </RigidBody>
     </group>
