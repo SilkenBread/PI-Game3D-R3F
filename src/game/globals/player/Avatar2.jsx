@@ -28,82 +28,82 @@ export default function Avatar2(props) {
                 scale={props.scale}
             >
                 <skinnedMesh
-                    name="addons001"
-                    geometry={nodes.addons001.geometry}
+                    name="addons"
+                    geometry={nodes.addons.geometry}
                     material={materials['SecondColor.011']}
-                    skeleton={nodes.addons001.skeleton}
+                    skeleton={nodes.addons.skeleton}
                 />
                 <skinnedMesh
-                    name="Back001"
-                    geometry={nodes.Back001.geometry}
+                    name="Back"
+                    geometry={nodes.Back.geometry}
                     material={materials['PrimaryColor.011']}
-                    skeleton={nodes.Back001.skeleton}
+                    skeleton={nodes.Back.skeleton}
                 />
                 <skinnedMesh
-                    name="Body001"
-                    geometry={nodes.Body001.geometry}
+                    name="Body"
+                    geometry={nodes.Body.geometry}
                     material={materials['AnimatedTexture.011']}
-                    skeleton={nodes.Body001.skeleton}
+                    skeleton={nodes.Body.skeleton}
                 />
                 <skinnedMesh
-                    name="Chest001"
-                    geometry={nodes.Chest001.geometry}
+                    name="Chest"
+                    geometry={nodes.Chest.geometry}
                     material={materials['PrimaryColor.011']}
-                    skeleton={nodes.Chest001.skeleton}
+                    skeleton={nodes.Chest.skeleton}
                 />
                 <skinnedMesh
-                    name="DetailsChest001"
-                    geometry={nodes.DetailsChest001.geometry}
+                    name="DetailsChest"
+                    geometry={nodes.DetailsChest.geometry}
                     material={materials['SecondColor.011']}
-                    skeleton={nodes.DetailsChest001.skeleton}
+                    skeleton={nodes.DetailsChest.skeleton}
                 />
                 <skinnedMesh
-                    name="diamont001"
-                    geometry={nodes.diamont001.geometry}
+                    name="diamont"
+                    geometry={nodes.diamont.geometry}
                     material={materials['PrimaryColor.011']}
-                    skeleton={nodes.diamont001.skeleton}
+                    skeleton={nodes.diamont.skeleton}
                 />
                 <skinnedMesh
-                    name="Eyes001"
-                    geometry={nodes.Eyes001.geometry}
+                    name="Eyes"
+                    geometry={nodes.Eyes.geometry}
                     material={materials['SecondColor.011']}
-                    skeleton={nodes.Eyes001.skeleton}
+                    skeleton={nodes.Eyes.skeleton}
                 />
                 <skinnedMesh
-                    name="Helmet001"
-                    geometry={nodes.Helmet001.geometry}
+                    name="Helmet"
+                    geometry={nodes.Helmet.geometry}
                     material={materials['PrimaryColor.011']}
-                    skeleton={nodes.Helmet001.skeleton}
+                    skeleton={nodes.Helmet.skeleton}
                 />
                 <skinnedMesh
-                    name="HelmetDevil001"
-                    geometry={nodes.HelmetDevil001.geometry}
+                    name="HelmetDevil"
+                    geometry={nodes.HelmetDevil.geometry}
                     material={materials['SecondColor.011']}
-                    skeleton={nodes.HelmetDevil001.skeleton}
+                    skeleton={nodes.HelmetDevil.skeleton}
                 />
                 <skinnedMesh
-                    name="Legs001"
-                    geometry={nodes.Legs001.geometry}
+                    name="Legs"
+                    geometry={nodes.Legs.geometry}
                     material={materials['PrimaryColor.011']}
-                    skeleton={nodes.Legs001.skeleton}
+                    skeleton={nodes.Legs.skeleton}
                 />
                 <skinnedMesh
-                    name="LegsDe001"
-                    geometry={nodes.LegsDe001.geometry}
+                    name="LegsDe"
+                    geometry={nodes.LegsDe.geometry}
                     material={materials['SecondColor.011']}
-                    skeleton={nodes.LegsDe001.skeleton}
+                    skeleton={nodes.LegsDe.skeleton}
                 />
                 <skinnedMesh
-                    name="SholdDe001"
-                    geometry={nodes.SholdDe001.geometry}
+                    name="SholdDe"
+                    geometry={nodes.SholdDe.geometry}
                     material={materials['PrimaryColor.011']}
-                    skeleton={nodes.SholdDe001.skeleton}
+                    skeleton={nodes.SholdDe.skeleton}
                 />
                 <skinnedMesh
-                    name="sholders001"
-                    geometry={nodes.sholders001.geometry}
+                    name="sholders"
+                    geometry={nodes.sholders.geometry}
                     material={materials['SecondColor.011']}
-                    skeleton={nodes.sholders001.skeleton}
+                    skeleton={nodes.sholders.skeleton}
                 />
                 <primitive object={nodes.mixamorigHips} />
             </group>
