@@ -37,7 +37,7 @@ export const Level1 = (props) => {
           }}
           shadows={true}
         >
-          <Perf position="top-left" />
+          {/* <Perf position="top-left" /> */}
           <OrbitControls />
           <Suspense fallback={null}>
             <Lights />
@@ -47,7 +47,7 @@ export const Level1 = (props) => {
               count={3500}
             />
             <Physics debug={false} gravity={[0, -9, 0]}>
-              <WorldOp />
+              <WorldOp />d
               <Ecctrl
               debug={false}
                 capsuleHalfHeight={0.5} 

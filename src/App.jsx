@@ -1,11 +1,14 @@
 import { NavigationRoutes } from "./Routes/NavigationRoutes";
 import { AvatarProvider } from "./context/AvatarContext";
+import { VillainProvider } from "./context/villainContext";
 
 const App = () => {
     return (
-        <AvatarProvider>
-            <NavigationRoutes />
-        </AvatarProvider>
+        <VillainProvider>
+            <AvatarProvider>
+                <NavigationRoutes />
+            </AvatarProvider>
+        </VillainProvider>
     );
 }
 
