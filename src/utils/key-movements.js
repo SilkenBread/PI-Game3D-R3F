@@ -7,7 +7,7 @@ export default function useMovements() {
         leftward: "leftward",
         rightward: "rightward",
         jump: "jump",
-        attack: "",
+        attack: "attack",
         exit: "exit",
         run: "run"
     }
