@@ -18,7 +18,9 @@ export default function Villain1({ position }) {
   const Cube8Ref = useRef(null)
   const { nodes, materials } = useGLTF('assets/models/characters/villains/HipostasisElementalPysco.glb')
 
-  let villainVidas = 100;
+  const villainVidas = useRef(100);
+
+  console.log(villainVidas.current);
 
   const [currentAnimation, setCurrentAnimation] = useState('Idle');
   const yRotationAxies = new THREE.Vector3(0, 0, 0);
@@ -217,8 +219,8 @@ export default function Villain1({ position }) {
 
   const onCollisionEnterBody = (e) => {
     if (villainVidas > 0) {
-      villainVidas -=  10;
-      console.log('collisionBodyEnter', villainVidas)
+      villainVidas.current -=  10;
+      console.log('Vidas villano: ', villainVidas)
     } else {
       console.log('Villain defeated!')
     }
@@ -230,7 +232,7 @@ export default function Villain1({ position }) {
 
   const onCollisionEnterCube = (e) => {
     if (e.other.colliderObject.id == 438 || e.other.colliderObject.id == 435) {
-      console.log('collisionCubeEnter', e.other)
+      // console.log('collisionCubeEnter', e.other)
 
       Avatar2.avatarCollider.current.applyImpulse([10, 0, 0], true);
 
