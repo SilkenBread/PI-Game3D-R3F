@@ -6,7 +6,7 @@ import {
 import Environments from "../../globals/Environments";
 import { Perf } from "r3f-perf";
 import { Physics } from "@react-three/rapier";
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import Contronls from "../../globals/controls/Controls";
 import useMovements from "../../../utils/key-movements";
@@ -33,13 +33,16 @@ export const Level1 = (props) => {
 
   /**
     * Save the user data in the DB.
-    * @param {*} valuesUser 
+    * @param {*} valuesUser
     */
   const saveDataUser = async (valuesUser) => {
     const { success } = await readUser(valuesUser.email)
+
     if (!success)
       await createUser(valuesUser)
   }
+
+  const [dataUser, setDataUser] = useState('');
 
   /**
     * When userLogged is changed call saveDataUser to save the user in the DB.
@@ -47,10 +50,13 @@ export const Level1 = (props) => {
     */
   useEffect(() => {
     if (auth.userLogged) {
-      const { displayName, email } = auth.userLogged
+      console.log(auth.userLogged);
+      const { displayName, email, photoURL } = auth.userLogged
+
+      setDataUser({displayName, email, photoURL});
 
       saveDataUser({
-        displayName: displayName,
+        name: displayName,
         email: email,
       })
     }
@@ -60,7 +66,7 @@ export const Level1 = (props) => {
     <Suspense fallback={null}>
       <KeyboardControls map={map}>
         <Logout />
-        <MainLayaout />
+        <MainLayaout info={dataUser} text={props.text} />
         <Canvas
           camera={{
             position: [0, 4, 8],

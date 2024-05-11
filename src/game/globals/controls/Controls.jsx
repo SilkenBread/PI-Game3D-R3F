@@ -68,9 +68,7 @@ export default function Controls() {
             jumpSound.play()
           } 
         } else {
-            attackSound.pause()
             walkSound.pause()
-            jumpSound.pause()
         }
       }, [play, avatar.animation])
 
