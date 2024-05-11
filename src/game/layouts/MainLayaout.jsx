@@ -3,12 +3,14 @@ import React from "react";
 import "./stylesLayaout.css";
 import { useAvatar } from "../../context/AvatarContext";
 
-export default function MainLayaout() {
-  const {avatar,setAvatar} = useAvatar();
+export default function MainLayaout(props) {
+  const {avatar, setAvatar} = useAvatar();
+  const {displayName} = props.info;
+
   return (
     <div className="main-scren">
       <header className="header-game">
-        <text className="tittleLevel">ALPHACENTAURY</text>
+        <text className="tittleLevel">{props.text}</text>
         <div className="title-deco">
           <img src="/assets/images/uiImages/tittle.png" alt="detalistitlle" />
         </div>
@@ -24,7 +26,7 @@ export default function MainLayaout() {
           <img src="/assets/images/uiImages/lifeDeco.png" alt="lifes" />
         </div>
         <div className="player-info">
-          <text className="player-name">Player Name</text>
+          <text className="player-name">{displayName}</text>
           <img src="/assets/images/uiImages/PlayerLayer.png" alt="" />
         </div>
       </section>
