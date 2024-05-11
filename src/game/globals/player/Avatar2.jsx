@@ -1,4 +1,4 @@
-import { BallCollider, CapsuleCollider, RigidBody } from "@react-three/rapier";
+import { BallCollider, CapsuleCollider, RigidBody} from "@react-three/rapier";
 import { Suspense, useEffect, useRef } from "react";
 import { useAvatar } from "../../../context/AvatarContext";
 import { useAnimations, useGLTF } from "@react-three/drei";

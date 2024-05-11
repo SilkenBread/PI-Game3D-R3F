@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useAvatar } from "../../../context/AvatarContext";
 import { useFrame } from "@react-three/fiber";
 import { Quaternion, Vector3 } from "three";
+import Avatar2 from "../player/Avatar2";
 
 export default function Controls() {
     const { avatar, setAvatar } = useAvatar();
@@ -24,6 +25,7 @@ export default function Controls() {
                         state.rightward),
                 jump: state.jump,
                 attack: state.attack,
+                roll: state.roll,
                 death: state.death,
             }),
             (pressed) => {
@@ -35,6 +37,8 @@ export default function Controls() {
                     setAvatar({ ...avatar, animation: 'Walk' })
                 } else if (pressed.attack) {
                     setAvatar({ ...avatar, animation: 'Attack' })
+                } else if (pressed.roll) {
+                    setAvatar({ ...avatar, animation: 'Roll' })
                 } else {
                     setAvatar({ ...avatar, animation: 'Idle' })
                 }
