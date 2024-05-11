@@ -29,18 +29,17 @@ export function AuthProvider({ children }) {
             const provider = new GoogleAuthProvider();
             const res = await signInWithPopup(auth, provider);
 
-            return { success: true, user: res.user };
+            return res;
         } catch (error) {
-            return { success: false, error: error };
+            return error;
         }
     }
 
     const logout = async () => {
         try {
             await signOut(auth);
-            return { success: true };
         } catch (error) {
-            return { success: false, error: error };
+            return error;
         }
     }
 
