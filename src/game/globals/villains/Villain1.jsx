@@ -20,6 +20,10 @@ export default function Villain1({ position }) {
   const Cube8Ref = useRef(null)
   const { nodes, materials } = useGLTF('assets/models/characters/villains/HipostasisElementalPysco.glb')
 
+  const [deathSound] = useState(new Audio("/assets/sounds/DeathVillain.wav"));
+  const [hurtSound] = useState(new Audio("/assets/sounds/Hurt.wav"));
+  const [hitSound] = useState(new Audio("/assets/sounds/Hit.wav"));
+
   const [currentAnimation, setCurrentAnimation] = useState('Idle');
   const yRotationAxies = new THREE.Vector3(0, 0, 0);
   const quaternionRotation = useMemo(() => new THREE.Quaternion(), []);
@@ -196,6 +200,9 @@ export default function Villain1({ position }) {
   const changeToDynamic = () => {
     setVillain({ ...villain, death: true });
     villain1BodyType.current = 'dynamic';
+    deathSound.currentTime = 0
+    deathSound.volume = 0.5
+    deathSound.play()
   };
 
   useFrame(() => {
@@ -243,6 +250,9 @@ export default function Villain1({ position }) {
         changeToDynamic()
       }
     }
+    hitSound.currentTime = 0
+    hitSound.volume = 0.5
+    hitSound.play()
   }
 
   const onCollisionEnterCube = (e) => {
@@ -265,6 +275,9 @@ export default function Villain1({ position }) {
         setAvatar({ ...avatar, animation: 'Death' })
       }
     }
+    hurtSound.currentTime = 0
+    hurtSound.volume = 0.25
+    hurtSound.play()
   }
 
   return (<>
