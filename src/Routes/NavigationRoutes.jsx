@@ -6,9 +6,6 @@ import { Level1 } from "../game/pages/level_1/Level1";
 import { Level2 } from "../game/pages/level_2/Level2";
 import { Level3 } from "../game/pages/level_3/Level3";
 import { Level4 } from "../game/pages/level_4/Level4";
-import { MainLayaout } from "../game/layouts/MainLayaout";
-import MenuLay from "../game/layouts/MenuLay";
-
 
 export const NavigationRoutes = () => {
 

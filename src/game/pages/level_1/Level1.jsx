@@ -27,7 +27,6 @@ import { useAuth } from "../../../context/AuthContext";
 import { createUser, readUser } from "../../../db/users-collections";
 import Menu from "../../globals/menu/Menu";
 
-
 export const Level1 = (props) => {
   const map = useMovements();
   const auth = useAuth();
@@ -68,7 +67,7 @@ export const Level1 = (props) => {
       <KeyboardControls map={map}>
         <Logout />
         <MainLayaout info={dataUser} text={props.text} />
-        <Menu/>
+        <Menu />
         <Canvas
           camera={{
             position: [0, 4, 8],
