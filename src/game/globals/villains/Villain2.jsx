@@ -206,18 +206,6 @@ export default function Villain2({ position }) {
     };
 
     useFrame(() => {
-
-        // setCrono(0);
-        // if (direction) {
-        //     setCrono(crono + 0.1);
-        // } else {
-        //     if (crono > 0) {
-        //         setCrono(crono - 0.1);
-        //     }
-        // }
-        // const moveY = Math.cos(crono / 2) * -0.5 + 30 ;
-        // openCubes(crono, 2, 2, moveY, true)
-
         if (villain.death) {
           Idle(0, false)
           openCubes(crono, 4, 4, 0, false)
@@ -242,8 +230,8 @@ export default function Villain2({ position }) {
                 setCrono(crono - 0.1);
               }
             }
-            const moveY = Math.cos(crono / 2) * -0.5 + 29;
-            openCubes(crono, 2, 2, moveY, true)
+            const moveY = Math.cos(crono / 1.5) * -1 + 29;
+            openCubes(crono, 3, 3, moveY, true)
           }
         }
 

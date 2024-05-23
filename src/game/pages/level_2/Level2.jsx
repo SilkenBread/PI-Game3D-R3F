@@ -31,7 +31,7 @@ export const Level2 = (props) => {
                 <Suspense fallback={null} >
                     <Lights />
                     <Environments />
-                    <Physics debug={true} gravity={[0, -1.4, 0]}>
+                    <Physics debug={false} gravity={[0, -1.4, 0]}>
                         <WorldS2/>
                         <Ecctrl
                             camInitDis={-2}

@@ -1,142 +1,204 @@
 import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import { RigidBody } from "@react-three/rapier";
+import { useFrame } from "@react-three/fiber";
 
 export default function WorldS2(props) {
+  const verticalMovePlatformRef = useRef();
   const { nodes, materials } = useGLTF("/assets/models/level_2/worldS2.glb");
+
+  let time = null;
+
+  function Idle(time, active) {
+    if (active) {
+      verticalMovePlatformRef.current?.setNextKinematicTranslation({
+        x: 0,
+        y: 19 * Math.sin(time / 3.5) + 19,
+        z: 0,
+      });
+    }
+  }
+
+  useFrame((state) => {
+    time = state.clock.elapsedTime;
+
+    Idle(time, true);
+  })
 
   return (
     <>
       <group {...props} dispose={null}>
         {/*Elementos de Mundo (Rocas, planeta y montaña*/}
-        <RigidBody type="fixed" colliders="hull">
+        <RigidBody type="dynamic" colliders="hull">
           <mesh
             castShadow
             receiveShadow
             geometry={nodes.Rock1.geometry}
             material={materials.rock_moss_set_01}
           />
+        </RigidBody>
+        <RigidBody type="dynamic" colliders="hull">
           <mesh
             castShadow
             receiveShadow
             geometry={nodes.Rock2.geometry}
             material={materials.rock_moss_set_01}
           />
+        </RigidBody>
+        <RigidBody type="dynamic" colliders="hull">
           <mesh
             castShadow
             receiveShadow
             geometry={nodes.Rock3.geometry}
             material={materials.rock_moss_set_01}
           />
+        </RigidBody>
+        <RigidBody type="dynamic" colliders="hull">
           <mesh
             castShadow
             receiveShadow
             geometry={nodes.Rock4.geometry}
             material={materials.rock_moss_set_01}
           />
+        </RigidBody>
+        <RigidBody type="dynamic" colliders="hull">
           <mesh
             castShadow
             receiveShadow
             geometry={nodes.Rock5.geometry}
             material={materials.rock_moss_set_01}
           />
+        </RigidBody>
+        <RigidBody type="dynamic" colliders="hull">
           <mesh
             castShadow
             receiveShadow
             geometry={nodes.Rock6.geometry}
             material={materials.rock_moss_set_01}
           />
+        </RigidBody>
+        <RigidBody type="dynamic" colliders="hull">
           <mesh
             castShadow
             receiveShadow
             geometry={nodes.Rock7.geometry}
             material={materials["rock_moss_set_01.001"]}
           />
+        </RigidBody>
+        <RigidBody type="dynamic" colliders="hull">
           <mesh
             castShadow
             receiveShadow
             geometry={nodes.Rock8.geometry}
             material={materials["rock_moss_set_01.003"]}
           />
+        </RigidBody>
+        <RigidBody type="dynamic" colliders="hull">
           <mesh
             castShadow
             receiveShadow
             geometry={nodes.Rock9.geometry}
             material={materials["rock_moss_set_01.001"]}
           />
+        </RigidBody>
+        <RigidBody type="dynamic" colliders="hull">
           <mesh
             castShadow
             receiveShadow
             geometry={nodes.Rock10.geometry}
             material={materials["rock_moss_set_01.002"]}
           />
+        </RigidBody>
+        <RigidBody type="dynamic" colliders="hull">
           <mesh
             castShadow
             receiveShadow
             geometry={nodes.Rock11.geometry}
             material={materials["rock_moss_set_01.004"]}
           />
+        </RigidBody>
+        <RigidBody type="dynamic" colliders="hull">
           <mesh
             castShadow
             receiveShadow
             geometry={nodes.Rock12.geometry}
             material={materials["rock_moss_set_01.001"]}
           />
+        </RigidBody>
+        <RigidBody type="dynamic" colliders="hull">
           <mesh
             castShadow
             receiveShadow
             geometry={nodes.Rock13.geometry}
             material={materials["rock_moss_set_01.003"]}
           />
+        </RigidBody>
+        <RigidBody type="dynamic" colliders="hull">
           <mesh
             castShadow
             receiveShadow
             geometry={nodes.Rock14.geometry}
             material={materials["rock_moss_set_01.001"]}
           />
+        </RigidBody>
+        <RigidBody type="dynamic" colliders="hull">
           <mesh
             castShadow
             receiveShadow
             geometry={nodes.Rock15.geometry}
             material={materials["rock_moss_set_01.002"]}
           />
+        </RigidBody>
+        <RigidBody type="dynamic" colliders="hull">
           <mesh
             castShadow
             receiveShadow
             geometry={nodes.Rock16.geometry}
             material={materials["rock_moss_set_01.004"]}
           />
+        </RigidBody>
+        <RigidBody type="dynamic" colliders="hull">
           <mesh
             castShadow
             receiveShadow
             geometry={nodes.Rock17.geometry}
             material={materials["rock_moss_set_01.001"]}
           />
+        </RigidBody>
+        <RigidBody type="dynamic" colliders="hull">
           <mesh
             castShadow
             receiveShadow
             geometry={nodes.Rock18.geometry}
             material={materials["rock_moss_set_01.003"]}
           />
+        </RigidBody>
+        <RigidBody type="dynamic" colliders="hull">
           <mesh
             castShadow
             receiveShadow
             geometry={nodes.Rock19.geometry}
             material={materials["rock_moss_set_01.001"]}
           />
+        </RigidBody>
+        <RigidBody type="dynamic" colliders="hull">
           <mesh
             castShadow
             receiveShadow
             geometry={nodes.Rock20.geometry}
             material={materials["rock_moss_set_01.002"]}
           />
+        </RigidBody>
+        <RigidBody type="dynamic" colliders="hull">
           <mesh
             castShadow
             receiveShadow
             geometry={nodes.Rock21.geometry}
             material={materials["rock_moss_set_01.004"]}
           />
+        </RigidBody>
 
+        <RigidBody type="fixed" colliders="hull">
           <mesh
             castShadow
             receiveShadow
@@ -365,13 +427,6 @@ export default function WorldS2(props) {
           <mesh
             castShadow
             receiveShadow
-            geometry={nodes.movePlataform.geometry}
-            material={materials["Material.002"]}
-          />
-
-          <mesh
-            castShadow
-            receiveShadow
             geometry={nodes.TreeCheckPoint.geometry}
             material={nodes.TreeCheckPoint.material}
           />
@@ -380,6 +435,14 @@ export default function WorldS2(props) {
             receiveShadow
             geometry={nodes.TreeCheckPoint_1.geometry}
             material={materials["Material.004"]}
+          />
+        </RigidBody>
+        <RigidBody ref={verticalMovePlatformRef} type="kinematicPosition" colliders="hull">
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.movePlataform.geometry}
+            material={materials["Material.002"]}
           />
         </RigidBody>
       </group>
