@@ -1,0 +1,117 @@
+@font-face {
+  font-family: "HozeGameFont";
+  src: url("/public/assets/fonts/AGENCYR.TTF") format("truetype");
+}
+
+text {
+  font-family: "HozeGameFont";
+  position: relative;
+  font-size: 22.5px;
+  font-weight: normal;
+  color: aliceblue;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.main-box {
+  position: absolute;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  /* background-color: aqua; */
+  scale: 0.8;
+}
+
+.fondo-box {
+  position: absolute;
+  top: 0;
+  left: 24%;
+  z-index: 0;
+  scale: 0.95;
+}
+
+.second-box {
+  position: absolute;
+  top: 55px;
+  left: 29.5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 600px;
+  /* background-color: rgba(165, 42, 42, 0.411); */
+  z-index: 1;
+}
+
+.box-img {
+  position: relative;
+  width: 250px;
+  height: 100%;
+  left: 6px;
+}
+
+.dead-aviss {
+  letter-spacing: 3px;
+}
+
+.box-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+
+.box-btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  padding: 15px;
+}
+
+.box-btns text {
+  letter-spacing: 5px;
+  font-size: 15.5px;
+  text-align: center;
+}
+
+button {
+  padding: 17px 40px;
+  border-radius: 50px;
+  cursor: pointer;
+  border: 2px solid white;
+  background-color: rgb(0, 0, 0);
+  box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 15px;
+  transition: all 0.5s ease;
+}
+
+button:hover {
+  letter-spacing: 3px;
+  background-color: hsl(170, 100%, 17%);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(0, 0, 0) 0px 7px 10px 0px;
+}
+
+button:active {
+  letter-spacing: 3px;
+  background-color: hsl(163, 45%, 9%);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(0, 97, 65) 0px 0px 0px 0px;
+  transform: translateY(10px);
+  transition: 100ms;
+}
+
+
+.Leave:hover{
+    background-color: hsl(0, 100%, 17%);
+}
+
+.Leave:active{
+    background-color: hsl(0, 44%, 11%);
+}
