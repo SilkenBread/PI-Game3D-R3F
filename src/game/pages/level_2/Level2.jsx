@@ -20,6 +20,7 @@ import WorldS2 from "./world/WorldS2";
 import Villain2 from "../../globals/villains/Villain2";
 import Menu from "../../globals/menu/Menu";
 import MainLayaout from "../../layouts/MainLayaout";
+import Letras from "./world/Letras";
 
 export const Level2 = (props) => {
   const map = useMovements();
@@ -41,6 +42,7 @@ export const Level2 = (props) => {
                     <Environments />
                     <Physics debug={false} gravity={[0, -1.4, 0]}>
                         <WorldS2/>
+                        <Letras position={[-26, -8 , 8]} />
                         <Ecctrl
                             camInitDis={-2}
                             camMaxDis={-2}
@@ -66,8 +68,8 @@ export const Level2 = (props) => {
                       size={props.size}
                       rotation={props.rotation}
                     />
+                    <Contronls />
                 </Suspense>
-                <Contronls />
             </Canvas>
         </KeyboardControls>
     )
