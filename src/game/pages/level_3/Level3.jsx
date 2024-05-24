@@ -14,7 +14,6 @@ import Lights from "../level_3/lights/Lights";
 import Golemmonk from "./Golemmonk";
 import WelcomeText from "../../globals/WelcomeText";
 import Ecctrl from "ecctrl";
-import Logout from "../../../components/logout/Logout";
 
 export const Level3 = (props) => {
     const map = useMovements();
@@ -22,7 +21,6 @@ export const Level3 = (props) => {
     return (
         <>
             <KeyboardControls map={map}>
-                <Logout prev={'/Level2'} next={'/Level4'} />
                 <Canvas
                     camera={{
                         position: [0, 4, 8],

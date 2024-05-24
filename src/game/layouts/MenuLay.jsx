@@ -1,12 +1,29 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./stylesLayaout.css";
 
+import { useNavigate } from "react-router-dom"
+import { useAuth } from "../../context/AuthContext"
+
 export default function MenuLay() {
-  const { audioBtn, controlsBtn, guideBtn, logoutbtn } = useRef();
+  const { controlsBtn, guideBtn, logoutbtn } = useRef();
 
   const [controlModalOpen, setControlModalOpen] = useState(false);
   const [guidelModalOpen, setGuidelModalOpen] = useState(false);
   const modalRef = useRef(null);
+
+  const [isMuted, setIsMuted] = useState(false);
+  const audioBtn = useRef(null);
+
+  const toggleMute = () => {
+    console.log("toggleMute");
+    setIsMuted(!isMuted);
+
+    // Mute or unmute all audio and video elements
+    const mediaElements = document.querySelectorAll('audio, video');
+    mediaElements.forEach(element => {
+      element.muted = !isMuted;
+    });
+  };
 
   const openControlModal = () => {
     setControlModalOpen(true);
@@ -20,6 +37,15 @@ export default function MenuLay() {
     setControlModalOpen(false);
     setGuidelModalOpen(false);
   };
+
+  {/* LOGOUT */ }
+  const auth = useAuth()
+  const navigate = useNavigate()
+  const onHandleButtonLogout = async () => {
+    await auth.logout()
+      .then((res) => navigate("/"))
+      .catch((error) => console.error(error))
+  }
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -38,10 +64,10 @@ export default function MenuLay() {
     <div className="menu-box">
       <section className="contend-box">
         <div className="audio-box">
-          <button className="btn-audio" ref={audioBtn}>
+          <button className="btn-audio" ref={audioBtn} onClick={toggleMute}>
             <img
               src="/assets/images/uiImages/btns/audiobtn.png"
-              alt="audio-btn"
+              alt="audio button"
             />
           </button>
           <text>Audio</text>
@@ -54,7 +80,7 @@ export default function MenuLay() {
           >
             <img
               src="/assets/images/uiImages/btns/controlsbtn.png"
-              alt="audio-btn"
+              alt="controls button"
             />
           </button>
           <text>Controles</text>
@@ -69,7 +95,7 @@ export default function MenuLay() {
           <text>Guia</text>
         </div>
         <div className="logout-box">
-          <button className="btn-logout" ref={logoutbtn}>
+          <button className="btn-logout" onClick={onHandleButtonLogout} ref={logoutbtn}>
             <img
               src="/assets/images/uiImages/btns/logoutbtn.png"
               alt="audio-btn"
@@ -78,8 +104,8 @@ export default function MenuLay() {
           <text>Salir</text>
         </div>
       </section>
-      {/* Modal para los controles */}
 
+      {/* Modal para los controles */}
       <div className="hover-root">
 
         {controlModalOpen && (
