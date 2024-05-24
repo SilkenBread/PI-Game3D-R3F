@@ -1,5 +1,4 @@
 import React from "react";
-
 import "./stylesLayaout.css";
 import { useAvatar } from "../../context/AvatarContext";
 

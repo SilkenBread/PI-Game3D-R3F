@@ -17,7 +17,7 @@ export default function Reward(props) {
   const quaternionRotation = useMemo(() => new THREE.Quaternion(), []);
 
   useFrame(({ clock }) => {
-    setCrono(crono + 0.1);
+    setCrono(crono + 1);
     rewardsNucleoRef.current?.setNextKinematicRotation(
       quaternionRotation.setFromAxisAngle(yRotationAxies.setX(1), crono * 0.1)
     );
