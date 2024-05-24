@@ -18,7 +18,9 @@ text {
   align-items: center;
   width: 100%;
   height: 100%;
-  z-index: 0;
+  z-index: 1;
+  background-color: transparent;
+  user-select: none;
   /* background-color: aqua; */
   scale: 0.8;
 }
@@ -27,7 +29,7 @@ text {
   position: absolute;
   top: 0;
   left: 24%;
-  z-index: 0;
+  z-index: 1;
   scale: 0.95;
 }
 
@@ -41,7 +43,7 @@ text {
   align-items: center;
   width: 600px;
   /* background-color: rgba(165, 42, 42, 0.411); */
-  z-index: 1;
+  z-index: 2;
 }
 
 .box-img {
@@ -51,7 +53,7 @@ text {
   left: 6px;
 }
 
-.dead-aviss {
+.tittle-aviss {
   letter-spacing: 3px;
 }
 
@@ -103,15 +105,119 @@ button:active {
   background-color: hsl(163, 45%, 9%);
   color: hsl(0, 0%, 100%);
   box-shadow: rgb(0, 97, 65) 0px 0px 0px 0px;
-  transform: translateY(10px);
+  transform: translateY(5px);
   transition: 100ms;
 }
 
-
-.Leave:hover{
-    background-color: hsl(0, 100%, 17%);
+.Leave:hover {
+  background-color: hsl(0, 100%, 17%);
 }
 
-.Leave:active{
-    background-color: hsl(0, 44%, 11%);
+.Leave:active {
+  background-color: hsl(0, 44%, 11%);
+}
+
+/* MENSAJE DE RECOMPENSAS */
+
+.reward-box {
+  position: absolute;
+  top: 10%;
+  left: 22%;
+  z-index: 1;
+  scale: 1.1;
+}
+
+.alert-box {
+  position: absolute;
+  top: 95px;
+  left: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 660px;
+  /* background-color: rgba(165, 42, 42, 0.411); */
+  z-index: 2;
+}
+
+.coin-box {
+  position: relative;
+  width: 250px;
+  height: 100%;
+  left: 6px;
+}
+
+.separador {
+  padding: 7px;
+}
+
+.tittle-aviss2 {
+  letter-spacing: 3px;
+  font-size: 25.5px;
+}
+
+/* MENSAJE DE PUNTO DE CONTROL */
+
+.point-box {
+  position: absolute;
+  top: 10%;
+  left: 22%;
+  z-index: 1;
+  scale: 1.1;
+}
+
+.tree-box {
+  position: relative;
+  width: 55%;
+  height: 100%;
+  left: 6px;
+}
+
+.tittle-Point {
+  letter-spacing: 10px;
+  font-size: 30px;
+  font-weight: 100;
+}
+
+/* MENSAJE AL FINALIZAR NIVEL */
+
+.endLeve-backGround {
+  position: absolute;
+  top: -20px;
+  left: 24%;
+  z-index: 1;
+  scale: 1.1;
+}
+
+.components-box {
+  position: absolute;
+  top: 0px;
+  left: 24.5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 720px;
+  height: 100%;
+  /* background-color: rgba(165, 42, 42, 0.411); */
+  z-index: 2;
+}
+
+.nextLevel:hover {
+  background-color: hsl(260, 43%, 11%);
+}
+
+.nextLevel:active {
+  background-color: hsl(274, 77%, 15%);
+}
+
+.box-elements-img {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  left: 6px;
+  padding-left: 15%;
 }
