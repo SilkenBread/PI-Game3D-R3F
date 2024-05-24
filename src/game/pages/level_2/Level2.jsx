@@ -15,7 +15,6 @@ import useMovements from "../../../utils/key-movements";
 import WelcomeText from "../../globals/WelcomeText";
 import Ecctrl from "ecctrl";
 import Avatar2 from "../../globals/player/Avatar2";
-import Logout from "../../../components/logout/Logout";
 import WorldS2 from "./world/WorldS2";
 import Villain2 from "../../globals/villains/Villain2";
 import Menu from "../../globals/menu/Menu";
@@ -26,7 +25,6 @@ export const Level2 = (props) => {
 
   return (
     <KeyboardControls map={map}>
-      <Logout prev={"/Level1"} next={"/Level3"} />
       <MainLayaout info={"hola"} text={props.text} />
       <Menu />
       <Canvas

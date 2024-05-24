@@ -16,7 +16,6 @@ import Ecctrl from "ecctrl";
 
 import Avatar from "../../globals/player/Avatar";
 import Avatar2 from "../../globals/player/Avatar2";
-import Logout from "../../../components/logout/Logout";
 
 import WorldOp from "./World";
 import Villain1 from "../../globals/villains/Villain1";
@@ -65,7 +64,6 @@ export const Level1 = (props) => {
   return (
     <Suspense fallback={null}>
       <KeyboardControls map={map}>
-        <Logout />
         <MainLayaout info={dataUser} text={props.text} />
         <Menu />
         <Canvas
