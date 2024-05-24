@@ -61,7 +61,7 @@ text {
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: end;
     align-items: end;
     width: 30%;
     height: 290px;
@@ -70,6 +70,7 @@ text {
     left: 73%;
     scale: 0.75;
     z-index: 2;
+    padding: 1px;
 }
 
 .rewards-counting {

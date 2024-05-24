@@ -17,7 +17,7 @@ export default function MainLayaout(props) {
       </header>
 
       <section className="info-boxes">
-        <div className="reward-box">
+        <div className="rewards-box">
           <text className="rewards-counting">{avatar.recompensas}</text>
           <img src="/assets/images/uiImages/rewardsDeco.png" alt="rewards" />
         </div>
