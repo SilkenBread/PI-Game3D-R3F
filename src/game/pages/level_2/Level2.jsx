@@ -89,6 +89,7 @@ export const Level2 = (props) => {
             <Physics debug={false} gravity={[0, -1.4, 0]}>
               <WorldS2 />
               <Ecctrl
+              name="player"
                 camInitDis={-2}
                 camMaxDis={-2}
                 camInitDir={{ x: 0, y: 97 }}
