@@ -25,7 +25,7 @@ export default function WorldS2(props) {
   
 
   useEffect(() => {
-    if (avatar.keyUtily >= 2){
+    if (avatar.keyUtily >= 3){
       setActive(true);
     } else {
       setActive(false);
@@ -41,7 +41,7 @@ export default function WorldS2(props) {
     <>
       <group {...props} dispose={null}>
         <Html position={[-61, 2, 34.5]} style={{ pointerEvents: 'none' }}>
-          <text>{avatar.keyUtily}/3</text>
+          <text>{avatar.keyUtily - 1}/3</text>
         </Html>
         {/*Elementos de Mundo (Rocas, planeta y montaña*/}
         <RigidBody type="dynamic" colliders="hull">

@@ -56,7 +56,6 @@ export default function Avatar(props) {
     //   frontTarget.current.position.y = -mouse.y * 20;
     // });
 
-
     return (
       <group>
         <sprite position={[0, 0, 8]} ref={rearTarget} >
@@ -72,6 +71,7 @@ export default function Avatar(props) {
   function LaserController() {
     const shipPosition = useRecoilValue(avatarPositionState);
     const [lasers, setLasers] = useRecoilState(laserPositionState);
+
     return (
       <mesh
         position={[0, 0, -1]}
@@ -119,6 +119,7 @@ export default function Avatar(props) {
 
   function Lasers() {
     const lasers = useRecoilValue(laserPositionState);
+
     return (
       <group>
         {lasers.map((laser) => (
@@ -135,7 +136,7 @@ export default function Avatar(props) {
 
   function GameTimer() {
     const [lasers, setLaserPositions] = useRecoilState(laserPositionState);
-    console.log(lasers);
+
     useFrame(({ mouse }) => {
       // Move the Lasers and remove lasers at end of range or that have hit the ground.
       setLaserPositions(

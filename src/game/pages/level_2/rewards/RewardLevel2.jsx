@@ -22,32 +22,38 @@ export default function RewardLevel2(props) {
   const [rewardsKeyData, setRewardsKeyData] = useState([
     { position: [-11.9, -1, 78.3], id: 101 },
     { position: [-63.4, -1.4, -1.3], id: 102 },
-    { position: [-61, -1, 34.5], id: 103}
+    { position: [-61, -1, 34.5], id: 103 }
   ]);
 
   const [showRewardMsg, setShowRewardMsg] = useState(false);
 
-  const onRecolectReward = (id) => {
-    setRewardsKeyData(
-      rewardsKeyData.filter((rewardKey) => rewardKey.id !== id),
-      setAvatar({...avatar, keyUtily: avatar.keyUtily + 1})
-    );
+  const onRecolectReward = (e, id) => {
+    if (e.other.rigidBodyObject.name === "player") {
+      setRewardsKeyData(
+        rewardsKeyData.filter((rewardKey) => rewardKey.id !== id)
+      );
+      setAvatar({ ...avatar, keyUtily: avatar.keyUtily + 1 })
+      console.log(avatar.keyUtily, id);
 
-    setShowRewardMsg(true);
-    setTimeout(() => {
-      setShowRewardMsg(false);
-    }, 10000); // Oculta la notificación después de 3 segundos
+      setShowRewardMsg(true);
+      setTimeout(() => {
+        setShowRewardMsg(false);
+      }, 10000); // Oculta la notificación después de 3 segundos
+    }
   };
 
-  const onRecolectReward1 = (id) => {
-    setRewardsData(
-      rewardsData.filter((rewardOb) => rewardOb.id !== id),
-      setAvatar({ ...avatar, recompensas: avatar.recompensas + 1 })
-    );
-    setShowRewardMsg(true);
-    setTimeout(() => {
-      setShowRewardMsg(false);
-    }, 10000); // Oculta la notificación después de 3 segundos
+  const onRecolectReward1 = (e, id) => {
+    if (e.other.rigidBodyObject.name === "player") {
+      console.log(e, id);
+      setRewardsData(
+        rewardsData.filter((rewardOb) => rewardOb.id !== id),
+        setAvatar({ ...avatar, recompensas: avatar.recompensas + 1 })
+      );
+      setShowRewardMsg(true);
+      setTimeout(() => {
+        setShowRewardMsg(false);
+      }, 10000); // Oculta la notificación después de 3 segundos
+    }
   }
 
   return (
@@ -57,7 +63,7 @@ export default function RewardLevel2(props) {
           key={rewardOb.id}
           type="fixed"
           colliders={"cuboid"}
-          onCollisionEnter={() => onRecolectReward1(rewardOb.id)}
+          onCollisionEnter={(e) => onRecolectReward1(e, rewardOb.id)}
         >
           <Reward scale={0.75} position={rewardOb.position} />
         </RigidBody>
@@ -67,14 +73,14 @@ export default function RewardLevel2(props) {
           key={rewardKey.id}
           type="fixed"
           colliders={"cuboid"}
-          onCollisionEnter={() => onRecolectReward(rewardKey.id)}
+          onCollisionEnter={(e) => onRecolectReward(e, rewardKey.id)}
         >
           <KeyReward scale={1} position={rewardKey.position} />
         </RigidBody>
       ))}
       {showRewardMsg && (
-        <Html fullscreen={true} center={true} distanceFactor={100} position={[-10,25,-30]} style={{ pointerEvents: 'none' }} >
-          <RewardMsg  />
+        <Html fullscreen={true} center={true} distanceFactor={100} position={[-10, 25, -30]} style={{ pointerEvents: 'none' }} >
+          <RewardMsg />
         </Html>
       )}
     </>

@@ -10,6 +10,7 @@ export default function AlertasUI() {
   const { villain } = useVillain();
   const [deadMenuVisible, setDeadMenuVisible] = useState(false);
   const [winMenuVisible, setWinMenuVisible] = useState(false);
+  const [finishSound] = useState(new Audio("/assets/sounds/GameOvero1.wav"));
 
   useEffect(() => {
     if (avatar.vidas == 0 && !winMenuVisible) {
@@ -25,6 +26,9 @@ export default function AlertasUI() {
       setTimeout(() => {
         setWinMenuVisible(true);
       }, 6000);
+      finishSound.currentTime = 0
+      finishSound.volume = 0.25
+      finishSound.play()
     }
   }, [villain.death, deadMenuVisible]);
 
