@@ -1,33 +1,48 @@
-import React, { useRef } from "react";
-import { useGLTF } from "@react-three/drei";
+import React, { useEffect, useRef, useState } from "react";
+import { Html, useGLTF } from "@react-three/drei";
 import { RigidBody } from "@react-three/rapier";
 import { useFrame } from "@react-three/fiber";
+import { useAvatar } from "../../../../context/AvatarContext";
 
 export default function WorldS2(props) {
   const verticalMovePlatformRef = useRef();
   const { nodes, materials } = useGLTF("/assets/models/level_2/worldS2.glb");
+  const { avatar } = useAvatar();
+  const [actived, setActive] = useState(false);
 
-  let time = null;
+  let time = 0;
 
-  function Idle(time, active) {
-    if (active) {
+  function Idle(time, actived) {
+    if (actived) {
+      const y = 19 * (Math.sin(time / 3.5) + 1) - 0.5;
       verticalMovePlatformRef.current?.setNextKinematicTranslation({
         x: 0,
-        y: 19 * Math.sin(time / 3.5) + 19,
+        y,
         z: 0,
       });
     }
   }
+  
+
+  useEffect(() => {
+    if (avatar.keyUtily >= 2){
+      setActive(true);
+    } else {
+      setActive(false);
+    }
+  }, [avatar.keyUtily])
 
   useFrame((state) => {
     time = state.clock.elapsedTime;
-
-    Idle(time, true);
+    Idle(time, actived);
   })
 
   return (
     <>
       <group {...props} dispose={null}>
+        <Html position={[-61, 2, 34.5]} style={{ pointerEvents: 'none' }}>
+          <text>{avatar.keyUtily}/3</text>
+        </Html>
         {/*Elementos de Mundo (Rocas, planeta y montaña*/}
         <RigidBody type="dynamic" colliders="hull">
           <mesh
