@@ -268,7 +268,7 @@ export default function Villain2({ position }) {
     };
 
     const onCollisionExitCube = (e) => {
-        if (e.other.colliderObject.id == 438 || e.other.colliderObject.id == 435) {
+        if (e.other.rigidBodyObject.name === "player") {
             if (!villain.death) {
                 if (avatar.vidas > 0) {
                     setAvatar({ ...avatar, vidas: avatar.vidas - 1 });
