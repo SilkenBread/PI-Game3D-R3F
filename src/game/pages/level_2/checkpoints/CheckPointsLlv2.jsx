@@ -4,7 +4,7 @@ import ControlPoint from "../../../layouts/ControlPoint";
 import { RigidBody } from "@react-three/rapier";
 import Checkpoint from "../../../globals/checkpoint/Checkpoint";
 import { Html } from "@react-three/drei";
-
+import Swal from 'sweetalert2'
 import { useAuth } from "../../../../context/AuthContext";
 import { createUser, readUser, updateUser } from "../../../../db/users-collections";
 
@@ -17,14 +17,42 @@ export default function CheckPointsLlv2(props) {
 
   const auth = useAuth();
 
-  const onCheckPoint = async (id) => {
+  const onCheckPoint = (id) => {
     try {
-      const update = await updateUser(auth.userLogged.email, id, 'checkpoints_level_2');
-      setCheckPointsData(checkPointsData.filter((checkPointE) => checkPointE.id !== id));
-      setChekPointMsg(true);
-      setTimeout(() => {
-        setChekPointMsg(false);
-      }, 10000);
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+
+      // Encuentra el checkpoint tocado
+      const touchedCheckpoint = checkPointsData.find(checkPointE => checkPointE.id === id);
+
+      if (touchedCheckpoint) {
+        const location = touchedCheckpoint.position;
+
+        console.log(`Checkpoint touched: ${location}`);
+
+        const update = updateUser(auth.userLogged.email, id, 'checkpoints_level_2');
+        setCheckPointsData(checkPointsData.filter((checkPointE) => checkPointE.id !== id))
+
+        Toast.fire({
+          icon: "success",
+          title: "Checkpoint capturado.",
+        });
+      }
+      else {
+        Toast.fire({
+          icon: "error",
+          title: "No se encontró el checkpoint.",
+        });
+      }
     } catch (error) {
       console.error('Error updating user:', error);
     }

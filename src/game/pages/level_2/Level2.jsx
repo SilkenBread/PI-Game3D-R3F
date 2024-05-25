@@ -92,8 +92,8 @@ export const Level2 = (props) => {
                 camMaxDis={-2}
                 camInitDir={{ x: 0, y: 97 }}
                 position={[
-                  // 0, 0.5, 0
-                  -65, 30, 55
+                  0, 0.5, 0
+                  // -65, 30, 55
                 ]}
                 jumpVel={1}
                 moveImpulsePointY={1}
