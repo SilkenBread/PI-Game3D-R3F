@@ -5,6 +5,9 @@ import { RigidBody } from "@react-three/rapier";
 import Checkpoint from "../../../globals/checkpoint/Checkpoint";
 import { Html } from "@react-three/drei";
 
+import { useAuth } from "../../../../context/AuthContext";
+import { createUser, readUser, updateUser } from "../../../../db/users-collections";
+
 export default function CheckPointsLlv2(props) {
   const { avatar, setAvatar } = useAvatar(props);
   const [checkPointsData, setCheckPointsData] = useState([
@@ -12,14 +15,16 @@ export default function CheckPointsLlv2(props) {
     { position: [-64, 29, 52], id: 2 }
   ]);
 
-  const [showChekPointMsg, setChekPointMsg] = useState(false);
+  const auth = useAuth();
 
-  const onCheckPoint = (id) => {
-    setCheckPointsData(checkPointsData.filter((checkPointE) => checkPointE.id !== id));
-    setChekPointMsg(true);
-    setTimeout(() => {
-      setChekPointMsg(false);
-    }, 100000);
+  const onCheckPoint = async (id) => {
+    try {
+      const update = await updateUser(auth.userLogged.email, id, 'checkpoints_level_2');
+      setCheckPointsData(checkPointsData.filter((checkPointE) => checkPointE.id !== id));
+
+    } catch (error) {
+      console.error('Error updating user:', error);
+    }
   };
 
   return (
@@ -34,11 +39,6 @@ export default function CheckPointsLlv2(props) {
           <Checkpoint scale={0.8} position={checkPointE.position} />
         </RigidBody>
       ))}
-      {showChekPointMsg && (
-        <Html fullscreen={true} center={true} distanceFactor={50} >
-          <ControlPoint/>
-        </Html>
-      )}
     </>
   );
 }

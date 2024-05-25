@@ -1,21 +1,57 @@
 "use strict";
 
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore"
+import { addDoc, collection, getDocs, query, where, updateDoc } from "firebase/firestore"
 import { db } from "../firebase/firebase.config"
 
 /**
  * Collection reference to the 'users' collection in Firestore.
  * @type {CollectionReference<DocumentData>}
  */
-const userCollection = collection(db, "user")
+const userCollection = collection(db, "users")
 
 const userParams = {
     level: 1,
-    checkpointsLevel1: {
+    lives: 5,
+    rewards: 0,
+    checkpoints_level_1: {
+        1: false,
+        2: false,
+        3: false
+    },
+    checkpoints_level_2: {
+        1: false,
+        2: false
+    },
+    checkpoints_level_3: {
         1: false,
         2: false,
         3: false,
-    }
+    },
+    checkpoints_level_4: {
+        1: false,
+        2: false,
+        3: false,
+    },
+    position_level_1: {
+        x: 0,
+        y: 10,
+        z: 0,
+    },
+    position_level_2: {
+        x: 0,
+        y: 10,
+        z: 0,
+    },
+    position_level_3: {
+        x: 0,
+        y: 10,
+        z: 0,
+    },
+    position_level_4: {
+        x: 0,
+        y: 10,
+        z: 0,
+    },
 }
 
 
@@ -56,9 +92,10 @@ const readUser = async (userEmail) => {
             }
         }
         const data = res.docs.map((doc) => doc.data())
+        console.log(data);
         return {
             success: true,
-            data,
+            data: data,
         }
     } catch (error) {
         return {
@@ -74,12 +111,20 @@ const readUser = async (userEmail) => {
  * @param {Object} userData - The updated data of the user.
  * @returns {Promise<{ success: boolean, message?: string }>} A promise that resolves with an object containing the success status and an optional message.
  */
-const updateUser = async (userEmail, userData) => {
+const updateUser = async (userEmail, level, doc) => {
     try {
         const userSnapshot = await getDocs(query(userCollection, where("email", "==", userEmail)));
 
         const userDoc = userSnapshot.docs[0];
-        await userDoc.ref.update(userData);
+        const userData = userDoc.data();
+
+        if (userData[doc]) {
+            userData[doc][level] = true;
+        } else {
+            return { success: false, message: "Invalid level or checkpoint" };
+        }
+
+        await updateDoc(userDoc.ref, userData);
         return { success: true, message: "User updated successfully" };
     } catch (error) {
         return error;

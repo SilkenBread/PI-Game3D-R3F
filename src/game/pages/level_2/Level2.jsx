@@ -5,7 +5,7 @@ import {
 } from "@react-three/drei";
 import { Perf } from "r3f-perf";
 import { CuboidCollider, Physics, RigidBody } from "@react-three/rapier";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import Environments from "../../globals/Environments";
 import Lights from "./lights/Lights";
@@ -23,12 +23,49 @@ import RewardLevel2 from "./rewards/RewardLevel2";
 import { Html } from "@react-three/drei"
 import CheckPointsLlv2 from "./checkpoints/CheckPointsLlv2";
 
+import { useAuth } from "../../../context/AuthContext";
+import { createUser, readUser } from "../../../db/users-collections";
+
 export const Level2 = (props) => {
   const map = useMovements();
+  const auth = useAuth();
+
+  /**
+    * Save the user data in the DB.
+    * @param {*} valuesUser
+    */
+  const saveDataUser = async (valuesUser) => {
+    const { success, data } = await readUser(valuesUser.email)
+    
+    sessionStorage.setItem('playerData', JSON.stringify(data));
+    
+
+    if (!success)
+      await createUser(valuesUser)
+  }
+
+  const [dataUser, setDataUser] = useState('');
+
+  /**
+    * When userLogged is changed call saveDataUser to save the user in the DB.
+    * @see saveDataUser
+    */
+  useEffect(() => {
+    if (auth.userLogged) {
+      const { displayName, email, photoURL } = auth.userLogged
+
+      setDataUser({displayName, email, photoURL});
+
+      saveDataUser({
+        name: displayName,
+        email: email,
+      })
+    }
+  }, [auth.userLogged])
 
   return (
     <KeyboardControls map={map}>
-      <MainLayaout info={"hola"} text={props.text} />
+      <MainLayaout info={dataUser} text={props.text} />
       <Menu />
       <Canvas
         camera={{
