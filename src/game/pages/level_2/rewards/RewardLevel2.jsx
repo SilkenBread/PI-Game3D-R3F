@@ -30,9 +30,10 @@ export default function RewardLevel2(props) {
   const onRecolectReward = (e, id) => {
     if (e.other.rigidBodyObject.name === "player") {
       setRewardsKeyData(
-        rewardsKeyData.filter((rewardKey) => rewardKey.id !== id),
-        setAvatar({ ...avatar, keyUtily: avatar.keyUtily + 1 })
+        rewardsKeyData.filter((rewardKey) => rewardKey.id !== id)
       );
+      setAvatar({ ...avatar, keyUtily: avatar.keyUtily + 1 })
+      console.log(avatar.keyUtily, id);
 
       setShowRewardMsg(true);
       setTimeout(() => {
@@ -43,6 +44,7 @@ export default function RewardLevel2(props) {
 
   const onRecolectReward1 = (e, id) => {
     if (e.other.rigidBodyObject.name === "player") {
+      console.log(e, id);
       setRewardsData(
         rewardsData.filter((rewardOb) => rewardOb.id !== id),
         setAvatar({ ...avatar, recompensas: avatar.recompensas + 1 })
@@ -71,7 +73,7 @@ export default function RewardLevel2(props) {
           key={rewardKey.id}
           type="fixed"
           colliders={"cuboid"}
-          onCollisionEnter={() => onRecolectReward(rewardKey.id)}
+          onCollisionEnter={(e) => onRecolectReward(e, rewardKey.id)}
         >
           <KeyReward scale={1} position={rewardKey.position} />
         </RigidBody>

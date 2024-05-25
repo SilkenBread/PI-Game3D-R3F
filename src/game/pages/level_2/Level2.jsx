@@ -99,7 +99,7 @@ export const Level2 = (props) => {
                 ]}
                 jumpVel={1}
                 moveImpulsePointY={1}
-                maxVelLimit={2}
+                maxVelLimit={5}
                 springK={0}
                 floatHeight={0}
                 sprintJumpMult={1.4}
