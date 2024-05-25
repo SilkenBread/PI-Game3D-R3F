@@ -5,6 +5,8 @@ import { useAvatar } from "../../../../context/AvatarContext";
 import RewardMsg from "../../../layouts/RewardMsg";
 import { Html } from "@react-three/drei";
 import KeyReward from "../../../globals/reward/KeyReward";
+import { StrictMode } from "react";
+import { OrbitControls } from "@react-three/drei";
 
 export default function RewardLevel2(props) {
   const { avatar, setAvatar } = useAvatar();
@@ -26,13 +28,14 @@ export default function RewardLevel2(props) {
 
   const onRecolectReward = (id) => {
     setRewardsData(rewardsData.filter((rewardOb) => rewardOb.id !== id));
-    setRewardsKeyData(rewardsKeyData.filter((rewardKey) => rewardKey.id !== id));
+    setRewardsKeyData(
+      rewardsKeyData.filter((rewardKey) => rewardKey.id !== id)
+    );
     setAvatar({ ...avatar, recompensas: avatar.recompensas + 1 });
     setShowRewardMsg(true);
     setTimeout(() => {
       setShowRewardMsg(false);
-    }, 30000); // Oculta la notificación después de 3 segundos
-    
+    }, 10000); // Oculta la notificación después de 3 segundos
   };
 
   return (
@@ -47,19 +50,19 @@ export default function RewardLevel2(props) {
           <Reward scale={0.75} position={rewardOb.position} />
         </RigidBody>
       ))}
-      {rewardsKeyData.map((rewardKey) =>(
+      {rewardsKeyData.map((rewardKey) => (
         <RigidBody
-        key={rewardKey.id}
-        type="fixed"
-        colliders={"cuboid"}
-        onCollisionEnter={() => onRecolectReward(rewardKey.id)}
-      >
-        <KeyReward scale={1} position={rewardKey.position}/>
-      </RigidBody>
+          key={rewardKey.id}
+          type="fixed"
+          colliders={"cuboid"}
+          onCollisionEnter={() => onRecolectReward(rewardKey.id)}
+        >
+          <KeyReward scale={1} position={rewardKey.position} />
+        </RigidBody>
       ))}
       {showRewardMsg && (
-        <Html fullscreen = {true} center = {true} >
-          <RewardMsg />
+        <Html fullscreen={true} center={true} distanceFactor={100} >
+          <RewardMsg  />
         </Html>
       )}
     </>

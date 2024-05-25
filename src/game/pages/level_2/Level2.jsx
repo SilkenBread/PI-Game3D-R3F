@@ -21,6 +21,7 @@ import Menu from "../../globals/menu/Menu";
 import MainLayaout from "../../layouts/MainLayaout";
 import RewardLevel2 from "./rewards/RewardLevel2";
 import { Html } from "@react-three/drei"
+import CheckPointsLlv2 from "./checkpoints/CheckPointsLlv2";
 
 export const Level2 = (props) => {
   const map = useMovements();
@@ -47,8 +48,8 @@ export const Level2 = (props) => {
               camMaxDis={-2}
               camInitDir={{ x: 0, y: 97 }}
               position={[
-                // 0, 0.5, 0
-                -65, 30, 55,
+                 0, 0.5, 0
+                //-65, 30, 60
               ]}
               jumpVel={1}
               moveImpulsePointY={1}
@@ -61,6 +62,7 @@ export const Level2 = (props) => {
             </Ecctrl>
             <Villain2 position={[-65, 29, 70]} />
             <RewardLevel2/>
+            <CheckPointsLlv2/>
           </Physics>
           <WelcomeText
             text={props.text}
