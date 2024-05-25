@@ -15,7 +15,7 @@ export function VillainProvider({children}) {
     const [villain, setVillain] = useState({
         ref: null,
         body: null,
-        vidas: 500,
+        vidas: 50,
         death: false,
     });
 

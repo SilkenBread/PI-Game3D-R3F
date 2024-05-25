@@ -1,7 +1,7 @@
 import React from "react";
 import "./stylesMsg.css";
 
-export default function EndLevel(props) {
+export default function EndLevel() {
   return (
     <div className="main-box">
       <img

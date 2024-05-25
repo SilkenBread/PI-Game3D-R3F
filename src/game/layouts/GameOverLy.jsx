@@ -1,7 +1,7 @@
 import React from "react";
 import "./stylesMsg.css";
 
-export default function GameOverLy(props) {
+export default function GameOverLy() {
   return (
     <div className="main-box">
       <img

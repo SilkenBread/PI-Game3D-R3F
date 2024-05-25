@@ -21,7 +21,10 @@ export default function CheckPointsLlv2(props) {
     try {
       const update = await updateUser(auth.userLogged.email, id, 'checkpoints_level_2');
       setCheckPointsData(checkPointsData.filter((checkPointE) => checkPointE.id !== id));
-
+      setChekPointMsg(true);
+      setTimeout(() => {
+        setChekPointMsg(false);
+      }, 10000);
     } catch (error) {
       console.error('Error updating user:', error);
     }
