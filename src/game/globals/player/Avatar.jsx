@@ -14,6 +14,7 @@ export default function Avatar(props) {
   const { avatar, setAvatar } = useAvatar();
   const { nodes, materials, animations } = useGLTF('assets/models/characters/Robot.glb')
   const { actions } = useAnimations(animations, avatarRef);
+  let spawn = false;
 
   useEffect(() => {
     actions[avatar.animation]?.reset().fadeIn(0.5).play();
@@ -33,7 +34,7 @@ export default function Avatar(props) {
     const [shipPosition, setAvatarPosition] = useRecoilState(avatarPositionState);
     useFrame(({ mouse }) => {
       setAvatarPosition({
-        rotation: { z: 0, x: 0, y: mouse.y * 0.2 },
+        rotation: { z: 0, x: 0, y: -mouse.y * 0.2 },
       });
     });
 
@@ -49,11 +50,11 @@ export default function Avatar(props) {
     const loader = new TextureLoader();
     const texture = loader.load("/assets/models/level_2/target.png");
 
-    useFrame(({ mouse }) => {
-      rearTarget.current.position.y = -mouse.y * 10;
+    // useFrame(({ mouse }) => {
+    //   rearTarget.current.position.y = -mouse.y * 10;
 
-      frontTarget.current.position.y = -mouse.y * 20;
-    });
+    //   frontTarget.current.position.y = -mouse.y * 20;
+    // });
 
 
     return (
@@ -79,11 +80,11 @@ export default function Avatar(props) {
           setLasers([
             // ...lasers,
             {
-              id: Math.random(), // This needs to be unique.. Random isn't perfect but it works. Could use a uuid here.
+              id: 1, 
               x: 0,
               y: 0,
               z: 2,
-              velocity: [shipPosition.rotation.x, shipPosition.rotation.y]
+              velocity: [shipPosition.rotation.x * 0.5, shipPosition.rotation.y * 0.5]
             }
           ])
         }
@@ -99,15 +100,32 @@ export default function Avatar(props) {
     );
   }
 
+  const onCollisionEnterBody = (e) => {
+    const [lasers, setLaserPositions] = useRecoilState(laserPositionState);
+    useFrame(({ mouse }) => {
+      // Move the Lasers and remove lasers at end of range or that have hit the ground.
+      setLaserPositions(
+        lasers
+          .map((laser) => ({
+            id: laser.id,
+            x: laser.x + laser.velocity[0],
+            y: laser.y + laser.velocity[1],
+            z: 50,
+            velocity: laser.velocity,
+          }))
+      );
+    });
+  }
+
   function Lasers() {
     const lasers = useRecoilValue(laserPositionState);
     return (
       <group>
         {lasers.map((laser) => (
-          <RigidBody position={[laser.x, laser.y, laser.z]} type={'kinematicVelocity'}>
+          <RigidBody ref={ammoRef} position={[laser.x, laser.y, laser.z]} type={'dynamic'} onCollisionEnter={(e) => onCollisionEnterBody(e)}>
             <mesh position={[laser.x, laser.y, laser.z]} key={`${laser.id}`}>
               <boxGeometry attach="geometry" args={[1, 1, 1]} />
-              <meshStandardMaterial attach="material" emissive="white" wireframe />
+              <meshStandardMaterial attach="material" emissive="white"  />
             </mesh>
           </RigidBody>
         ))}
@@ -117,19 +135,19 @@ export default function Avatar(props) {
 
   function GameTimer() {
     const [lasers, setLaserPositions] = useRecoilState(laserPositionState);
-
+    console.log(lasers);
     useFrame(({ mouse }) => {
       // Move the Lasers and remove lasers at end of range or that have hit the ground.
       setLaserPositions(
         lasers
           .map((laser) => ({
             id: laser.id,
-            x: laser.x - laser.velocity[0],
-            y: laser.y - laser.velocity[1],
+            x: laser.x + laser.velocity[0],
+            y: laser.y + laser.velocity[1],
             z: laser.z + LASER_Z_VELOCITY,
             velocity: laser.velocity,
           }))
-          .filter((laser) => laser.z > -LASER_RANGE && laser.y > GROUND_HEIGHT)
+          .filter((laser) => laser.z < LASER_RANGE)
       );
     });
     return null;

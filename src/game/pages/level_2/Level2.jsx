@@ -42,6 +42,7 @@ export const Level2 = (props) => {
         }}
         shadows={true}
       >
+        <OrbitControls />
         <RecoilRoot>
           <Shooter />
           <Perf position="top-left" />
