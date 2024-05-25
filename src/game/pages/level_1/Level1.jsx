@@ -89,7 +89,8 @@ export const Level1 = (props) => {
               debug={false}
               capsuleHalfHeight={0.5}
               capsuleRadius={0.38}
-              autoBalanceSpringK={8}
+              autoBalance = {false}
+              autoBalanceSpringK={5.00}
               autoBalanceDampingC={0.1}
               autoBalanceSpringOnY={0.1}
               autoBalanceDampingOnY={0.025}
@@ -99,7 +100,7 @@ export const Level1 = (props) => {
               jumpVel={4.5}
               slopJumpMult={0.25}
               moveImpulsePointY={1.5}
-              maxVelLimit={1.5}
+              maxVelLimit={4.5}
               springK={0}
               floatHeight={0}
               sprintJumpMult={1.3}
