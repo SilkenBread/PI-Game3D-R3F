@@ -3,6 +3,7 @@ import { avatarContext, useAvatar } from "../../../context/AvatarContext";
 import GameOverLy from "../../layouts/GameOverLy";
 import { useVillain } from "../../../context/villainContext";
 import EndLevel from "../../layouts/EndLevel";
+import { Center } from "@react-three/drei";
 
 export default function AlertasUI() {
   const { avatar, setIsFrozen, setAvatar } = useAvatar();

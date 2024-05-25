@@ -163,7 +163,7 @@ export default function Villain2({ position }) {
                 x: -amplitudeCube * Math.cos(timeCube / velocityCube) - 63,
                 y: Cube7Ref.current?.translation().y,
                 z: -amplitudeCube * Math.cos(timeCube / velocityCube) + 72
-              }, true)
+            }, true)
 
             Cube8Ref.current?.setTranslation({
                 x: amplitudeCube * Math.cos(timeCube / velocityCube) - 67,
@@ -207,32 +207,32 @@ export default function Villain2({ position }) {
 
     useFrame(() => {
         if (villain.death) {
-          Idle(0, false)
-          openCubes(crono, 4, 4, 0, false)
+            Idle(0, false)
+            openCubes(crono, 4, 4, 0, false)
         } else {
-          if (currentAnimation === 'Idle') {
-            setCrono(0);
-            if (direction) {
-              setCrono(crono + 0.1);
-            } else {
-              if (crono > 0) {
-                setCrono(crono - 0.1);
-              }
+            if (currentAnimation === 'Idle') {
+                setCrono(0);
+                if (direction) {
+                    setCrono(crono + 0.1);
+                } else {
+                    if (crono > 0) {
+                        setCrono(crono - 0.1);
+                    }
+                }
+                const moveY = Math.cos(crono / 2) * 0.5 + position[1];
+                Idle(moveY, true)
+            } else if (currentAnimation === 'openCubes') {
+                setCrono(0);
+                if (direction) {
+                    setCrono(crono + 0.1);
+                } else {
+                    if (crono > 0) {
+                        setCrono(crono - 0.1);
+                    }
+                }
+                const moveY = Math.cos(crono / 1.5) * -1 + 29;
+                openCubes(crono, 3, 3, moveY, true)
             }
-            const moveY = Math.cos(crono / 2) * 0.5 + position[1];
-            Idle(moveY, true)
-          } else if (currentAnimation === 'openCubes') {
-            setCrono(0);
-            if (direction) {
-              setCrono(crono + 0.1);
-            } else {
-              if (crono > 0) {
-                setCrono(crono - 0.1);
-              }
-            }
-            const moveY = Math.cos(crono / 1.5) * -1 + 29;
-            openCubes(crono, 3, 3, moveY, true)
-          }
         }
 
     })
@@ -268,11 +268,13 @@ export default function Villain2({ position }) {
     };
 
     const onCollisionExitCube = (e) => {
-        if (!villain.death) {
-            if (avatar.vidas > 0) {
-                setAvatar({ ...avatar, vidas: avatar.vidas - 1 });
-            } else {
-                setAvatar({ ...avatar, animation: 'Death' })
+        if (e.other.colliderObject.id == 438 || e.other.colliderObject.id == 435) {
+            if (!villain.death) {
+                if (avatar.vidas > 0) {
+                    setAvatar({ ...avatar, vidas: avatar.vidas - 1 });
+                } else {
+                    setAvatar({ ...avatar, animation: 'Death' })
+                }
             }
         }
         hurtSound.currentTime = 0
