@@ -35,7 +35,7 @@ export default function CheckPointsLlv2(props) {
         </RigidBody>
       ))}
       {showChekPointMsg && (
-        <Html fullscreen={true} center={true} distanceFactor={100} >
+        <Html fullscreen={true} center={true} distanceFactor={100} position={[-10,25,-40]} style={{ pointerEvents: 'none' }} >
           <ControlPoint/>
         </Html>
       )}

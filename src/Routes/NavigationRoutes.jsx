@@ -15,10 +15,10 @@ import EndLevel from "../game/layouts/EndLevel";
 
 export const NavigationRoutes = () => {
 
-  const main_text_l1 = "Eterna Celestia FAO-1";
-  const main_text_l2 = "Orbitronix SOM-2";
-  const main_text_l3 = "GalacticMaze JR-3";
-  const main_text_l4 = "Obsidian Abyss MFCF-4";
+  const main_text_l1 = "Eterna Celestia";
+  const main_text_l2 = "Orbitronix";
+  const main_text_l3 = "GalacticMaze";
+  const main_text_l4 = "Obsidian Abyss";
 
   return (
     <BrowserRouter>
