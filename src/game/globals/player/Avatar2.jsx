@@ -7,18 +7,23 @@ export default function Avatar2(props) {
     const avatarRef = useRef();
     const avatarCollider = useRef();
     const avatarBodyRef = useRef();
-    const { avatar, setAvatar } = useAvatar();
+    const { avatar, setAvatar, isFrozen } = useAvatar();
     const { nodes, materials, animations } = useGLTF('/assets/models/characters/caracterKnigth.glb')
     const { actions } = useAnimations(animations, avatarRef);
 
     useEffect(() => {
-        actions[avatar.animation]?.reset().fadeIn(0.5).play();
-        return () => {
-            if (actions[avatar.animation])
-                actions[avatar.animation].fadeOut(0.5);
+        if (!isFrozen) {
+            actions[avatar.animation]?.reset().fadeIn(0.5).play();
+        } else {
+            actions[avatar.animation]?.stop();
         }
 
-    }, [actions, avatar.animation]);
+        return () => {
+            if (actions[avatar.animation]) {
+                actions[avatar.animation].fadeOut(0.5);
+            }
+        }
+    }, [actions, avatar.animation, isFrozen]);
 
     return (<>
         <group ref={avatarRef} name="Scene" position-y={-0.15}>

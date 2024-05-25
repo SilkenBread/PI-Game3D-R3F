@@ -15,12 +15,14 @@ export function AvatarProvider({children}) {
         ref: null,
         body: null,
         animation: "Idle",
-        vidas: 5,
+        vidas: 1,
         recompensas: 0
     });
 
+    const [isFrozen, setIsFrozen] = useState(false);
+
     return (
-        <avatarContext.Provider value={{avatar, setAvatar}}>
+        <avatarContext.Provider value={{avatar, setAvatar, isFrozen, setIsFrozen}}>
             {children}
         </avatarContext.Provider>
     )

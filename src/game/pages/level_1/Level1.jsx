@@ -25,6 +25,7 @@ import RewardLevel1 from "./rewards/RewardLevel1";
 import { useAuth } from "../../../context/AuthContext";
 import { createUser, readUser } from "../../../db/users-collections";
 import Menu from "../../globals/menu/Menu";
+import AlertasUI from "../../globals/menu/AlertasUI";
 
 export const Level1 = (props) => {
   const map = useMovements();
@@ -66,6 +67,7 @@ export const Level1 = (props) => {
       <KeyboardControls map={map}>
         <MainLayaout info={dataUser} text={props.text} />
         <Menu />
+        <AlertasUI/>
         <Canvas
           camera={{
             position: [0, 4, 8],
@@ -93,11 +95,11 @@ export const Level1 = (props) => {
               autoBalanceDampingOnY={0.025}
               camInitDis={-5}
               camMaxDis={-2}
-              position={[-7.9, 55.5, -45]}
+              position={[-7.9, 56.5, -45]}
               jumpVel={4.5}
               slopJumpMult={0.25}
               moveImpulsePointY={1.5}
-              maxVelLimit={4.5}
+              maxVelLimit={1.5}
               springK={0}
               floatHeight={0}
               sprintJumpMult={1.3}
