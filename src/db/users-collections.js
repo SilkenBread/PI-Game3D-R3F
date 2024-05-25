@@ -105,12 +105,6 @@ const readUser = async (userEmail) => {
     }
 }
 
-/**
- * Updates the data of a user in Firestore.
- * @param {string} userEmail - The email of the user to be updated.
- * @param {Object} userData - The updated data of the user.
- * @returns {Promise<{ success: boolean, message?: string }>} A promise that resolves with an object containing the success status and an optional message.
- */
 const updateUser = async (userEmail, level, doc) => {
     try {
         const userSnapshot = await getDocs(query(userCollection, where("email", "==", userEmail)));
