@@ -15,7 +15,6 @@ import useMovements from "../../../utils/key-movements";
 import WelcomeText from "../../globals/WelcomeText";
 import Ecctrl from "ecctrl";
 import Avatar2 from "../../globals/player/Avatar2";
-import Logout from "../../../components/logout/Logout";
 import WorldS2 from "./world/WorldS2";
 import Villain2 from "../../globals/villains/Villain2";
 import Menu from "../../globals/menu/Menu";
@@ -23,20 +22,20 @@ import MainLayaout from "../../layouts/MainLayaout";
 import Shooter from "./world/Shooter";
 import {
   RecoilRoot,
-  atom,
-  selector,
-  useRecoilState,
-  useRecoilValue,
 } from 'recoil';
+import RewardLevel2 from "./rewards/RewardLevel2";
+import { Html } from "@react-three/drei"
+import CheckPointsLlv2 from "./checkpoints/CheckPointsLlv2";
+import AlertasUI from "../../globals/menu/AlertasUI";
 
 export const Level2 = (props) => {
   const map = useMovements();
 
   return (
     <KeyboardControls map={map}>
-      <Logout prev={"/Level1"} next={"/Level3"} />
       <MainLayaout info={"hola"} text={props.text} />
       <Menu />
+      <AlertasUI />
       <Canvas
         camera={{
           position: [0, 3, 8],
@@ -69,6 +68,8 @@ export const Level2 = (props) => {
                 <Avatar scale={0.002} />
               </Ecctrl>
               <Villain2 position={[-65, 29, 70]} />
+              <RewardLevel2 />
+              <CheckPointsLlv2 />
             </Physics>
             <WelcomeText
               text={props.text}

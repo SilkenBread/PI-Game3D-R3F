@@ -1,24 +1,24 @@
 import React from "react";
 import "./stylesMsg.css";
 
-export default function GameOverLy(props) {
+export default function GameOverLy() {
   return (
     <div className="main-box">
       <img
         className="fondo-box"
-        src="../assets/images/uiImages/mainMessagCar.png"
+        src="../assets/images/uiImages/cards/mainMessagCar.png"
       />
       <div className="second-box">
         <div className="box-img">
           <img
             className="dead-deco"
-            src="/assets/images/uiImages/skullAnimation.gif"
+            src="/assets/images/uiImages/cards/skullAnimation.gif"
             alt=""
           />
         </div>
         <div className="box-text">
-            <text className="dead-aviss">▂▃▄▅▆▇█▓▒░ GAME OVER ░▒▓█▇▆▅▄▃▂</text>
-          <text className="dead-text">
+            <text className="tittle-aviss">▂▃▄▅▆▇█▓▒░ GAME OVER ░▒▓█▇▆▅▄▃▂</text>
+          <text className="info-text">
             Tu viaje ha llegado a su fin en este rincon del cosmos. Las
             estrellas observan en silencio mientras tu luz de desvanece. Pero no
             temas, valiente aventurero, pues cada final en solo un preludio de

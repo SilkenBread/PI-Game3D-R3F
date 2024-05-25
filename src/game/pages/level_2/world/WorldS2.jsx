@@ -418,18 +418,7 @@ export default function WorldS2(props) {
 
         {/*Elementos Interactivos*/}
         <RigidBody type="fixed" colliders="trimesh">
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.CheckPoint1.geometry}
-            material={nodes.CheckPoint1.material}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.TreeCheckPoint.geometry}
-            material={nodes.TreeCheckPoint.material}
-          />
+          
           <mesh
             castShadow
             receiveShadow

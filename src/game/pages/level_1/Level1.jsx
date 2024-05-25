@@ -16,7 +16,6 @@ import Ecctrl from "ecctrl";
 
 import Avatar from "../../globals/player/Avatar";
 import Avatar2 from "../../globals/player/Avatar2";
-import Logout from "../../../components/logout/Logout";
 
 import WorldOp from "./World";
 import Villain1 from "../../globals/villains/Villain1";
@@ -26,6 +25,7 @@ import RewardLevel1 from "./rewards/RewardLevel1";
 import { useAuth } from "../../../context/AuthContext";
 import { createUser, readUser } from "../../../db/users-collections";
 import Menu from "../../globals/menu/Menu";
+import AlertasUI from "../../globals/menu/AlertasUI";
 
 export const Level1 = (props) => {
   const map = useMovements();
@@ -65,9 +65,9 @@ export const Level1 = (props) => {
   return (
     <Suspense fallback={null}>
       <KeyboardControls map={map}>
-        <Logout />
         <MainLayaout info={dataUser} text={props.text} />
         <Menu />
+        <AlertasUI/>
         <Canvas
           camera={{
             position: [0, 4, 8],
@@ -89,13 +89,14 @@ export const Level1 = (props) => {
               debug={false}
               capsuleHalfHeight={0.5}
               capsuleRadius={0.38}
-              autoBalanceSpringK={8}
+              autoBalance = {false}
+              autoBalanceSpringK={5.00}
               autoBalanceDampingC={0.1}
               autoBalanceSpringOnY={0.1}
               autoBalanceDampingOnY={0.025}
               camInitDis={-5}
               camMaxDis={-2}
-              position={[-7.9, 55.5, -45]}
+              position={[-7.9, 56.5, -45]}
               jumpVel={4.5}
               slopJumpMult={0.25}
               moveImpulsePointY={1.5}
