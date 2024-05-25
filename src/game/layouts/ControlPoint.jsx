@@ -1,7 +1,7 @@
 import React from "react";
 import "./stylesMsg.css";
 
-export default function ControlPoint(props) {
+export default function ControlPoint() {
   return (
     <div className="main-box">
       <img

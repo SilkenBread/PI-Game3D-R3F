@@ -19,8 +19,10 @@ export function AvatarProvider({children}) {
         recompensas: 0
     });
 
+    const [isFrozen, setIsFrozen] = useState(false);
+
     return (
-        <avatarContext.Provider value={{avatar, setAvatar}}>
+        <avatarContext.Provider value={{avatar, setAvatar, isFrozen, setIsFrozen}}>
             {children}
         </avatarContext.Provider>
     )

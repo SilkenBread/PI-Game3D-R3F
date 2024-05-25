@@ -19,7 +19,7 @@ export default function CheckPointsLlv2(props) {
     setChekPointMsg(true);
     setTimeout(() => {
       setChekPointMsg(false);
-    }, 100000);
+    }, 10000);
   };
 
   return (
@@ -35,7 +35,7 @@ export default function CheckPointsLlv2(props) {
         </RigidBody>
       ))}
       {showChekPointMsg && (
-        <Html fullscreen={true} center={true} distanceFactor={50} >
+        <Html fullscreen={true} center={true} distanceFactor={100} >
           <ControlPoint/>
         </Html>
       )}

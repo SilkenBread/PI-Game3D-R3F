@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import MenuLay from "../../layouts/MenuLay";
 
-
 export default function Menu() {
   const [menuVisible, setMenuVisible] = useState(false);
 

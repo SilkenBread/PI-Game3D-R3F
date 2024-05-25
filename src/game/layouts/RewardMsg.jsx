@@ -1,7 +1,7 @@
 import React from "react";
 import "./stylesMsg.css";
 
-export default function RewardMsg(props) {
+export default function RewardMsg() {
   return (
     <div className="main-box">
       <img

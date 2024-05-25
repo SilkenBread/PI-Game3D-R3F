@@ -22,6 +22,7 @@ import MainLayaout from "../../layouts/MainLayaout";
 import RewardLevel2 from "./rewards/RewardLevel2";
 import { Html } from "@react-three/drei"
 import CheckPointsLlv2 from "./checkpoints/CheckPointsLlv2";
+import AlertasUI from "../../globals/menu/AlertasUI";
 
 export const Level2 = (props) => {
   const map = useMovements();
@@ -30,6 +31,7 @@ export const Level2 = (props) => {
     <KeyboardControls map={map}>
       <MainLayaout info={"hola"} text={props.text} />
       <Menu />
+      <AlertasUI/>
       <Canvas
         camera={{
           position: [0, 3, 8],
