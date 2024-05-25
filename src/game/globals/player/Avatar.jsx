@@ -2,6 +2,10 @@ import { CapsuleCollider, RigidBody } from "@react-three/rapier";
 import { useEffect, useRef } from "react";
 import { useAvatar } from "../../../context/AvatarContext";
 import { useAnimations, useGLTF } from "@react-three/drei";
+import { avatarPositionState, enemyPositionState, laserPositionState, scoreState } from "../../pages/level_2/world/Shooter";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { useFrame } from "@react-three/fiber";
+import { TextureLoader } from "three";
 
 export default function Avatar(props) {
     const avatarRef = useRef();
@@ -19,7 +23,67 @@ export default function Avatar(props) {
 
     }, [actions, avatar.animation]);
 
-    return (
+    function Target() {
+        const rearTarget = useRef();
+        const frontTarget = useRef();
+    
+        const loader = new TextureLoader();
+        // A png with transparency to use as the target sprite.
+        const texture = loader.load("/assets/models/level_2/target.png");
+    
+        // Update the position of the reticle based on the ships current position.
+        useFrame(({ mouse }) => {
+          rearTarget.current.position.y = -mouse.y * 10;
+    
+          frontTarget.current.position.y = -mouse.y * 20;
+        });
+        // Sprite material has a prop called map to set the texture on.
+        return (
+          <group>
+            <sprite position={[0, 0, 8]} ref={rearTarget} renderOrder={999}>
+              <spriteMaterial attach="material" map={texture} />
+            </sprite>
+            <sprite position={[0, 0, 16]} ref={frontTarget}>
+              <spriteMaterial attach="material" map={texture} renderOrder={999}/>
+            </sprite>
+          </group>
+        );
+      }
+
+      function LaserController() {
+        // const avatarPosition = useRecoilValue(avatarPositionState);
+        const [lasers, setLasers] = useRecoilState(laserPositionState);
+        return (
+          <mesh
+            position={[0, 0, -8]}
+            onClick={() =>
+              setLasers([
+                ...lasers,
+                {
+                  id: Math.random(), // This needs to be unique.. Random isn't perfect but it works. Could use a uuid here.
+                  x: 0,
+                  y: 0,
+                  z: 0,
+                  velocity: [avatarRef.rotation.x * 6, avatarRef.rotation.y * 5]
+                }
+              ])
+            }
+          >
+            <planeGeometry attach="geometry" args={[100, 100]} />
+            <meshStandardMaterial
+              attach="material"
+              color="orange"
+              emissive="#ff0860"
+              visible={false}
+            />
+          </mesh>
+        );
+      }
+
+    return (<>
+        <Target />
+        <LaserController />
+        
         <group ref={avatarRef} name="Scene" position-y={-0.25}>
             <group name="Armature" rotation={[Math.PI / 2, 0, 0]} scale={props.scale}>
                 <skinnedMesh
@@ -121,6 +185,7 @@ export default function Avatar(props) {
                 <primitive object={nodes.mixamorigHips} />
             </group>
         </group>
+    </>
     )
 }
 
