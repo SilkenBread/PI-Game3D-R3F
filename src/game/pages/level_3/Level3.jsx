@@ -35,16 +35,20 @@ export const Level3 = (props) => {
                         <Physics debug={false} gravity={[0, -1.4, 0]}>
                             <World />
                             <Ecctrl
+                                name="player"
                                 camInitDis={-2}
                                 camMaxDis={-2}
-                                position={[0, 0, 90]}
-                                jumpVel={3}
+                                position={[
+                                    //0, 0, 90
+                                    0, 0, 0
+                                ]}
+                                jumpVel={1}
                                 moveImpulsePointY={1}
                                 maxVelLimit={2}
                                 springK={0}
                                 floatHeight={0}
                             >
-                                <Avatar scale={0.002} />
+                                <Avatar2 scale={0.002} />
                             </Ecctrl>
                         </Physics>
                         <WelcomeText text={props.text} position={props.position} size={props.size} rotation={props.rotation} />

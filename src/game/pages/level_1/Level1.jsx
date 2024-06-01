@@ -53,7 +53,7 @@ export const Level1 = (props) => {
       console.log(auth.userLogged);
       const { displayName, email, photoURL } = auth.userLogged
 
-      setDataUser({displayName, email, photoURL});
+      setDataUser({ displayName, email, photoURL });
 
       saveDataUser({
         name: displayName,
@@ -67,7 +67,7 @@ export const Level1 = (props) => {
       <KeyboardControls map={map}>
         <MainLayaout info={dataUser} text={props.text} />
         <Menu />
-        <AlertasUI/>
+        <AlertasUI />
         <Canvas
           camera={{
             position: [0, 4, 8],
@@ -86,10 +86,11 @@ export const Level1 = (props) => {
           <Physics debug={false} gravity={[0, -9, 0]}>
             <WorldOp />
             <Ecctrl
+              name="player"
               debug={false}
               capsuleHalfHeight={0.5}
               capsuleRadius={0.38}
-              autoBalance = {false}
+              autoBalance={false}
               autoBalanceSpringK={5.00}
               autoBalanceDampingC={0.1}
               autoBalanceSpringOnY={0.1}
