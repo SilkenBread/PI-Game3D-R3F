@@ -43,6 +43,7 @@ export default function WorldS2(props) {
         <Html position={[-61, 2, 34.5]} style={{ pointerEvents: 'none' }}>
           <text>{avatar.keyUtily - 1}/3</text>
         </Html>
+
         {/*Elementos de Mundo (Rocas, planeta y montaña*/}
         <RigidBody type="dynamic" colliders="hull">
           <mesh
@@ -432,7 +433,7 @@ export default function WorldS2(props) {
         </RigidBody>
 
         {/*Elementos Interactivos*/}
-        <RigidBody type="fixed" colliders="trimesh">
+        <RigidBody type="fixed" colliders="hull">
           
           <mesh
             castShadow
