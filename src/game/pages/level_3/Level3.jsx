@@ -20,7 +20,7 @@ import Ecctrl from "ecctrl";
 import World3FOp from "./WorldFOp";
 
 export const Level3 = (props) => {
-  const map = useMovements();
+    const map = useMovements();
 
   return (
     <>
