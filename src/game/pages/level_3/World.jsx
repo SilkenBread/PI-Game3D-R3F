@@ -81,14 +81,14 @@ export default function World(props) {
 
 
             {/* OBSTACULOS */}
-            <RigidBody ref={platform1} type='kinematicPosition' colliders="cuboid">
+            {/* <RigidBody ref={platform1} type='kinematicPosition' colliders="cuboid">
                 <mesh
                     receiveShadow
                     geometry={nodes.InitCubeBase.geometry}
                     material={materials['BrownStone.001']}
                     position={[0.6, -1.068, 1.529]}
                 />
-            </RigidBody>
+            </RigidBody> */}
 
             <group position={[0.247, -1.068, 6.332]}>
                 <RigidBody ref={platform5} type="kinematicPosition" colliders="cuboid">

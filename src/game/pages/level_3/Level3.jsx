@@ -37,8 +37,8 @@ export const Level3 = (props) => {
             <Lights />
             <BakeShadows />
             <Environments />
-            <World3FOp />
             <Physics debug={false} gravity={[0, -1.4, 0]}>
+            <World3FOp />
               {/* <Ecctrl
                 camInitDis={-2}
                 camMaxDis={-2}
