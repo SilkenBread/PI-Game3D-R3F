@@ -27,8 +27,8 @@ const Ligths = () => {
                 // ref={directionalRef}
                 castShadow={true}
                 position={[-32, 70, -19]}
-                color={"#8d6b49"}
-                intensity={7.5}
+                color={"#ffffff"}
+                intensity={3.5}
                 distance={2000}
                 shadow-mapSize={[2048, 2048]}
             />
