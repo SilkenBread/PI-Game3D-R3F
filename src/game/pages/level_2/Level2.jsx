@@ -41,9 +41,9 @@ export const Level2 = (props) => {
     */
   const saveDataUser = async (valuesUser) => {
     const { success, data } = await readUser(valuesUser.email)
-    
+
     sessionStorage.setItem('playerData', JSON.stringify(data));
-    
+
 
     if (!success)
       await createUser(valuesUser)
@@ -59,7 +59,7 @@ export const Level2 = (props) => {
     if (auth.userLogged) {
       const { displayName, email, photoURL } = auth.userLogged
 
-      setDataUser({displayName, email, photoURL});
+      setDataUser({ displayName, email, photoURL });
 
       saveDataUser({
         name: displayName,
@@ -89,16 +89,17 @@ export const Level2 = (props) => {
             <Physics debug={false} gravity={[0, -1.4, 0]}>
               <WorldS2 />
               <Ecctrl
+                name="player"
                 camInitDis={-2}
                 camMaxDis={-2}
                 camInitDir={{ x: 0, y: 97 }}
                 position={[
-                  0, 0.5, 0
-                  // -65, 30, 55
+                  // 0, 0.5, 0
+                 -65, 30, 55
                 ]}
                 jumpVel={1}
                 moveImpulsePointY={1}
-                maxVelLimit={2}
+                maxVelLimit={5}
                 springK={0}
                 floatHeight={0}
                 sprintJumpMult={1.4}

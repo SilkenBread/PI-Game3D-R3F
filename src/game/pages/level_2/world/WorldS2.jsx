@@ -25,7 +25,7 @@ export default function WorldS2(props) {
   
 
   useEffect(() => {
-    if (avatar.keyUtily == 3){
+    if (avatar.keyUtily >= 3){
       setActive(true);
     } else {
       setActive(false);
@@ -40,9 +40,8 @@ export default function WorldS2(props) {
   return (
     <>
       <group {...props} dispose={null}>
-
-        <Html center = {true} position={[-61, 2, 34.5]} style={{ pointerEvents: "none"}}>
-          <text>{avatar.keyUtily}/3</text>
+        <Html position={[-61, 2, 34.5]} style={{ pointerEvents: 'none' }}>
+          <text>{avatar.keyUtily - 1}/3</text>
         </Html>
 
         {/*Elementos de Mundo (Rocas, planeta y montaña*/}
