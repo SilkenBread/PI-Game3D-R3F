@@ -18,13 +18,21 @@ import Golemmonk from "./Golemmonk";
 import WelcomeText from "../../globals/WelcomeText";
 import Ecctrl from "ecctrl";
 import World3FOp from "./WorldFOp";
+import RewardLevel3 from "./rewards/RewardLevel3";
+import CheckPointsLlv3 from "./checkpoints/CheckPointsLlv3";
+import Menu from "../../globals/menu/Menu";
+import AlertasUI from "../../globals/menu/AlertasUI";
+import MainLayaout from "../../layouts/MainLayaout";
 
 export const Level3 = (props) => {
-    const map = useMovements();
+  const map = useMovements();
 
   return (
     <>
       <KeyboardControls map={map}>
+        <MainLayaout info={"hola"} text={props.text}/>
+        <Menu/>
+        <AlertasUI/>
         <Canvas
           camera={{
             position: [0, 4, 8],
@@ -37,20 +45,29 @@ export const Level3 = (props) => {
             <Lights />
             <BakeShadows />
             <Environments />
-            <Physics debug={false} gravity={[0, -1.4, 0]}>
-            <World3FOp />
-              {/* <Ecctrl
+            <Physics debug={false} gravity={[0, -9, 0]}>
+              <World3FOp />
+              <Ecctrl
+                capsuleHalfHeight={0.5}
+                capsuleRadius={0.38}
+                autoBalanceSpringK={5.0}
+                autoBalanceDampingC={0.1}
+                autoBalanceSpringOnY={0.1}
+                autoBalanceDampingOnY={0.025}
                 camInitDis={-2}
                 camMaxDis={-2}
-                position={[0, 0, 90]}
+                position={[0, 3, 0]}
                 jumpVel={3}
-                moveImpulsePointY={1}
-                maxVelLimit={2}
+                moveImpulsePointY={1.5}
+                maxVelLimit={5}
                 springK={0}
                 floatHeight={0}
               >
-                <Avatar2 scale={0.002} />
-              </Ecctrl> */}
+                <Avatar2 scale={0.003} />
+              </Ecctrl>
+              <RewardLevel3 />
+              <CheckPointsLlv3/>
+              
             </Physics>
             <WelcomeText
               text={props.text}
