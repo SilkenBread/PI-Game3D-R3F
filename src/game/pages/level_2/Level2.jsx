@@ -5,7 +5,7 @@ import {
 } from "@react-three/drei";
 import { Perf } from "r3f-perf";
 import { CuboidCollider, Physics, RigidBody } from "@react-three/rapier";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useContext, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import Environments from "../../globals/Environments";
 import Lights from "./lights/Lights";
@@ -28,10 +28,11 @@ import { Html } from "@react-three/drei"
 import CheckPointsLlv2 from "./checkpoints/CheckPointsLlv2";
 import AlertasUI from "../../globals/menu/AlertasUI";
 
-import { useAuth } from "../../../context/AuthContext";
+import { authContext, useAuth } from "../../../context/AuthContext";
 import { createUser, readUser } from "../../../db/users-collections";
 
 export const Level2 = (props) => {
+  const context = useContext(authContext);
   const map = useMovements();
   const auth = useAuth();
 
@@ -42,8 +43,8 @@ export const Level2 = (props) => {
   const saveDataUser = async (valuesUser) => {
     const { success, data } = await readUser(valuesUser.email)
 
-    sessionStorage.setItem('playerData', JSON.stringify(data));
-
+    context.setPosition(data[0]);
+    console.log(data[0]);
 
     if (!success)
       await createUser(valuesUser)
@@ -94,8 +95,10 @@ export const Level2 = (props) => {
                 camMaxDis={-2}
                 camInitDir={{ x: 0, y: 97 }}
                 position={[
-                  // 0, 0.5, 0
-                 -65, 30, 55
+                  context.position?.position_level_2[0] ,
+                  context.position?.position_level_2[1] ,
+                  context.position?.position_level_2[2]
+                //  -65, 30, 55
                 ]}
                 jumpVel={1}
                 moveImpulsePointY={1}
