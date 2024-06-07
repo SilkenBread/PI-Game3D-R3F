@@ -32,26 +32,10 @@ const userParams = {
         2: false,
         3: false,
     },
-    position_level_1: {
-        x: 0,
-        y: 10,
-        z: 0,
-    },
-    position_level_2: {
-        x: 0,
-        y: 10,
-        z: 0,
-    },
-    position_level_3: {
-        x: 0,
-        y: 10,
-        z: 0,
-    },
-    position_level_4: {
-        x: 0,
-        y: 10,
-        z: 0,
-    },
+    position_level_1: [0, 0.5, 0],
+    position_level_2: [0, 0.5, 0],
+    position_level_3: [0, 0.5, 0],
+    position_level_4: [0, 0.5, 0],
 }
 
 
@@ -92,7 +76,7 @@ const readUser = async (userEmail) => {
             }
         }
         const data = res.docs.map((doc) => doc.data())
-        console.log(data);
+        // console.log(data);
         return {
             success: true,
             data: data,
@@ -105,15 +89,18 @@ const readUser = async (userEmail) => {
     }
 }
 
-const updateUser = async (userEmail, level, doc) => {
+const updateUser = async (userEmail, id, level, position) => {
     try {
         const userSnapshot = await getDocs(query(userCollection, where("email", "==", userEmail)));
 
         const userDoc = userSnapshot.docs[0];
         const userData = userDoc.data();
 
-        if (userData[doc]) {
-            userData[doc][level] = true;
+        console.log(userData);
+
+        if (userData[`checkpoints_${level}`]) {
+            userData[`position_${level}`] = position;
+            userData[`checkpoints_${level}`][id] = true;
         } else {
             return { success: false, message: "Invalid level or checkpoint" };
         }
