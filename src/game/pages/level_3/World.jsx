@@ -1,9 +1,64 @@
 import { useGLTF } from "@react-three/drei"
-import { RigidBody } from '@react-three/rapier';
+import { useFrame } from "@react-three/fiber";
+import { CuboidCollider, RigidBody } from '@react-three/rapier';
+import { useRef } from "react";
 
 export default function World(props) {
+    const platform1 = useRef(null)
+    const platform2 = useRef(null)
+    const platform3 = useRef(null)
+    const platform4 = useRef(null)
+    const platform5 = useRef(null)
+    const boundarie = useRef(null)
     const { nodes, materials } = useGLTF('assets/models/level_3/world3.glb')
-    return (
+
+    function movePlatforms(move) {
+        platform1.current?.setNextKinematicTranslation({
+            x: move,
+            y: platform1.current?.translation().y,
+            z: platform1.current?.translation().z
+        }, true);
+
+        platform2.current?.setNextKinematicTranslation({
+            x: -move,
+            y: platform2.current?.translation().y,
+            z: platform2.current?.translation().z
+        }, true);
+
+        platform3.current?.setNextKinematicTranslation({
+            x: move,
+            y: platform3.current?.translation().y,
+            z: platform3.current?.translation().z
+        }, true);
+
+        platform4.current?.setNextKinematicTranslation({
+            x: -move,
+            y: platform4.current?.translation().y,
+            z: platform4.current?.translation().z
+        }, true);
+
+        platform5.current?.setNextKinematicTranslation({
+            x: move,
+            y: platform5.current?.translation().y,
+            z: platform5.current?.translation().z
+        }, true);
+    }
+
+    const onRecolectReward = (e) => {
+        if (e.other.rigidBodyObject.name === "player") {
+            e.other.rigidBody.setTranslation({x: 0, y: 0, z: 0}, true)
+            e.other.rigidBody.setRotation({ w: 1.0, x: 0.0, y: 0.0, z: 0.0 }, true)
+        }
+      }
+
+    useFrame(({ clock }) => {
+        const moveX = Math.cos(clock.getElapsedTime()) * 5
+
+        movePlatforms(moveX)
+
+    })
+
+    return (<>
         <group {...props} dispose={null}>
             {/* INICIO */}
             <RigidBody type="fixed" colliders="trimesh">
@@ -26,24 +81,24 @@ export default function World(props) {
 
 
             {/* OBSTACULOS */}
-            <RigidBody type="fixed" colliders="cuboid">
+            {/* <RigidBody ref={platform1} type='kinematicPosition' colliders="cuboid">
                 <mesh
                     receiveShadow
                     geometry={nodes.InitCubeBase.geometry}
                     material={materials['BrownStone.001']}
                     position={[0.6, -1.068, 1.529]}
                 />
-            </RigidBody>
+            </RigidBody> */}
 
             <group position={[0.247, -1.068, 6.332]}>
-                <RigidBody type="fixed" colliders="cuboid">
+                <RigidBody ref={platform5} type="kinematicPosition" colliders="cuboid">
                     <mesh
                         receiveShadow
                         geometry={nodes.CubeRotation4_1.geometry}
                         material={materials['BrownStone.001']}
                     />
                 </RigidBody>
-                <RigidBody type="fixed" colliders="cuboid">
+                <RigidBody type="kinematicPosition" colliders="cuboid">
                     <mesh
                         receiveShadow
                         geometry={nodes.CubeRotation4_2.geometry}
@@ -53,7 +108,7 @@ export default function World(props) {
             </group>
 
             <group position={[0.524, -1.068, 2.602]}>
-                <RigidBody type="fixed" colliders="cuboid">
+                <RigidBody ref={platform2} type="kinematicPosition" colliders="cuboid">
                     <mesh
                         receiveShadow
                         geometry={nodes.CubeRotation1_1.geometry}
@@ -61,7 +116,7 @@ export default function World(props) {
                     />
                 </RigidBody>
 
-                <RigidBody type="fixed" colliders="cuboid">
+                <RigidBody type="kinematicPosition" colliders="cuboid">
                     <mesh
                         receiveShadow
                         geometry={nodes.CubeRotation1_2.geometry}
@@ -71,7 +126,7 @@ export default function World(props) {
             </group>
 
             <group position={[0.527, -1.076, 3.701]}>
-                <RigidBody type="fixed" colliders="cuboid">
+                <RigidBody ref={platform3} type="kinematicPosition" colliders="cuboid">
                     <mesh
                         receiveShadow
                         geometry={nodes.CubeRotation2_1.geometry}
@@ -79,7 +134,7 @@ export default function World(props) {
                     />
                 </RigidBody>
 
-                <RigidBody type="fixed" colliders="cuboid">
+                <RigidBody type="kinematicPosition" colliders="cuboid">
                     <mesh
                         receiveShadow
                         geometry={nodes.CubeRotation2_2.geometry}
@@ -89,7 +144,7 @@ export default function World(props) {
             </group>
 
             <group position={[0.494, -1.071, 5.258]}>
-                <RigidBody type="fixed" colliders="cuboid">
+                <RigidBody ref={platform4} type="kinematicPosition" colliders="cuboid">
                     <mesh
                         receiveShadow
                         geometry={nodes.CubeRotation3_1.geometry}
@@ -97,7 +152,7 @@ export default function World(props) {
                     />
                 </RigidBody>
 
-                <RigidBody type="fixed" colliders="cuboid">
+                <RigidBody type="kinematicPosition" colliders="cuboid">
                     <mesh
                         receiveShadow
                         geometry={nodes.CubeRotation3_2.geometry}
@@ -134,6 +189,19 @@ export default function World(props) {
                 />
             </RigidBody>
         </group>
+
+        //LIMITES
+        <group>
+            <RigidBody
+                ref={boundarie}
+                position={[0, -20, 45]}
+                type="fixed"
+                onCollisionEnter={(e) => onRecolectReward(e)}
+            >
+                <CuboidCollider args={[30, 1, 100]} />
+            </RigidBody>
+        </group>
+    </>
     )
 }
 
