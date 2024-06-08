@@ -17,6 +17,7 @@ import Golemmonk from "./Golemmonk";
 import WelcomeText from "../../globals/WelcomeText";
 import Ecctrl from "ecctrl";
 import World3FOp from "./WorldFOp";
+import * as THREE from 'three';
 import RewardLevel3 from "./rewards/RewardLevel3";
 import CheckPointsLlv3 from "./checkpoints/CheckPointsLlv3";
 import Menu from "../../globals/menu/Menu";
@@ -29,6 +30,7 @@ import { createUser, readUser } from "../../../db/users-collections";
 export const Level3 = (props) => {
   const context = useContext(authContext);
   const map = useMovements();
+
   const auth = useAuth();
 
   const saveDataUser = async (valuesUser) => {
@@ -55,6 +57,14 @@ export const Level3 = (props) => {
     }
   }, [auth.userLogged])
 
+  const positions = [
+    new THREE.Vector3(45, 0.8, -57),
+    new THREE.Vector3(-10, 0.8, 80),
+    new THREE.Vector3(-50, 0.8, -45),
+    new THREE.Vector3(76, 0.8, 20),
+    new THREE.Vector3(-72, 0.8, 20)
+  ];
+
   return (
     <>
       <KeyboardControls map={map}>
@@ -76,6 +86,8 @@ export const Level3 = (props) => {
             <Physics debug={false} gravity={[0, -9, 0]}>
               <World3FOp />
               <Ecctrl
+              <Golemmonk position={[38, 0.8, 26]} positions={positions} />
+              <Ecctrl
                 name="player"
                 capsuleHalfHeight={0.5}
                 capsuleRadius={0.38}
@@ -85,13 +97,13 @@ export const Level3 = (props) => {
                 autoBalanceDampingOnY={0.025}
                 camInitDis={-2}
                 camMaxDis={-2}
-                
                 position={[
                   context.position?.position_level_3[0],
                   context.position?.position_level_3[1],
                   context.position?.position_level_3[2]
                 //  0, 3, 0
                 ]}
+                position={[0,3,0]}
                 jumpVel={3}
                 moveImpulsePointY={1.5}
                 maxVelLimit={5}
@@ -109,7 +121,6 @@ export const Level3 = (props) => {
               size={props.size}
               rotation={props.rotation}
             />
-            {/* <Golemmonk position = {[ww]}/> */}
           </Suspense>
           <Contronls />
         </Canvas>

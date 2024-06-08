@@ -1,9 +1,13 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { CuboidCollider, RigidBody, useFixedJoint } from "@react-three/rapier";
-import { authContext, useAuth } from "../../../context/AuthContext";
-import { createUser, readUser } from "../../../db/users-collections";
+import {
+  CuboidCollider,
+  RigidBody,
+  useFixedJoint,
+  useRapier,
+} from "@react-three/rapier";
+import { useAvatar } from "../../../context/AvatarContext";
 
 export default function World3FOp(props) {
   const { nodes, materials } = useGLTF("assets/models/level_3/world3FOp.glb");
@@ -240,6 +244,29 @@ export default function World3FOp(props) {
     { node: nodes.trapFloor7_2, material: materials["jadeSecundary.007"] },
   ];
 
+  const doorsConfig = [
+    {
+      keyUtilyRequired: 1,
+      node: nodes.Puerta1,
+      material: materials.JailMaterial,
+    },
+    {
+      keyUtilyRequired: 2,
+      node: nodes.Puerta2,
+      material: materials.JailMaterial,
+    },
+    {
+      keyUtilyRequired: 3,
+      node: nodes.Puerta3,
+      material: materials.JailMaterial,
+    },
+  ];
+
+  const [doorsState, setDoorsState] = useState([false, false, false]);
+  const doorRefs = useRef([]);
+  const { avatar } = useAvatar();
+
+
   return (
     <>
       <group {...props} dispose={null}>
@@ -280,13 +307,13 @@ export default function World3FOp(props) {
               </RigidBody>
             )
         )}
-        
+        // ---------------- Trampas Pinchos -----------------------------
         {trampasPinchos.map((trampa, index) => (
           <RigidBody
             key={trampa.node.name}
             type="fixed"
             colliders="trimesh"
-            onCollisionEnter = {(e) => fallTrapCollision(e)}
+            onCollisionEnter={(e) => fallTrapCollision(e)}
           >
             <mesh
               ref={(el) => (trampsKillMesh.current[index] = el)}
@@ -295,9 +322,41 @@ export default function World3FOp(props) {
             />
           </RigidBody>
         ))}
+        //------------------------ PUERTAS -------------------
+        <RigidBody type="fixed" colliders="trimesh">
+          <mesh
+            geometry={nodes.PuertaMarco1.geometry}
+            material={materials.Rock}
+          />
+        </RigidBody>
+        <RigidBody type="fixed" colliders="trimesh">
+          <mesh
+            geometry={nodes.PuertaMarco2.geometry}
+            material={materials.Rock}
+          />
+        </RigidBody>
+        <RigidBody type="fixed" colliders="trimesh">
+          <mesh
+            geometry={nodes.PuertaMarco3.geometry}
+            material={materials.Rock}
+          />
+        </RigidBody>
+        {doorsConfig.map((door, index) => {
+          const doorType =
+            avatar.keyUtily >= door.keyUtilyRequired ? "dynamic" : "fixed";
 
-        // ---------------- Trampas Pinchos -----------------------------
-        //TRAMPAS PISO //INICIO
+          return (
+            <RigidBody
+              key={door.node.name}
+              type={doorType}
+              colliders="trimesh"
+              ref={(el) => (doorRefs.current[index] = el)}
+            >
+              <mesh geometry={door.node.geometry} material={door.material} />
+            </RigidBody>
+          );
+        })}
+        //INICIO
         <RigidBody type="fixed" colliders="trimesh">
           <mesh
             geometry={nodes.BaseInicio.geometry}
@@ -316,38 +375,7 @@ export default function World3FOp(props) {
             material={materials["BrownStone.001"]}
           />
         </RigidBody>
-        //PUERTAS
-        <RigidBody type="fixed" colliders="trimesh">
-          <mesh
-            geometry={nodes.PuertaMarco3.geometry}
-            material={materials.Rock}
-          />
-        </RigidBody>
-        <mesh
-          geometry={nodes.Puerta3.geometry}
-          material={materials.JailMaterial}
-        />
-        <RigidBody type="fixed" colliders="trimesh">
-          <mesh
-            geometry={nodes.PuertaMarco1.geometry}
-            material={materials.Rock}
-          />
-        </RigidBody>
-        <mesh
-          geometry={nodes.Puerta1.geometry}
-          material={materials.JailMaterial}
-        />
-        <RigidBody type="fixed" colliders="trimesh">
-          <mesh
-            geometry={nodes.PuertaMarco2.geometry}
-            material={materials.Rock}
-          />
-        </RigidBody>
-        <mesh
-          geometry={nodes.Puerta2.geometry}
-          material={materials.JailMaterial}
-        />
-        //arbol
+        //PUERTAS //arbol
         <RigidBody type="fixed" colliders="trimesh">
           <mesh
             geometry={nodes.arbol.geometry}
