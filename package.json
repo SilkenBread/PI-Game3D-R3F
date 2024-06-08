@@ -29,6 +29,7 @@
     "socket.io-client": "^4.7.5",
     "sweetalert2": "^11.10.8",
     "three": "^0.163.0",
+    "three-pathfinding": "^1.3.0",
     "vercel": "^34.1.1"
   },
   "browserslist": {

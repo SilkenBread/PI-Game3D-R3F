@@ -18,9 +18,17 @@ import Golemmonk from "./Golemmonk";
 import WelcomeText from "../../globals/WelcomeText";
 import Ecctrl from "ecctrl";
 import World3FOp from "./WorldFOp";
+import * as THREE from 'three';
 
 export const Level3 = (props) => {
-    const map = useMovements();
+  const map = useMovements();
+  const positions = [
+    new THREE.Vector3(45, 0.8, -57),
+    new THREE.Vector3(-10, 0.8, 80),
+    new THREE.Vector3(-50, 0.8, -45),
+    new THREE.Vector3(76, 0.8, 20),
+    new THREE.Vector3(-72, 0.8, 20)
+  ];
 
   return (
     <>
@@ -37,20 +45,22 @@ export const Level3 = (props) => {
             <Lights />
             <BakeShadows />
             <Environments />
-            <Physics debug={false} gravity={[0, -1.4, 0]}>
-            <World3FOp />
-              {/* <Ecctrl
+            <Physics debug={true} gravity={[0, -1.4, 0]}>
+              <World3FOp />
+              <Golemmonk position={[38, 0.8, 26]} positions={positions} />
+              <Ecctrl
+                name="Player"
                 camInitDis={-2}
                 camMaxDis={-2}
-                position={[0, 0, 90]}
-                jumpVel={3}
+                position={[0, 0, 0]}
+                jumpVel={10}
                 moveImpulsePointY={1}
                 maxVelLimit={2}
                 springK={0}
                 floatHeight={0}
               >
                 <Avatar2 scale={0.002} />
-              </Ecctrl> */}
+              </Ecctrl>
             </Physics>
             <WelcomeText
               text={props.text}
@@ -58,7 +68,6 @@ export const Level3 = (props) => {
               size={props.size}
               rotation={props.rotation}
             />
-            {/* <Golemmonk position = {[ww]}/> */}
           </Suspense>
           <Contronls />
         </Canvas>
