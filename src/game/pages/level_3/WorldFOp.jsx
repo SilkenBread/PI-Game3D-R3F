@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import {
@@ -11,6 +11,32 @@ import { useAvatar } from "../../../context/AvatarContext";
 
 export default function World3FOp(props) {
   const { nodes, materials } = useGLTF("assets/models/level_3/world3FOp.glb");
+  const context = useContext(authContext);
+  const auth = useAuth();
+
+  const saveDataUser = async (valuesUser) => {
+    const { success, data } = await readUser(valuesUser.email)
+
+    if (!success)
+      await createUser(valuesUser)
+
+    context.setPosition(data[0]);
+  }
+
+  const [dataUser, setDataUser] = useState('');
+
+  useEffect(() => {
+    if (auth.userLogged) {
+      const { displayName, email, photoURL } = auth.userLogged
+
+      setDataUser({ displayName, email, photoURL });
+
+      saveDataUser({
+        name: displayName,
+        email: email,
+      })
+    }
+  }, [auth.userLogged])
 
   const platform1 = useRef(null);
   const platform2 = useRef(null);
@@ -178,9 +204,16 @@ export default function World3FOp(props) {
     });
   };
 
+  // TRAMPAS PISO
   const fallTrapCollision = (e) => {
     if (e.other.rigidBodyObject.name === "player") {
-      e.other.rigidBody.setTranslation({ x: 0, y: 0, z: 0 }, true);
+      e.other.rigidBody.setTranslation(
+        { x: context.position?.position_level_3[0], 
+          y: context.position?.position_level_3[1],
+          z: context.position?.position_level_3[2]
+        }, 
+        true
+      );
     }
   };
 

@@ -5,9 +5,9 @@ import { AmbientLight, PointLightHelper, SpotLightHelper } from "three";
 
 const Ligths = () => {
   const pointLigthRef = useRef(null);
-  const spotLightRef = useRef(null);
-  const targetRef = useRef();
-  const targetRef2 = useRef();
+  // const spotLightRef = useRef(null);
+  // const targetRef = useRef();
+  // const targetRef2 = useRef();
 
   // useHelper(pointLigthRef, PointLightHelper);
 
