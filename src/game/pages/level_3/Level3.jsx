@@ -17,6 +17,7 @@ import Golemmonk from "./Golemmonk";
 import WelcomeText from "../../globals/WelcomeText";
 import Ecctrl from "ecctrl";
 import World3FOp from "./WorldFOp";
+import * as THREE from 'three';
 import RewardLevel3 from "./rewards/RewardLevel3";
 import CheckPointsLlv3 from "./checkpoints/CheckPointsLlv3";
 import Menu from "../../globals/menu/Menu";
@@ -25,6 +26,13 @@ import MainLayaout from "../../layouts/MainLayaout";
 
 export const Level3 = (props) => {
   const map = useMovements();
+  const positions = [
+    new THREE.Vector3(45, 0.8, -57),
+    new THREE.Vector3(-10, 0.8, 80),
+    new THREE.Vector3(-50, 0.8, -45),
+    new THREE.Vector3(76, 0.8, 20),
+    new THREE.Vector3(-72, 0.8, 20)
+  ];
 
   return (
     <>
@@ -46,6 +54,7 @@ export const Level3 = (props) => {
             <Environments />
             <Physics debug={false} gravity={[0, -9, 0]}>
               <World3FOp />
+              <Golemmonk position={[38, 0.8, 26]} positions={positions} />
               {/* <Ecctrl
                 name="player"
                 capsuleHalfHeight={0.5}
@@ -56,8 +65,11 @@ export const Level3 = (props) => {
                 autoBalanceDampingOnY={0.025}
                 camInitDis={-2}
                 camMaxDis={-2}
-                position={[0, 3, 0]}
-                jumpVel={3}
+                position={[
+                  // -63.5, 5, 42.0
+                  38,0,26
+                ]}
+                jumpVel={20}
                 moveImpulsePointY={1.5}
                 maxVelLimit={5}
                 springK={0}
@@ -74,7 +86,6 @@ export const Level3 = (props) => {
               size={props.size}
               rotation={props.rotation}
             />
-            {/* <Golemmonk position = {[ww]}/> */}
           </Suspense>
           <Contronls />
         </Canvas>
