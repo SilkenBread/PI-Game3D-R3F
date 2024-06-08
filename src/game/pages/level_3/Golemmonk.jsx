@@ -4,12 +4,14 @@ import { Pathfinding } from "three-pathfinding";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { BallCollider, CylinderCollider, RigidBody } from "@react-three/rapier";
+import { useAvatar } from "../../../context/AvatarContext";
 
 export default function Golemmonk({ positions, ...props }) {
   const { nodes, materials } = useGLTF(
     "assets/models/characters/rockVilllan.glb"
   );
   const ref = useRef();
+  const { avatar, setAvatar } = useAvatar();
   const sensorMeshRef = useRef();
   const cilinderMeshRef = useRef();
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -20,6 +22,7 @@ export default function Golemmonk({ positions, ...props }) {
   const [chasing, setChasing] = useState(false);
   const [movementVector, setMovementVector] = useState([0, 0, 0]);
   const sonidoGolem = useState(new Audio("/assets/sounds/GolemProx.mp3"));
+  const sonidoGolemRef = useRef(null);
 
   const { scene } = useGLTF("assets/models/level_3/navmesh.glb");
 
@@ -37,6 +40,11 @@ export default function Golemmonk({ positions, ...props }) {
       }
     }
   }, [scene]);
+
+  useEffect(() => {
+    sonidoGolemRef.current = new Audio("/assets/sounds/GolemProx.mp3");
+    sonidoGolemRef.current.volume = 1;
+  }, []);
 
   const calculatePath = (start, end) => {
     if (!zone) return;
@@ -149,18 +157,18 @@ export default function Golemmonk({ positions, ...props }) {
               targetPosition = object.other.rigidBodyObject.position;
               velocityVar = 2.5;
               setChasing(true);
-              sonidoGolem.currentTime = 0;
-              sonidoGolem.volume = 0.5;
-              sonidoGolem.play();
+              if (sonidoGolemRef.current) {
+                sonidoGolemRef.current.currentTime = 0;
+                sonidoGolemRef.current.play().catch((error) => {
+                  console.error('Error al reproducir el sonido:', error);
+                });
+              }
             }
           }}
           onIntersectionExit={(object) => {
             if (object.rigidBodyObject.name == "player") {
               velocityVar = 8;
               setChasing(false);
-              sonidoGolem.currentTime = 0;
-              sonidoGolem.volume = 0.5;
-              sonidoGolem.stop();
             }
           }}
           args={[12]}
@@ -181,12 +189,10 @@ export default function Golemmonk({ positions, ...props }) {
           position={[0, 0.5, 1.5]} // Relative position of the collider within the RigidBody
           onCollisionEnter={(e) => {
             if (e.other.rigidBodyObject.name === "player") {
-              if (!villain.death) {
-                if (avatar.vidas > 0) {
-                  setAvatar({ ...avatar, vidas: avatar.vidas - 1 });
-                } else {
-                  setAvatar({ ...avatar, animation: "Death" });
-                }
+              if (avatar.vidas > 0) {
+                setAvatar({ ...avatar, vidas: avatar.vidas - 1 });
+              } else {
+                setAvatar({ ...avatar, animation: "Death" });
               }
             }
           }}

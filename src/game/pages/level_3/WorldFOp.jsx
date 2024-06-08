@@ -15,6 +15,7 @@ export default function World3FOp(props) {
   const { nodes, materials } = useGLTF("assets/models/level_3/world3FOp.glb");
   const context = useContext(authContext);
   const auth = useAuth();
+  const { avatar, setAvatar } = useAvatar();
 
   const saveDataUser = async (valuesUser) => {
     const { success, data } = await readUser(valuesUser.email)
@@ -216,6 +217,13 @@ export default function World3FOp(props) {
         }, 
         true
       );
+
+      if (avatar.vidas > 0) {
+        setAvatar({ ...avatar, vidas: avatar.vidas - 1 });
+      } else {
+        setAvatar({ ...avatar, animation: "Death" });
+      }
+
     }
   };
 
@@ -265,7 +273,6 @@ export default function World3FOp(props) {
   ];
 
   const doorRefs = useRef([]);
-  const { avatar } = useAvatar();
   const [visibleDoors, setVisibleDoors] = useState(Array(doorsConfig.length).fill(true));
 
   useEffect(() => {
@@ -349,16 +356,14 @@ export default function World3FOp(props) {
             material={materials.Rock}
           />
         </RigidBody>
-        {doorsConfig.map((door, index) => (
+        {doorsConfig.map((door, index) => visibleDoors[index] && (
           <RigidBody
             key={door.node.name}
             type="fixed"
             colliders= "hull"
             ref={(el) => (doorRefs.current[index] = el)}
           >
-            {visibleDoors[index] && (
             <mesh geometry={door.node.geometry} material={door.material} />
-          )}
           </RigidBody>
         ))}
         //INICIO
