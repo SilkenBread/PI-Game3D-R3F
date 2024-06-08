@@ -6,7 +6,7 @@ import {
 import Environments from "../../globals/Environments";
 import { Perf } from "r3f-perf";
 import { Physics } from "@react-three/rapier";
-import { Suspense } from "react";
+import { Suspense, useContext, useEffect, useState } from "react";
 import Contronls from "../../globals/controls/Controls";
 import Avatar from "../../globals/player/Avatar";
 import Avatar2 from "../../globals/player/Avatar2";
@@ -23,13 +23,42 @@ import Menu from "../../globals/menu/Menu";
 import AlertasUI from "../../globals/menu/AlertasUI";
 import MainLayaout from "../../layouts/MainLayaout";
 
+import { authContext, useAuth } from "../../../context/AuthContext";
+import { createUser, readUser } from "../../../db/users-collections";
+
 export const Level3 = (props) => {
+  const context = useContext(authContext);
   const map = useMovements();
+  const auth = useAuth();
+
+  const saveDataUser = async (valuesUser) => {
+    const { success, data } = await readUser(valuesUser.email)
+
+    if (!success)
+      await createUser(valuesUser)
+
+    context.setPosition(data[0]);
+  }
+
+  const [dataUser, setDataUser] = useState('');
+
+  useEffect(() => {
+    if (auth.userLogged) {
+      const { displayName, email, photoURL } = auth.userLogged
+
+      setDataUser({ displayName, email, photoURL });
+
+      saveDataUser({
+        name: displayName,
+        email: email,
+      })
+    }
+  }, [auth.userLogged])
 
   return (
     <>
       <KeyboardControls map={map}>
-        <MainLayaout info={"hola"} text={props.text} />
+        <MainLayaout info={dataUser} text={props.text} />
         <Menu />
         <AlertasUI />
         <Canvas
@@ -46,7 +75,7 @@ export const Level3 = (props) => {
             <Environments />
             <Physics debug={false} gravity={[0, -9, 0]}>
               <World3FOp />
-              {/* <Ecctrl
+              <Ecctrl
                 name="player"
                 capsuleHalfHeight={0.5}
                 capsuleRadius={0.38}
@@ -56,7 +85,13 @@ export const Level3 = (props) => {
                 autoBalanceDampingOnY={0.025}
                 camInitDis={-2}
                 camMaxDis={-2}
-                position={[-63.5, 5, 42.0]}
+                
+                position={[
+                  context.position?.position_level_3[0],
+                  context.position?.position_level_3[1],
+                  context.position?.position_level_3[2]
+                //  0, 3, 0
+                ]}
                 jumpVel={3}
                 moveImpulsePointY={1.5}
                 maxVelLimit={5}
@@ -64,7 +99,7 @@ export const Level3 = (props) => {
                 floatHeight={0}
               >
                 <Avatar2 scale={0.003} />
-              </Ecctrl> */}
+              </Ecctrl>
               <RewardLevel3 />
               <CheckPointsLlv3 />
             </Physics>
@@ -80,5 +115,5 @@ export const Level3 = (props) => {
         </Canvas>
       </KeyboardControls>
     </>
-  );
-};
+  )
+}

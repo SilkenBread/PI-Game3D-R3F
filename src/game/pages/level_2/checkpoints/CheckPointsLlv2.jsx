@@ -9,7 +9,6 @@ import { useAuth } from "../../../../context/AuthContext";
 import { createUser, readUser, updateUser } from "../../../../db/users-collections";
 
 export default function CheckPointsLlv2(props) {
-  const { avatar, setAvatar } = useAvatar(props);
   const [checkPointsData, setCheckPointsData] = useState([
     { position: [-9.5, -4, -2.9], id: 1 },
     { position: [-64, 29, 52], id: 2 }
@@ -32,7 +31,9 @@ export default function CheckPointsLlv2(props) {
       });
 
       // Encuentra el checkpoint tocado
-      const touchedCheckpoint = checkPointsData.find(checkPointE => checkPointE.id === id);
+      const touchedCheckpoint = checkPointsData.find(
+        checkPointE => checkPointE.id === id
+      );
 
       if (touchedCheckpoint) {
         let location = touchedCheckpoint.position;
@@ -40,8 +41,15 @@ export default function CheckPointsLlv2(props) {
 
         console.log(`Checkpoint touched: ${location}`);
 
-        const update = updateUser(auth.userLogged.email, id, 'level_2', location);
-        setCheckPointsData(checkPointsData.filter((checkPointE) => checkPointE.id !== id))
+        const update = updateUser(
+          auth.userLogged.email, 
+          id, 
+          'level_2', 
+          location
+        );
+        setCheckPointsData(
+          checkPointsData.filter((checkPointE) => checkPointE.id !== id)
+        );
 
         Toast.fire({
           icon: "success",

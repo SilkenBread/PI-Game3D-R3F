@@ -6,14 +6,9 @@ import Checkpoint from "../../../globals/checkpoint/Checkpoint";
 import { Html, Sparkles } from "@react-three/drei";
 import Swal from "sweetalert2";
 import { useAuth } from "../../../../context/AuthContext";
-import {
-  createUser,
-  readUser,
-  updateUser,
-} from "../../../../db/users-collections";
+import { createUser, readUser, updateUser } from "../../../../db/users-collections";
 
 export default function CheckPointsLlv3(props) {
-  const { avatar, setAvatar } = useAvatar(props);
   const [checkPointsData, setCheckPointsData] = useState([
     { position: [-63.5, 0, 38.0], id: 1 },
     { position: [29.0, 0, 38.0], id: 2 },
@@ -42,14 +37,16 @@ export default function CheckPointsLlv3(props) {
       );
 
       if (touchedCheckpoint) {
-        const location = touchedCheckpoint.position;
+        let location = touchedCheckpoint.position;
+        location[2] = location[2] + 4;
 
         console.log(`Checkpoint touched: ${location}`);
 
         const update = updateUser(
           auth.userLogged.email,
           id,
-          "checkpoints_level_2"
+          'level_3',
+          location
         );
         setCheckPointsData(
           checkPointsData.filter((checkPointE) => checkPointE.id !== id)
@@ -59,7 +56,8 @@ export default function CheckPointsLlv3(props) {
           icon: "success",
           title: "Checkpoint capturado.",
         });
-      } else {
+      } 
+      else {
         Toast.fire({
           icon: "error",
           title: "No se encontró el checkpoint.",
