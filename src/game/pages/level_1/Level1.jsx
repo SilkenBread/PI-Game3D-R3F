@@ -104,7 +104,7 @@ export const Level1 = (props) => {
               maxVelLimit={4.5}
               springK={0}
               floatHeight={0}
-              sprintJumpMult={0.2}
+              sprintJumpMult={1.3}
             >
               <Avatar2 scale={0.003} />
 

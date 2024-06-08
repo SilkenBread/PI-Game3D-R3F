@@ -36,10 +36,6 @@ export const Level2 = (props) => {
   const map = useMovements();
   const auth = useAuth();
 
-  /**
-    * Save the user data in the DB.
-    * @param {*} valuesUser
-    */
   const saveDataUser = async (valuesUser) => {
     const { success, data } = await readUser(valuesUser.email)
 
@@ -52,10 +48,6 @@ export const Level2 = (props) => {
 
   const [dataUser, setDataUser] = useState('');
 
-  /**
-    * When userLogged is changed call saveDataUser to save the user in the DB.
-    * @see saveDataUser
-    */
   useEffect(() => {
     if (auth.userLogged) {
       const { displayName, email, photoURL } = auth.userLogged

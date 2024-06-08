@@ -34,7 +34,7 @@ const userParams = {
     },
     position_level_1: [0, 0.5, 0],
     position_level_2: [0, 0.5, 0],
-    position_level_3: [0, 0.5, 0],
+    position_level_3: [0, 3, 0],
     position_level_4: [0, 0.5, 0],
 }
 
