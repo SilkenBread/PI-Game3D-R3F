@@ -35,11 +35,12 @@ export default function CheckPointsLlv2(props) {
       const touchedCheckpoint = checkPointsData.find(checkPointE => checkPointE.id === id);
 
       if (touchedCheckpoint) {
-        const location = touchedCheckpoint.position;
+        let location = touchedCheckpoint.position;
+        location[1] = location[1] + 9;
 
         console.log(`Checkpoint touched: ${location}`);
 
-        const update = updateUser(auth.userLogged.email, id, 'checkpoints_level_2');
+        const update = updateUser(auth.userLogged.email, id, 'level_2', location);
         setCheckPointsData(checkPointsData.filter((checkPointE) => checkPointE.id !== id))
 
         Toast.fire({

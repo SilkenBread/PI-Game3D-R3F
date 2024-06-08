@@ -14,8 +14,10 @@ export const useAuth = () => {
     return context;
 }
 
+
 export function AuthProvider({ children }) {
     const [userLogged, setUserLogged] = useState(null);
+    const [position, setPosition] = useState(null);
 
     useEffect(() => {
         const suscribed = onAuthStateChanged(auth, (currentuser) => {
@@ -44,13 +46,13 @@ export function AuthProvider({ children }) {
         }
     }
 
-
-
     return (
         <authContext.Provider value={{ 
             userLogged, 
             loginWithGoogle, 
-            logout }}
+            logout,
+            position, 
+            setPosition }}
         >
             {children}
         </authContext.Provider>
