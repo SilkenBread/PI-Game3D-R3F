@@ -85,7 +85,6 @@ export const Level3 = (props) => {
             <Environments />
             <Physics debug={false} gravity={[0, -9, 0]}>
               <World3FOp />
-              <Ecctrl
               <Golemmonk position={[38, 0.8, 26]} positions={positions} />
               <Ecctrl
                 name="player"
@@ -103,7 +102,6 @@ export const Level3 = (props) => {
                   context.position?.position_level_3[2]
                 //  0, 3, 0
                 ]}
-                position={[0,3,0]}
                 jumpVel={3}
                 moveImpulsePointY={1.5}
                 maxVelLimit={5}
