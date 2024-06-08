@@ -17,7 +17,7 @@ export function AvatarProvider({children}) {
         animation: "Idle",
         vidas: 5,
         recompensas: 0,
-        keyUtily: 1,
+        keyUtily: 0,
     });
 
     const [isFrozen, setIsFrozen] = useState(false);
