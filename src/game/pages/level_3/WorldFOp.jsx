@@ -10,12 +10,14 @@ import {
 import { useAvatar } from "../../../context/AvatarContext";
 import { authContext, useAuth } from "../../../context/AuthContext";
 import { createUser, readUser } from "../../../db/users-collections";
+import { useVillain } from "../../../context/villainContext";
 
 export default function World3FOp(props) {
   const { nodes, materials } = useGLTF("assets/models/level_3/world3FOp.glb");
   const context = useContext(authContext);
   const auth = useAuth();
   const { avatar, setAvatar } = useAvatar();
+  const { villain, setVillain } = useVillain();
 
   const saveDataUser = async (valuesUser) => {
     const { success, data } = await readUser(valuesUser.email)
@@ -211,10 +213,11 @@ export default function World3FOp(props) {
   const fallTrapCollision = (e) => {
     if (e.other.rigidBodyObject.name === "player") {
       e.other.rigidBody.setTranslation(
-        { x: context.position?.position_level_3[0], 
+        {
+          x: context.position?.position_level_3[0],
           y: context.position?.position_level_3[1],
           z: context.position?.position_level_3[2]
-        }, 
+        },
         true
       );
 
@@ -360,7 +363,7 @@ export default function World3FOp(props) {
           <RigidBody
             key={door.node.name}
             type="fixed"
-            colliders= "hull"
+            colliders="hull"
             ref={(el) => (doorRefs.current[index] = el)}
           >
             <mesh geometry={door.node.geometry} material={door.material} />
@@ -686,6 +689,25 @@ export default function World3FOp(props) {
           geometry={nodes.finalMonument_4.geometry}
           material={materials["boneMaterial.006"]}
         />
+
+        <RigidBody
+          colliders={false}
+          type="kinematicPosition"
+          name="Enemy"
+          lockRotations
+          position={[0, 0, -125]}
+        >
+          <CuboidCollider
+            onIntersectionExit={(object) => {
+              if (object.rigidBodyObject.name == "player") {
+                setVillain({ ...villain, death: true });
+              }
+            }}
+            args={[4, 8, 1]}
+            position={[0, 0, 1.5]}
+            sensor
+          />
+        </RigidBody>
       </group>
       //LIMITES
       <group>
