@@ -54,8 +54,8 @@ export const Level3 = (props) => {
             <Environments />
             <Physics debug={false} gravity={[0, -9, 0]}>
               <World3FOp />
-              <Golemmonk position={[38, 0.8, 26]} positions={positions} />
-              {/* <Ecctrl
+              <Golemmonk position={[38, 0.8, 26]} positions={positions} scale= {2.5} />
+              <Ecctrl
                 name="player"
                 capsuleHalfHeight={0.5}
                 capsuleRadius={0.38}
@@ -73,7 +73,7 @@ export const Level3 = (props) => {
                 floatHeight={0}
               >
                 <Avatar2 scale={0.003} />
-              </Ecctrl> */}
+              </Ecctrl>
               <RewardLevel3 />
               <CheckPointsLlv3 />
             </Physics>

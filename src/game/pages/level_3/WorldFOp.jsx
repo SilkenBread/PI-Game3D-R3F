@@ -8,6 +8,7 @@ import {
   useRapier,
 } from "@react-three/rapier";
 import { useAvatar } from "../../../context/AvatarContext";
+import * as THREE from 'three';
 
 export default function World3FOp(props) {
   const { nodes, materials } = useGLTF("assets/models/level_3/world3FOp.glb");
@@ -229,10 +230,16 @@ export default function World3FOp(props) {
     },
   ];
 
-  const [doorsState, setDoorsState] = useState([false, false, false]);
   const doorRefs = useRef([]);
   const { avatar } = useAvatar();
+  const [visibleDoors, setVisibleDoors] = useState(Array(doorsConfig.length).fill(true));
 
+  useEffect(() => {
+    const newVisibleDoors = doorsConfig.map(door =>
+      avatar.keyUtily >= door.keyUtilyRequired ? false : true
+    );
+    setVisibleDoors(newVisibleDoors);
+  }, [avatar.keyUtily]);
 
   return (
     <>
@@ -308,21 +315,18 @@ export default function World3FOp(props) {
             material={materials.Rock}
           />
         </RigidBody>
-        {doorsConfig.map((door, index) => {
-          const doorType =
-            avatar.keyUtily >= door.keyUtilyRequired ? "dynamic" : "fixed";
-
-          return (
-            <RigidBody
-              key={door.node.name}
-              type={doorType}
-              colliders="trimesh"
-              ref={(el) => (doorRefs.current[index] = el)}
-            >
-              <mesh geometry={door.node.geometry} material={door.material} />
-            </RigidBody>
-          );
-        })}
+        {doorsConfig.map((door, index) => (
+          <RigidBody
+            key={door.node.name}
+            type="fixed"
+            colliders= "hull"
+            ref={(el) => (doorRefs.current[index] = el)}
+          >
+            {visibleDoors[index] && (
+            <mesh geometry={door.node.geometry} material={door.material} />
+          )}
+          </RigidBody>
+        ))}
         //INICIO
         <RigidBody type="fixed" colliders="trimesh">
           <mesh
