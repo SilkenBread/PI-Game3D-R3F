@@ -8,6 +8,8 @@ import {
   useRapier,
 } from "@react-three/rapier";
 import { useAvatar } from "../../../context/AvatarContext";
+import { authContext, useAuth } from "../../../context/AuthContext";
+import { createUser, readUser } from "../../../db/users-collections";
 
 export default function World3FOp(props) {
   const { nodes, materials } = useGLTF("assets/models/level_3/world3FOp.glb");
