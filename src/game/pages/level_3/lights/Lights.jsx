@@ -9,22 +9,22 @@ const Ligths = () => {
   const targetRef = useRef();
   const targetRef2 = useRef();
 
-  useHelper(pointLigthRef, PointLightHelper);
+  // useHelper(pointLigthRef, PointLightHelper);
 
-  const optionPointLigh = useMemo(() => {
-    return {
-      positionED: { value: [0, 0, 0] },
-      colorED: { value: "#9AFFD7" },
-      intensityED: { value: 1200 },
-      distanceED: { value: 150 },
-      decayED: { value: 1.9 },
-    };
-  });
+  // const optionPointLigh = useMemo(() => {
+  //   return {
+  //     positionED: { value: [0, 0, 0] },
+  //     colorED: { value: "#9AFFD7" },
+  //     intensityED: { value: 1200 },
+  //     distanceED: { value: 150 },
+  //     decayED: { value: 1.9 },
+  //   };
+  // });
 
-  const { positionED, colorED, intensityED, distanceED, decayED } = useControls(
-    "LigthsControls",
-    optionPointLigh
-  );
+  // const { positionED, colorED, intensityED, distanceED, decayED } = useControls(
+  //   "LigthsControls",
+  //   optionPointLigh
+  // );
 
   return (
     <>
@@ -45,14 +45,14 @@ const Ligths = () => {
         distance={2000}
       />
 
-      <pointLight
+      {/* <pointLight
         ref={pointLigthRef}
         position={positionED}
         color={colorED}
         intensity={intensityED}
         distance={distanceED}
         decay={decayED}
-      />
+      /> */}
 
       {/*LUCES RECOMPENSAS*/}
       <pointLight

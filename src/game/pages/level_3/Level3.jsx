@@ -65,11 +65,8 @@ export const Level3 = (props) => {
                 autoBalanceDampingOnY={0.025}
                 camInitDis={-2}
                 camMaxDis={-2}
-                position={[
-                  // -63.5, 5, 42.0
-                  38,0,26
-                ]}
-                jumpVel={20}
+                position={[0,3,0]}
+                jumpVel={3}
                 moveImpulsePointY={1.5}
                 maxVelLimit={5}
                 springK={0}
