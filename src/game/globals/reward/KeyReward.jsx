@@ -12,15 +12,23 @@ export default function KeyReward(props) {
   const [crono, setCrono] = useState(0);
 
   useFrame(({ clock }) => {
-    setCrono(crono + 1);
+    const elapsedTime = clock.getElapsedTime();
+    const moveY = Math.sin(elapsedTime * 1.5) * 1 + 1.5;
+    setCrono(crono + 0.5);
     keyAnimation.current?.setNextKinematicRotation(
       quaternionRotation.setFromAxisAngle(yRotationAxies.setY(1), crono * 0.1)
     );
+
+    keyAnimation.current?.setNextKinematicTranslation({
+      x: keyAnimation.current.translation().x,
+      y: moveY,
+      z: keyAnimation.current.translation().z,
+    });
   });
 
   return (
     <group {...props} dispose={null}>
-      <RigidBody  ref= {keyAnimation} type="kinematicPosition" colliders="cuboid">
+      <RigidBody ref={keyAnimation} type="kinematicPosition" colliders="cuboid">
         <mesh
           geometry={nodes.KeyDeco.geometry}
           material={materials.primatyColor}
