@@ -17,7 +17,7 @@ export default function CheckPointsLlv3(props) {
   const [checkPointsData, setCheckPointsData] = useState([
     { position: [-63.5, 0, 38.0], id: 1 },
     { position: [29.0, 0, 38.0], id: 2 },
-    { position: [7.5, 0, -87.0], id: 3 },
+    { position: [7.5, 0, -88.0], id: 3 },
   ]);
 
   const auth = useAuth();

@@ -152,15 +152,30 @@ export default function World3FOp(props) {
   });
 
   const trampsMesh = useRef([]);
-  const [visibleFloorTramps, setVisibleFloorTramps] = useState([true, true, true, true, true, true, true]);
+  const trampsKillMesh = useRef([]);
 
+  const [visibleFloorTramps, setVisibleFloorTramps] = useState([
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+  ]);
 
   const handleCollision = (index) => {
-    setVisibleFloorTramps(prev => {
+    setVisibleFloorTramps((prev) => {
       const newVisibleFloorTramps = [...prev];
       newVisibleFloorTramps[index] = false;
       return newVisibleFloorTramps;
     });
+  };
+
+  const fallTrapCollision = (e) => {
+    if (e.other.rigidBodyObject.name === "player") {
+      e.other.rigidBody.setTranslation({ x: 0, y: 0, z: 0 }, true);
+    }
   };
 
   const pisosTrampa = [
@@ -170,7 +185,24 @@ export default function World3FOp(props) {
     nodes.PisoTrampa4,
     nodes.PisoTrampa5,
     nodes.PisoTrampa6,
-    nodes.PisoTrampa7
+    nodes.PisoTrampa7,
+  ];
+
+  const trampasPinchos = [
+    { node: nodes.trapFloor2_1, material: materials["jadePrimary.001"] },
+    { node: nodes.trapFloor2_2, material: materials["jadeSecundary.001"] },
+    { node: nodes.trapFloor3_1, material: materials["jadePrimary.002"] },
+    { node: nodes.trapFloor3_2, material: materials["jadeSecundary.002"] },
+    { node: nodes.trapFloor4_1, material: materials["jadePrimary.003"] },
+    { node: nodes.trapFloor4_2, material: materials["jadeSecundary.003"] },
+    { node: nodes.trapFloor5_1, material: materials["jadePrimary.004"] },
+    { node: nodes.trapFloor5_2, material: materials["jadeSecundary.004"] },
+    { node: nodes.trapFloor6_1, material: materials["jadePrimary.005"] },
+    { node: nodes.trapFloor6_2, material: materials["jadeSecundary.005"] },
+    { node: nodes.trapFloor1001, material: materials["jadePrimary.006"] },
+    { node: nodes.trapFloor1001_1, material: materials["jadeSecundary.006"] },
+    { node: nodes.trapFloor7_1, material: materials["jadePrimary.007"] },
+    { node: nodes.trapFloor7_2, material: materials["jadeSecundary.007"] },
   ];
 
   return (
@@ -195,27 +227,42 @@ export default function World3FOp(props) {
             material={materials["BrownStone.001"]}
           />
         </RigidBody>
-
         // ------------------- Pisos trampa --------------------
-
-        {pisosTrampa.map((mesh, index) => (
-        visibleFloorTramps[index] && (
+        {pisosTrampa.map(
+          (mesh, index) =>
+            visibleFloorTramps[index] && (
+              <RigidBody
+                key={mesh.name}
+                type="fixed"
+                colliders={"trimesh"}
+                onCollisionEnter={() => handleCollision(index)}
+              >
+                <mesh
+                  ref={(el) => (trampsMesh.current[index] = el)}
+                  geometry={mesh.geometry}
+                  material={materials.Material}
+                />
+              </RigidBody>
+            )
+        )}
+        
+        {trampasPinchos.map((trampa, index) => (
           <RigidBody
-            key={mesh.name}
+            key={trampa.node.name}
             type="fixed"
-            colliders={"trimesh"}
-            onCollisionEnter={() => handleCollision(index)}
+            colliders="trimesh"
+            onCollisionEnter = {(e) => fallTrapCollision(e)}
           >
             <mesh
-              ref={el => trampsMesh.current[index] = el}
-              geometry={mesh.geometry}
-              material={materials.Material}
+              ref={(el) => (trampsKillMesh.current[index] = el)}
+              geometry={trampa.node.geometry}
+              material={trampa.material}
             />
           </RigidBody>
-        )
-      ))}
-        
-        //INICIO
+        ))}
+
+        // ---------------- Trampas Pinchos -----------------------------
+        //TRAMPAS PISO //INICIO
         <RigidBody type="fixed" colliders="trimesh">
           <mesh
             geometry={nodes.BaseInicio.geometry}
@@ -334,65 +381,6 @@ export default function World3FOp(props) {
           <mesh
             geometry={nodes.CubeRotation2001_2.geometry}
             material={materials.Material}
-          />
-        </RigidBody>
-        //TRAMPAS PISO
-        <RigidBody type="fixed" colliders="cuboid">
-          <mesh
-            geometry={nodes.trapFloor2_1.geometry}
-            material={materials["jadePrimary.001"]}
-          />
-          <mesh
-            geometry={nodes.trapFloor2_2.geometry}
-            material={materials["jadeSecundary.001"]}
-          />
-          <mesh
-            geometry={nodes.trapFloor3_1.geometry}
-            material={materials["jadePrimary.002"]}
-          />
-          <mesh
-            geometry={nodes.trapFloor3_2.geometry}
-            material={materials["jadeSecundary.002"]}
-          />
-          <mesh
-            geometry={nodes.trapFloor4_1.geometry}
-            material={materials["jadePrimary.003"]}
-          />
-          <mesh
-            geometry={nodes.trapFloor4_2.geometry}
-            material={materials["jadeSecundary.003"]}
-          />
-          <mesh
-            geometry={nodes.trapFloor5_1.geometry}
-            material={materials["jadePrimary.004"]}
-          />
-          <mesh
-            geometry={nodes.trapFloor5_2.geometry}
-            material={materials["jadeSecundary.004"]}
-          />
-          <mesh
-            geometry={nodes.trapFloor6_1.geometry}
-            material={materials["jadePrimary.005"]}
-          />
-          <mesh
-            geometry={nodes.trapFloor6_2.geometry}
-            material={materials["jadeSecundary.005"]}
-          />
-          <mesh
-            geometry={nodes.trapFloor1001.geometry}
-            material={materials["jadePrimary.006"]}
-          />
-          <mesh
-            geometry={nodes.trapFloor1001_1.geometry}
-            material={materials["jadeSecundary.006"]}
-          />
-          <mesh
-            geometry={nodes.trapFloor7_1.geometry}
-            material={materials["jadePrimary.007"]}
-          />
-          <mesh
-            geometry={nodes.trapFloor7_2.geometry}
-            material={materials["jadeSecundary.007"]}
           />
         </RigidBody>
         //TRAMPAS BLOQUES
