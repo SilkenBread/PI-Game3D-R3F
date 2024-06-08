@@ -15,7 +15,7 @@ export default function Golemmonk({ positions, ...props }) {
   const [zone, setZone] = useState(null);
   const [path, setPath] = useState([]);
   const [navMeshObj, setNavMesh] = useState(null);
-  const [chasing, setChasing] = useState(null);
+  const [chasing, setChasing] = useState(false);
   const [movementVector, setMovementVector] = useState([0, 0, 0]);
 
   const { scene } = useGLTF('assets/models/level_3/navmesh.glb');
@@ -28,7 +28,7 @@ export default function Golemmonk({ positions, ...props }) {
       const navMesh = scene.children[0]; // Asegúrate de que esto apunta a tu malla de navegación
       if (navMesh && navMesh.geometry) {
         const zoneData = Pathfinding.createZone(navMesh.geometry);
-        pathfinding.current.setZoneData('Laberinto', zoneData);
+        pathfinding.current.setZoneData('level1', zoneData);
         setZone(zoneData);
         setNavMesh(navMesh);
       }
@@ -104,14 +104,14 @@ export default function Golemmonk({ positions, ...props }) {
     >
       <BallCollider
         onIntersectionEnter={(object) => {
-          if (object.rigidBodyObject.name == "Player") {
+          if (object.rigidBodyObject.name == "player") {
             targetPosition = object.other.rigidBodyObject.position;
             velocityVar = 2.5;
             setChasing(true);
           }
         }}
         onIntersectionExit={(object) => {
-          if (object.rigidBodyObject.name == "Player") {
+          if (object.rigidBodyObject.name == "player") {
             velocityVar = 8;
             setChasing(false);
           }
