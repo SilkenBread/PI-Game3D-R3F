@@ -85,7 +85,7 @@ export const Level3 = (props) => {
             <Environments />
             <Physics debug={false} gravity={[0, -9, 0]}>
               <World3FOp />
-              <Golemmonk position={[38, 0.8, 26]} positions={positions} />
+              <Golemmonk position={[38, 0.8, 26]} positions={positions} scale = {2.5}/>
               <Ecctrl
                 name="player"
                 capsuleHalfHeight={0.5}
@@ -97,10 +97,10 @@ export const Level3 = (props) => {
                 camInitDis={-2}
                 camMaxDis={-2}
                 position={[
-                  context.position?.position_level_3[0],
-                  context.position?.position_level_3[1],
-                  context.position?.position_level_3[2]
-                //  0, 3, 0
+                  // context.position?.position_level_3[0],
+                  // context.position?.position_level_3[1],
+                  // context.position?.position_level_3[2]
+                  0, 3, 0
                 ]}
                 jumpVel={3}
                 moveImpulsePointY={1.5}
