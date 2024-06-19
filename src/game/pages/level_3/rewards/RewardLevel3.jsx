@@ -13,7 +13,6 @@ export default function RewardLevel3(props) {
     { position: [-32.21, 0, -45.87], id: 301 },
     { position: [43.63, 0, 68.0], id: 302 },
     { position: [39.24, 0, 24.0], id: 303 },
-    {position: [-53.5, 0, 38.0], id: 1},
   ]);
 
   const onRecolectReward = (e, id) => {
