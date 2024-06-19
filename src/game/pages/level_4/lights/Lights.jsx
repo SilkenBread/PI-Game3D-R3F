@@ -1,4 +1,4 @@
-import { Helper, useHelper } from "@react-three/drei";
+import { Helper, Sparkles, useHelper } from "@react-three/drei";
 import { useEffect, useLayoutEffect, useMemo, useRef } from "react";
 import { useControls } from "leva";
 import { PointLightHelper, SpotLightHelper } from "three";
@@ -8,18 +8,27 @@ const Ligths = () => {
   const spotLightRef = useRef(null);
   const targetRef = useRef();
   const targetRef2 = useRef();
-  
-//   useHelper(pointLigthRef, PointLightHelper);
 
-//   const optionPointLigth = useMemo(() => {
-//     return {
-//       positionEP: { value: [2, 60, -490] },
-//       colorED: {value: "white"},
-//       intensityED: {value: {}}
-//     };
-//   });
+  const width = 90; //Ancho
+  const height = 5; //Alto
+  const depth = 290; //Prfundidad
 
-//   const { positionEP, colorED, intensityED  } = useControls("SheperLigtsControls", optionPointLigth);
+  useHelper(pointLigthRef, PointLightHelper);
+
+  const optionPointLigh = useMemo(() => {
+    return {
+      positionED: { value: [0, 0, 0] },
+      colorED: { value: "#9AFFD7" },
+      intensityED: { value: 1200 },
+      distanceED: { value: 150 },
+      decayED: { value: 1.9 },
+    };
+  });
+
+  const { positionED, colorED, intensityED, distanceED, decayED } = useControls(
+    "LigthsControls",
+    optionPointLigh
+  );
 
   return (
     <>
@@ -27,9 +36,18 @@ const Ligths = () => {
       <mesh ref={targetRef2} position={[0, 0, -267]} />
 
       <pointLight
-        intensity={12000}
+        ref={pointLigthRef}
+        position={positionED}
+        color={colorED}
+        intensity={intensityED}
+        distance={distanceED}
+        decay={decayED}
+      />
+
+      <pointLight
+        intensity={10000}
         castShadow={true}
-        color={"#9AFFD7"}
+        color={"#ffffff"}
         position={[2, 91, -80]}
         distance={400}
         decay={1.9}
@@ -37,47 +55,78 @@ const Ligths = () => {
       />
 
       <pointLight
-        intensity={8500}
+        intensity={9000}
         castShadow={true}
-        color={"#9AFFD7"}
-        position={[0, 74, -370]}
-        distance={130}
+        color={"#efaab4"}
+        position={[0, 91, -370]}
+        distance={180}
         decay={1.9}
         //shadow-mapSize={[3000, 3000]}
       />
 
       <pointLight
-        intensity={50000}
+        intensity={7000}
         castShadow={true}
-        color={"#5f2b2b"}
-        position={[-3,69,-480]}
-        distance={1000}
+        color={"#ff5656"}
+        position={[-3, 69, -480]}
+        distance={10000}
         decay={2}
         //shadow-mapSize={[3000, 3000]}
       />
 
-      <spotLight
-        power={10000}
-        castShadow={true}
-        position={[0, 57, -222]}
-        color={"#FF8331"}
-        distance={25}
-        angle={76.2}
+      <pointLight
+        position={[-99, 120, -370]}
+        color={"#ff0000"}
+        intensity={4000}
+        distance={250}
         decay={1.9}
-        target={targetRef.current}
       />
 
-      <spotLight
-        power={10000}
-        castShadow={true}
-        position={[0, 62, -267]}
-        color={"#FF8331"}
-        distance={25}
-        angle={76.2}
+      <pointLight
+        position={[-99, 100, -510]}
+        color={"#ff0000"}
+        intensity={4000}
+        distance={250}
         decay={1.9}
-        target={targetRef2.current}
       />
 
+      <pointLight
+        position={[100, 110, -410]}
+        color={"#ff0000"}
+        intensity={4000}
+        distance={250}
+        decay={1.9}
+      />
+
+      <pointLight
+        position={[0, 80, -580]}
+        color={"#ff0000"}
+        intensity={10000}
+        distance={450}
+        decay={1.9}
+      />
+
+      <ambientLight color={"#0083ff"} intensity={0.5} />
+
+      <Sparkles
+        position={[0, -14, -150]}
+        count={1800}
+        size={40}
+        scale={[width, height, depth]}
+        speed={5}
+        color="#d14c2e"
+        fade={true}
+      />
+
+      <Sparkles
+        position={[0, -14, -400]}
+        count={1800}
+        size={40}
+        scale={[width, height, depth]}
+        speed={5}
+        color="#d14c2e"
+        fade={true}
+      />
     </>
   );
 };
