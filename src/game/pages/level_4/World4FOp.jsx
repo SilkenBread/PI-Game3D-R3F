@@ -20,6 +20,36 @@ export default function World4FOp(props) {
       }
     }
   };
+
+  useFrame(({ clock }) => {
+    const moveX = Math.cos(clock.getElapsedTime() / 2) * 7;
+    platform1.current?.setNextKinematicTranslation(
+      {
+        x: moveX,
+        y: platform1.current?.translation().y,
+        z: platform1.current?.translation().z
+      },
+      true
+    );
+
+    const y = 3.5 + Math.sin(clock.getElapsedTime()) * 3.5;
+    verticalMovePlatformRef.current?.setNextKinematicTranslation({
+      x: 0,
+      y,
+      z: 0
+    });
+
+    const moveZ = 45 * (Math.sin(clock.getElapsedTime() / 3.5) + 1) - 85;
+    finalPlatform.current?.setNextKinematicTranslation(
+      {
+        x: platform1.current?.translation().x ,
+        y: platform1.current?.translation().y,
+        z: moveZ
+      },
+      true
+    );
+
+  });
   return (
     <group {...props} dispose={null}>
 
