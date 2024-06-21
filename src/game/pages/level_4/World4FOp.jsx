@@ -3,7 +3,6 @@ import { useGLTF } from "@react-three/drei";
 import { RigidBody } from "@react-three/rapier";
 import { useAvatar } from "../../../context/AvatarContext";
 import { useFrame } from "@react-three/fiber";
-import { useFrame } from "@react-three/fiber";
 
 export default function World4FOp(props) {
   const { nodes, materials } = useGLTF("assets/models/level_4/level4Op.glb");
