@@ -2,10 +2,14 @@ import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import { RigidBody } from "@react-three/rapier";
 import { useAvatar } from "../../../context/AvatarContext";
+import { useFrame } from "@react-three/fiber";
 
 export default function World4FOp(props) {
   const { nodes, materials } = useGLTF("assets/models/level_4/level4Op.glb");
   const {avatar, setAvatar} = useAvatar();
+  const platform1 = useRef();
+  const verticalMovePlatformRef = useRef();
+  const finalPlatform = useRef();
   const limitsCollision = (e) => {
     if (e.other.rigidBodyObject.name === "player") {
       e.other.rigidBody.setTranslation({ x: 0, y: 0, z: 0 }, true);
@@ -16,12 +20,42 @@ export default function World4FOp(props) {
       }
     }
   };
+
+  useFrame(({ clock }) => {
+    const moveX = Math.cos(clock.getElapsedTime() / 2) * 7;
+    platform1.current?.setNextKinematicTranslation(
+      {
+        x: moveX,
+        y: platform1.current?.translation().y,
+        z: platform1.current?.translation().z
+      },
+      true
+    );
+
+    const y = 3.5 + Math.sin(clock.getElapsedTime()) * 3.5;
+    verticalMovePlatformRef.current?.setNextKinematicTranslation({
+      x: 0,
+      y,
+      z: 0
+    });
+
+    const moveZ = 45 * (Math.sin(clock.getElapsedTime() / 3.5) + 1) - 85;
+    finalPlatform.current?.setNextKinematicTranslation(
+      {
+        x: platform1.current?.translation().x ,
+        y: platform1.current?.translation().y,
+        z: moveZ
+      },
+      true
+    );
+
+  });
   return (
     <group {...props} dispose={null}>
 
       {/*Elementos de movimiento*/}
       {/*La que se tiene que mover en x, es la miniIsla para cruzar los puentes*/}
-      <RigidBody type="fixed" colliders="trimesh" castShadow={true}>
+      <RigidBody ref={platform1} type='kinematicPosition' colliders="trimesh" castShadow={true}>
         <mesh
           geometry={nodes.PlatformPassBridge1.geometry}
           material={materials.Amatist}
@@ -29,7 +63,7 @@ export default function World4FOp(props) {
       </RigidBody>
 
       {/*Esta es la verde que esta despues del segundo checkPoint tiene que subir y bajar*/}
-      <RigidBody type="fixed" colliders="trimesh">
+      <RigidBody ref={verticalMovePlatformRef} type='kinematicPosition' colliders="trimesh">
         <mesh
           geometry={nodes.platformM114.geometry}
           material={materials.Esmerald}
@@ -38,7 +72,7 @@ export default function World4FOp(props) {
       </RigidBody>
 
       {/*Esta es la plataforma Final*/}
-      <RigidBody type="fixed" colliders="trimesh" castShadow={true}>
+      <RigidBody ref={finalPlatform} type='kinematicPosition' colliders="trimesh" castShadow={true}>
         <mesh
           geometry={nodes.PlatFormMoved001.geometry}
           material={materials["Amatist.002"]}
