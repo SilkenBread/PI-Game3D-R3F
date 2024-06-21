@@ -1,83 +1,236 @@
-import React, { useRef } from 'react'
-import { useGLTF } from '@react-three/drei'
-import { RigidBody } from '@react-three/rapier'
+import React, { useRef } from "react";
+import { useGLTF } from "@react-three/drei";
+import { RigidBody } from "@react-three/rapier";
+import { useAvatar } from "../../../context/AvatarContext";
 
 export default function World4FOp(props) {
-  const { nodes, materials } = useGLTF('assets/models/level_4/level4Op.glb')
+  const { nodes, materials } = useGLTF("assets/models/level_4/level4Op.glb");
+  const {avatar, setAvatar} = useAvatar();
+  const limitsCollision = (e) => {
+    if (e.other.rigidBodyObject.name === "player") {
+      e.other.rigidBody.setTranslation({ x: 0, y: 0, z: 0 }, true);
+      if (avatar.vidas > 0) {
+        setAvatar({ ...avatar, vidas: avatar.vidas - 1 });
+      } else {
+        setAvatar({ ...avatar, animation: "Death" });
+      }
+    }
+  };
   return (
     <group {...props} dispose={null}>
 
       {/*Elementos de movimiento*/}
-      <RigidBody type='fixed' colliders="trimesh" castShadow = {true}> 
-      <mesh geometry={nodes.PlatFormMoved001.geometry} material={materials['Amatist.002']} />
+      {/*La que se tiene que mover en x, es la miniIsla para cruzar los puentes*/}
+      <RigidBody type="fixed" colliders="trimesh" castShadow={true}>
+        <mesh
+          geometry={nodes.PlatformPassBridge1.geometry}
+          material={materials.Amatist}
+        />
       </RigidBody>
 
-      <RigidBody type='fixed' colliders="trimesh" castShadow = {true}>
-      <mesh geometry={nodes.PlatformPassBridge1.geometry} material={materials.Amatist} />
+      {/*Esta es la verde que esta despues del segundo checkPoint tiene que subir y bajar*/}
+      <RigidBody type="fixed" colliders="trimesh">
+        <mesh
+          geometry={nodes.platformM114.geometry}
+          material={materials.Esmerald}
+          castShadow={true}
+        />
       </RigidBody>
 
-      <RigidBody type='fixed' colliders="trimesh" castShadow = {true}>
-      <mesh geometry={nodes.PlatformPassBridge2.geometry} material={materials.Amatist} />
+      {/*Esta es la plataforma Final*/}
+      <RigidBody type="fixed" colliders="trimesh" castShadow={true}>
+        <mesh
+          geometry={nodes.PlatFormMoved001.geometry}
+          material={materials["Amatist.002"]}
+        />
       </RigidBody>
-
-      <RigidBody type='fixed' colliders= "trimesh">
-      <mesh geometry={nodes.platformM114.geometry} material={materials.Esmerald} castShadow = {true}/>
-      </RigidBody>
-      
 
       {/*Elementos de limite del mundo (pisos de lava)(con un coboid esta bien)*/}
-      <RigidBody type='fixed'colliders="cuboid">
-        <mesh geometry={nodes['Limits(lava)2'].geometry} material={materials.lavaColor2} receiveShadow = {true} />
-        <mesh geometry={nodes['Limits(lava)_1'].geometry} material={materials.lavaColor3} receiveShadow = {true}/>
-        <mesh geometry={nodes['Limits(lava)_2'].geometry} material={materials.lavaColor} receiveShadow = {true}/>
+      <RigidBody type="fixed" colliders="cuboid" onCollisionEnter={(e) => limitsCollision(e)} >
+        <mesh
+          geometry={nodes["Limits(lava)2"].geometry}
+          material={materials.lavaColor2}
+          receiveShadow={true}
+        />
+        <mesh
+          geometry={nodes["Limits(lava)_1"].geometry}
+          material={materials.lavaColor3}
+          receiveShadow={true}
+        />
+        <mesh
+          geometry={nodes["Limits(lava)_2"].geometry}
+          material={materials.lavaColor}
+          receiveShadow={true}
+        />
       </RigidBody>
-      
-      {/*Elementos con fisicas sin interaccion (puentes, islas (Mesh))*/}
-      <RigidBody type='fixed' colliders="trimesh">
-      <mesh geometry={nodes.IsLand1.geometry} material={materials['Amatist.001']} castShadow = {true} />
-      <mesh geometry={nodes.StartBase.geometry} material={materials.PrimaryColor} />
-      <mesh geometry={nodes.Bridge.geometry} material={materials.Marmle} castShadow = {true}/>
-      <mesh geometry={nodes.platformM12.geometry} material={materials.Esmerald} castShadow = {true}/>
-      <mesh geometry={nodes.platformM13.geometry} material={materials.Esmerald} castShadow = {true}/>
-      <mesh geometry={nodes.platformM14.geometry} material={materials.Esmerald} castShadow = {true}/>
-      <mesh geometry={nodes.platformM15.geometry} material={materials.Esmerald} castShadow = {true}/>
-      <mesh geometry={nodes.platformM16.geometry} material={materials.Esmerald} castShadow = {true}/>
-      <mesh geometry={nodes.platformM17.geometry} material={materials.Esmerald} castShadow = {true}/>
-      <mesh geometry={nodes.platformM18.geometry} material={materials.Esmerald} castShadow = {true}/>
-      <mesh geometry={nodes.platformM19.geometry} material={materials.Esmerald} castShadow = {true}/>
-      <mesh geometry={nodes.platformM110.geometry} material={materials.Esmerald} castShadow = {true}/>
-      <mesh geometry={nodes.platformM111.geometry} material={materials.Esmerald} castShadow = {true}/>
-      <mesh geometry={nodes.platformM112.geometry} material={materials.Esmerald} castShadow = {true}/>
-      <mesh geometry={nodes.platformM113.geometry} material={materials.Esmerald} castShadow = {true}/>
 
-      <mesh geometry={nodes.BaseRoom.geometry} material={materials.Amatist} />
-      
-      <mesh geometry={nodes.FloorRooms.geometry} material={materials.Material} />
-      <mesh geometry={nodes.ColumsM.geometry} material={materials.Marmle} />
-      
-      <mesh geometry={nodes.bridge3_1.geometry} material={materials['Esmerald.001']} castShadow = {true}/>
-      <mesh geometry={nodes.bridge3_2.geometry} material={materials['Material.001']} castShadow = {true}/>
-      <mesh geometry={nodes.bridge2_1.geometry} material={materials['Esmerald.001']} castShadow = {true}/>
-      <mesh geometry={nodes.bridge2_2.geometry} material={materials['Material.001']} castShadow = {true}/>
-      <mesh geometry={nodes.bridge1_1.geometry} material={materials['Esmerald.001']} castShadow = {true}/>
-      <mesh geometry={nodes.bridge1_2.geometry} material={materials['Material.001']} castShadow = {true}/>
-      <mesh geometry={nodes.bridge4_1.geometry} material={materials['Esmerald.002']} castShadow = {true}/>
-      <mesh geometry={nodes.bridge4_2.geometry} material={materials['Material.003']} castShadow = {true}/>
+      {/*Elementos con fisicas sin interaccion (puentes, islas (Mesh))*/}
+      <RigidBody type="fixed" colliders="trimesh">
+        <mesh
+          geometry={nodes.IsLand1.geometry}
+          material={materials["Amatist.001"]}
+          castShadow={true}
+        />
+        <mesh
+          geometry={nodes.StartBase.geometry}
+          material={materials.PrimaryColor}
+        />
+        <mesh
+          geometry={nodes.Bridge.geometry}
+          material={materials.Marmle}
+          castShadow={true}
+        />
+        <mesh
+          geometry={nodes.platformM12.geometry}
+          material={materials.Esmerald}
+          castShadow={true}
+        />
+        <mesh
+          geometry={nodes.platformM13.geometry}
+          material={materials.Esmerald}
+          castShadow={true}
+        />
+        <mesh
+          geometry={nodes.platformM14.geometry}
+          material={materials.Esmerald}
+          castShadow={true}
+        />
+        <mesh
+          geometry={nodes.platformM15.geometry}
+          material={materials.Esmerald}
+          castShadow={true}
+        />
+        <mesh
+          geometry={nodes.platformM16.geometry}
+          material={materials.Esmerald}
+          castShadow={true}
+        />
+        <mesh
+          geometry={nodes.platformM17.geometry}
+          material={materials.Esmerald}
+          castShadow={true}
+        />
+        <mesh
+          geometry={nodes.platformM18.geometry}
+          material={materials.Esmerald}
+          castShadow={true}
+        />
+        <mesh
+          geometry={nodes.platformM19.geometry}
+          material={materials.Esmerald}
+          castShadow={true}
+        />
+        <mesh
+          geometry={nodes.platformM110.geometry}
+          material={materials.Esmerald}
+          castShadow={true}
+        />
+        <mesh
+          geometry={nodes.platformM111.geometry}
+          material={materials.Esmerald}
+          castShadow={true}
+        />
+        <mesh
+          geometry={nodes.platformM112.geometry}
+          material={materials.Esmerald}
+          castShadow={true}
+        />
+        <mesh
+          geometry={nodes.platformM113.geometry}
+          material={materials.Esmerald}
+          castShadow={true}
+        />
+
+        <mesh geometry={nodes.BaseRoom.geometry} material={materials.Amatist} />
+
+        <mesh
+          geometry={nodes.FloorRooms.geometry}
+          material={materials.Material}
+        />
+        <mesh geometry={nodes.ColumsM.geometry} material={materials.Marmle} />
+
+        <mesh
+          geometry={nodes.bridge3_1.geometry}
+          material={materials["Esmerald.001"]}
+          castShadow={true}
+        />
+        <mesh
+          geometry={nodes.bridge3_2.geometry}
+          material={materials["Material.001"]}
+          castShadow={true}
+        />
+        <mesh
+          geometry={nodes.bridge2_1.geometry}
+          material={materials["Esmerald.001"]}
+          castShadow={true}
+        />
+        <mesh
+          geometry={nodes.bridge2_2.geometry}
+          material={materials["Material.001"]}
+          castShadow={true}
+        />
+        <mesh
+          geometry={nodes.bridge1_1.geometry}
+          material={materials["Esmerald.001"]}
+          castShadow={true}
+        />
+        <mesh
+          geometry={nodes.bridge1_2.geometry}
+          material={materials["Material.001"]}
+          castShadow={true}
+        />
+        <mesh
+          geometry={nodes.bridge4_1.geometry}
+          material={materials["Esmerald.002"]}
+          castShadow={true}
+        />
+        <mesh
+          geometry={nodes.bridge4_2.geometry}
+          material={materials["Material.003"]}
+          castShadow={true}
+        />
+        <mesh
+          geometry={nodes.PlatformPassBridge2.geometry}
+          material={materials.Amatist}
+          castShadow={true}
+        />
       </RigidBody>
-      
 
       {/*Elementos decorativos sin fisicas*/}
       <mesh geometry={nodes.Rocks.geometry} material={materials.Material} />
-      <mesh geometry={nodes.Montains.geometry} material={materials.MountainsColor} receiveShadow = {true} />
-      <mesh geometry={nodes.Rings.geometry} material={materials['Esmerald.001']} />
-      <mesh geometry={nodes.skull.geometry} material={materials.boneMaterial} receiveShadow = {true} />
-      <mesh geometry={nodes.Blades_1.geometry} material={materials.cuartColor} />
-      <mesh geometry={nodes.Blades_2.geometry} material={materials.SecondColor} />
-      <mesh geometry={nodes.Blades_3.geometry} material={materials.detailsColor} />
-      <mesh geometry={nodes.Blades_4.geometry} material={materials['PrimaryColor.001']} />
+      <mesh
+        geometry={nodes.Montains.geometry}
+        material={materials.MountainsColor}
+        receiveShadow={true}
+      />
+      <mesh
+        geometry={nodes.Rings.geometry}
+        material={materials["Esmerald.001"]}
+      />
+      <mesh
+        geometry={nodes.skull.geometry}
+        material={materials.boneMaterial}
+        receiveShadow={true}
+      />
+      <mesh
+        geometry={nodes.Blades_1.geometry}
+        material={materials.cuartColor}
+      />
+      <mesh
+        geometry={nodes.Blades_2.geometry}
+        material={materials.SecondColor}
+      />
+      <mesh
+        geometry={nodes.Blades_3.geometry}
+        material={materials.detailsColor}
+      />
+      <mesh
+        geometry={nodes.Blades_4.geometry}
+        material={materials["PrimaryColor.001"]}
+      />
       <mesh geometry={nodes.Blades_5.geometry} material={materials.terColor} />
     </group>
-  )
+  );
 }
 
-useGLTF.preload('assets/models/level_4/level4Op.glb')
+useGLTF.preload("assets/models/level_4/level4Op.glb");

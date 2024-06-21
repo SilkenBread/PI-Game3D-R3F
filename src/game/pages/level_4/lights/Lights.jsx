@@ -13,36 +13,36 @@ const Ligths = () => {
   const height = 5; //Alto
   const depth = 290; //Prfundidad
 
-  useHelper(pointLigthRef, PointLightHelper);
+  // useHelper(pointLigthRef, PointLightHelper);
 
-  const optionPointLigh = useMemo(() => {
-    return {
-      positionED: { value: [0, 0, 0] },
-      colorED: { value: "#9AFFD7" },
-      intensityED: { value: 1200 },
-      distanceED: { value: 150 },
-      decayED: { value: 1.9 },
-    };
-  });
+  // const optionPointLigh = useMemo(() => {
+  //   return {
+  //     positionED: { value: [0, 0, 0] },
+  //     colorED: { value: "#9AFFD7" },
+  //     intensityED: { value: 1200 },
+  //     distanceED: { value: 150 },
+  //     decayED: { value: 1.9 },
+  //   };
+  // });
 
-  const { positionED, colorED, intensityED, distanceED, decayED } = useControls(
-    "LigthsControls",
-    optionPointLigh
-  );
+  // const { positionED, colorED, intensityED, distanceED, decayED } = useControls(
+  //   "LigthsControls",
+  //   optionPointLigh
+  // );
 
   return (
     <>
       <mesh ref={targetRef} position={[0, 0, -222]} />
       <mesh ref={targetRef2} position={[0, 0, -267]} />
 
-      <pointLight
+      {/* <pointLight
         ref={pointLigthRef}
         position={positionED}
         color={colorED}
         intensity={intensityED}
         distance={distanceED}
         decay={decayED}
-      />
+      /> */}
 
       <pointLight
         intensity={10000}
@@ -103,6 +103,14 @@ const Ligths = () => {
         color={"#ff0000"}
         intensity={10000}
         distance={450}
+        decay={1.9}
+      />
+
+      <pointLight
+        position={[-1.5, 62.0, -224.5]}
+        color={"#0083ff"}
+        intensity={1000}
+        distance={150}
         decay={1.9}
       />
 
