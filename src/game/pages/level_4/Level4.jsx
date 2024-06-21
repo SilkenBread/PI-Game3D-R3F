@@ -54,7 +54,7 @@ export const Level4 = (props) => {
                 name="player"
                 camInitDis={-4}
                 camMaxDis={-2}
-                position={[0, 45, -224]}
+                position={[0, 0, 0]}
                 jumpVel={4.5}
                 slopJumpMult={0.1}
                 moveImpulsePointY={1.5}

@@ -149,7 +149,7 @@ export default function Golemmonk({ positions, ...props }) {
         name="Enemy"
         lockRotations
         ref={sensorMeshRef}
-        position={[0, 0, 0]}
+        position={[38, 0.8, 26]}
       >
         <BallCollider
           onIntersectionEnter={(object) => {
