@@ -21,6 +21,7 @@ import World4FOp from "./World4FOp";
 import Villain3Skull from "../../globals/villains/Villain3Skull";
 import CheckPointsLlv4 from "./checkpoints/CheckPointsLvl4";
 import RewardLevel4 from "./rewards/RewardLevel4";
+import * as THREE from 'three';
 
 export const Level4 = (props) => {
   const map = useMovements();
@@ -47,7 +48,7 @@ export const Level4 = (props) => {
                 name="player"
                 camInitDis={-4}
                 camMaxDis={-2}
-                position={[0, 45, -224]}
+                position={[0, 0, 0]}
                 jumpVel={4.5}
                 slopJumpMult={0.1}
                 moveImpulsePointY={1.5}
@@ -60,10 +61,11 @@ export const Level4 = (props) => {
               >
                 <Avatar2 scale={0.002} />
               </Ecctrl> */}
+              <Ghost />
               <CheckPointsLlv4 />
               <RewardLevel4 />
             </Physics>
-            {/* <Ghost position={[-4, 55, -503]} scale={5.4} /> */}
+            
             <Villain3Skull position={[-4, 45, -503]} scale={7.4} />
             <Contronls />
           </Suspense>
