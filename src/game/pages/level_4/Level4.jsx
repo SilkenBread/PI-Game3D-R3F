@@ -10,7 +10,6 @@ import { Perf } from "r3f-perf";
 import { Physics } from "@react-three/rapier";
 import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
-import Ghost from "./Ghost";
 import Contronls from "../../globals/controls/Controls";
 import Avatar from "../../globals/player/Avatar";
 import Avatar2 from "../../globals/player/Avatar2";
@@ -21,7 +20,11 @@ import World4FOp from "./World4FOp";
 import Villain3Skull from "../../globals/villains/Villain3Skull";
 import CheckPointsLlv4 from "./checkpoints/CheckPointsLvl4";
 import RewardLevel4 from "./rewards/RewardLevel4";
-import * as THREE from 'three';
+import GhostT from "./GhostT";
+import Ghost from "./GhostT";
+import Menu from "../../globals/menu/Menu";
+import AlertasUI from "../../globals/menu/AlertasUI";
+import MainLayaout from "../../layouts/MainLayaout";
 
 export const Level4 = (props) => {
   const map = useMovements();
@@ -29,6 +32,9 @@ export const Level4 = (props) => {
   return (
     <>
       <KeyboardControls map={map}>
+        {/* <MainLayaout/> */}
+        <Menu/>
+        <AlertasUI/>
         <Canvas
           camera={{
             position: [0, 4, 8],
@@ -38,13 +44,13 @@ export const Level4 = (props) => {
           <Perf position="top-left" />
           <OrbitControls />
           {/* <FlyControls rollSpeed={0.2} movementSpeed={5}/> */}
-          <Suspense fallback={null}>
-            <Lights />
-            <BakeShadows />
-            {/* <Environments/> */}
-            <Physics debug={false} gravity={[0, -8, 0]}>
-              <World4FOp />
-              {/* <Ecctrl
+
+          <Lights />
+          <BakeShadows />
+          {/* <Environments/> */}
+          <Physics debug={false} gravity={[0, -8, 0]}>
+            <World4FOp />
+            {/* <Ecctrl
                 name="player"
                 camInitDis={-4}
                 camMaxDis={-2}
@@ -61,14 +67,12 @@ export const Level4 = (props) => {
               >
                 <Avatar2 scale={0.002} />
               </Ecctrl> */}
-              <Ghost />
-              <CheckPointsLlv4 />
-              <RewardLevel4 />
-            </Physics>
-            
-            <Villain3Skull position={[-4, 45, -503]} scale={7.4} />
-            <Contronls />
-          </Suspense>
+            <CheckPointsLlv4 />
+            <RewardLevel4 />
+            <Ghost />
+          </Physics>
+          <Villain3Skull position={[-4, 45, -503]} scale={7.4} />
+          <Contronls />
         </Canvas>
       </KeyboardControls>
     </>

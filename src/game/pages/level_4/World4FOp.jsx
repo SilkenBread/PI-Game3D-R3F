@@ -3,14 +3,14 @@ import { useGLTF } from "@react-three/drei";
 import { RigidBody } from "@react-three/rapier";
 import { useAvatar } from "../../../context/AvatarContext";
 import { useFrame } from "@react-three/fiber";
+import { useFrame } from "@react-three/fiber";
 
 export default function World4FOp(props) {
   const { nodes, materials } = useGLTF("assets/models/level_4/level4Op.glb");
-  const { avatar, setAvatar } = useAvatar();
+  const {avatar, setAvatar} = useAvatar();
   const platform1 = useRef();
   const verticalMovePlatformRef = useRef();
   const finalPlatform = useRef();
-
   const limitsCollision = (e) => {
     if (e.other.rigidBodyObject.name === "player") {
       e.other.rigidBody.setTranslation({ x: 0, y: 0, z: 0 }, true);
@@ -51,12 +51,12 @@ export default function World4FOp(props) {
     );
 
   });
-
   return (
     <group {...props} dispose={null}>
 
       {/*Elementos de movimiento*/}
       {/*La que se tiene que mover en x, es la miniIsla para cruzar los puentes*/}
+      <RigidBody ref={platform1} type='kinematicPosition' colliders="trimesh" castShadow={true}>
       <RigidBody ref={platform1} type='kinematicPosition' colliders="trimesh" castShadow={true}>
         <mesh
           geometry={nodes.PlatformPassBridge1.geometry}
@@ -66,6 +66,7 @@ export default function World4FOp(props) {
 
       {/*Esta es la verde que esta despues del segundo checkPoint tiene que subir y bajar*/}
       <RigidBody ref={verticalMovePlatformRef} type='kinematicPosition' colliders="trimesh">
+      <RigidBody ref={verticalMovePlatformRef} type='kinematicPosition' colliders="trimesh">
         <mesh
           geometry={nodes.platformM114.geometry}
           material={materials.Esmerald}
@@ -74,6 +75,7 @@ export default function World4FOp(props) {
       </RigidBody>
 
       {/*Esta es la plataforma Final*/}
+      <RigidBody ref={finalPlatform} type='kinematicPosition' colliders="trimesh" castShadow={true}>
       <RigidBody ref={finalPlatform} type='kinematicPosition' colliders="trimesh" castShadow={true}>
         <mesh
           geometry={nodes.PlatFormMoved001.geometry}

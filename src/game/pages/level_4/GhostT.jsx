@@ -106,80 +106,80 @@ export default function Ghost(props) {
 
     {
       meshRef: ref1, // Referencia a la malla del fantasma 1
-      currentIndex: 0, // Índice actual del fantasma 1 en su camino
+      currentIndex: 1, // Índice actual del fantasma 1 en su camino
       path: positions[0], // Camino del fantasma 1
       rigidBody: ghostRB1, // Opcional: Cuerpo rígido del fantasma 1
     },
     {
       meshRef: ref2, // Referencia a la malla del fantasma 2
-      currentIndex: 0, // Índice actual del fantasma 2 en su camino
+      currentIndex: 1, // Índice actual del fantasma 2 en su camino
       path: positions[1], // Camino del fantasma 2
       rigidBody: ghostRB2, // Opcional: Cuerpo rígido del fantasma 2
     },
     {
       meshRef: ref3, // Referencia a la malla del fantasma 1
-      currentIndex: 0, // Índice actual del fantasma 1 en su camino
+      currentIndex: 1, // Índice actual del fantasma 1 en su camino
       path: positions[2], // Camino del fantasma 1
       rigidBody: ghostRB3, // Opcional: Cuerpo rígido del fantasma 1
     },
     {
       meshRef: ref4, // Referencia a la malla del fantasma 2
-      currentIndex: 0, // Índice actual del fantasma 2 en su camino
+      currentIndex: 1, // Índice actual del fantasma 2 en su camino
       path: positions[3], // Camino del fantasma 2
       rigidBody: ghostRB4, // Opcional: Cuerpo rígido del fantasma 2
     },
     {
       meshRef: ref5, // Referencia a la malla del fantasma 1
-      currentIndex: 0, // Índice actual del fantasma 1 en su camino
+      currentIndex: 1, // Índice actual del fantasma 1 en su camino
       path: positions[4], // Camino del fantasma 1
       rigidBody: ghostRB5, // Opcional: Cuerpo rígido del fantasma 1
     },
     {
       meshRef: ref6, // Referencia a la malla del fantasma 2
-      currentIndex: 0, // Índice actual del fantasma 2 en su camino
+      currentIndex: 1, // Índice actual del fantasma 2 en su camino
       path: positions[5], // Camino del fantasma 2
       rigidBody: ghostRB6, // Opcional: Cuerpo rígido del fantasma 2
     },
     {
       meshRef: ref7, // Referencia a la malla del fantasma 1
-      currentIndex: 0, // Índice actual del fantasma 1 en su camino
+      currentIndex: 1, // Índice actual del fantasma 1 en su camino
       path: positions[6], // Camino del fantasma 1
       rigidBody: ghostRB7, // Opcional: Cuerpo rígido del fantasma 1
     },
     {
       meshRef: ref8, // Referencia a la malla del fantasma 2
-      currentIndex: 0, // Índice actual del fantasma 2 en su camino
+      currentIndex: 1, // Índice actual del fantasma 2 en su camino
       path: positions[7], // Camino del fantasma 2
       rigidBody: ghostRB8, // Opcional: Cuerpo rígido del fantasma 2
     },
     {
       meshRef: ref9, // Referencia a la malla del fantasma 2
-      currentIndex: 0, // Índice actual del fantasma 2 en su camino
+      currentIndex: 1, // Índice actual del fantasma 2 en su camino
       path: positions[8], // Camino del fantasma 2
       rigidBody: ghostRB9, // Opcional: Cuerpo rígido del fantasma 2
     },
     {
       meshRef: ref10, // Referencia a la malla del fantasma 1
-      currentIndex: 0, // Índice actual del fantasma 1 en su camino
+      currentIndex: 1, // Índice actual del fantasma 1 en su camino
       path: positions[9], // Camino del fantasma 1
       rigidBody: ghostRB10, // Opcional: Cuerpo rígido del fantasma 1
     },
     {
       meshRef: ref11, // Referencia a la malla del fantasma 2
-      currentIndex: 0, // Índice actual del fantasma 2 en su camino
+      currentIndex: 1, // Índice actual del fantasma 2 en su camino
       path: positions[10], // Camino del fantasma 2
       rigidBody: ghostRB11, // Opcional: Cuerpo rígido del fantasma 2
     }
 
   ]
 
-  useEffect(() => {
-    ghosts.forEach((ghost) => {
-      ghost.meshRef.current.position.copy(ghost.path[0]);
-      ghost.currentIndex = 1;
-    });
+  // useEffect(() => {
+  //   ghosts.forEach((ghost) => {
+  //     ghost.meshRef.current.position.copy(ghost.path[0]);
+  //     ghost.currentIndex = 1;
+  //   });
   
-  }, [positions]);
+  // }, [positions]);
 
   useFrame((state, delta) => {
     ghosts.forEach((ghost) => {
@@ -208,11 +208,11 @@ export default function Ghost(props) {
   });
 
   return (<>
-    <group {...props} dispose={null} ref={ref1} >
+    <group {...props} dispose={null} ref={ref1} position={ghosts[0].path[0]}>
       <RigidBody
         ref={ghostRB1}
         type="kinematicPosition"
-        colliders="hull"
+        colliders="cuboid"
       >
         <mesh geometry={nodes.body.geometry} material={materials.PrimaryColor} />
         <mesh geometry={nodes.eye.geometry} material={materials.SkinColor} />
@@ -223,11 +223,11 @@ export default function Ghost(props) {
       </RigidBody>
     </group >
 
-    <group {...props} dispose={null} ref={ref2}>
+    <group {...props} dispose={null} ref={ref2} position={ghosts[1].path[0]}>
       <RigidBody
         ref={ghostRB2}
         type="kinematicPosition"
-        colliders="hull"
+        colliders="cuboid"
       >
         <mesh geometry={nodes.body.geometry} material={materials.PrimaryColor} />
         <mesh geometry={nodes.eye.geometry} material={materials.SkinColor} />
@@ -238,11 +238,11 @@ export default function Ghost(props) {
       </RigidBody>
     </group >
 
-    <group {...props} dispose={null} ref={ref3} >
+    <group {...props} dispose={null} ref={ref3} position={ghosts[2].path[0]}>
       <RigidBody
         ref={ghostRB3}
         type="kinematicPosition"
-        colliders="hull"
+        colliders="cuboid"
       >
         <mesh geometry={nodes.body.geometry} material={materials.PrimaryColor} />
         <mesh geometry={nodes.eye.geometry} material={materials.SkinColor} />
@@ -253,11 +253,11 @@ export default function Ghost(props) {
       </RigidBody>
     </group >
 
-    <group {...props} dispose={null} ref={ref4} >
+    <group {...props} dispose={null} ref={ref4} position={ghosts[3].path[0]}>
       <RigidBody
         ref={ghostRB4}
         type="kinematicPosition"
-        colliders="hull"
+        colliders="cuboid"
       >
         <mesh geometry={nodes.body.geometry} material={materials.PrimaryColor} />
         <mesh geometry={nodes.eye.geometry} material={materials.SkinColor} />
@@ -268,11 +268,11 @@ export default function Ghost(props) {
       </RigidBody>
     </group >
 
-    <group {...props} dispose={null} ref={ref5} >
+    <group {...props} dispose={null} ref={ref5} position={ghosts[4].path[0]}>
       <RigidBody
         ref={ghostRB5}
         type="kinematicPosition"
-        colliders="hull"
+        colliders="cuboid"
       >
         <mesh geometry={nodes.body.geometry} material={materials.PrimaryColor} />
         <mesh geometry={nodes.eye.geometry} material={materials.SkinColor} />
@@ -283,11 +283,11 @@ export default function Ghost(props) {
       </RigidBody>
     </group >
 
-    <group {...props} dispose={null} ref={ref6} >
+    <group {...props} dispose={null} ref={ref6} position={ghosts[5].path[0]}>
       <RigidBody
         ref={ghostRB6}
         type="kinematicPosition"
-        colliders="hull"
+        colliders="cuboid"
       >
         <mesh geometry={nodes.body.geometry} material={materials.PrimaryColor} />
         <mesh geometry={nodes.eye.geometry} material={materials.SkinColor} />
@@ -298,11 +298,11 @@ export default function Ghost(props) {
       </RigidBody>
     </group >
 
-    <group {...props} dispose={null} ref={ref7} >
+    <group {...props} dispose={null} ref={ref7} position={ghosts[6].path[0]}>
       <RigidBody
         ref={ghostRB7}
         type="kinematicPosition"
-        colliders="hull"
+        colliders="cuboid"
       >
         <mesh geometry={nodes.body.geometry} material={materials.PrimaryColor} />
         <mesh geometry={nodes.eye.geometry} material={materials.SkinColor} />
@@ -313,11 +313,11 @@ export default function Ghost(props) {
       </RigidBody>
     </group >
 
-    <group {...props} dispose={null} ref={ref8} >
+    <group {...props} dispose={null} ref={ref8} position={ghosts[7].path[0]}>
       <RigidBody
         ref={ghostRB8}
         type="kinematicPosition"
-        colliders="hull"
+        colliders="cuboid"
       >
         <mesh geometry={nodes.body.geometry} material={materials.PrimaryColor} />
         <mesh geometry={nodes.eye.geometry} material={materials.SkinColor} />
@@ -328,11 +328,11 @@ export default function Ghost(props) {
       </RigidBody>
     </group >
 
-    <group {...props} dispose={null} ref={ref9} >
+    <group {...props} dispose={null} ref={ref9} position={ghosts[8].path[0]}>
       <RigidBody
         ref={ghostRB9}
         type="kinematicPosition"
-        colliders="hull"
+        colliders="cuboid"
       >
         <mesh geometry={nodes.body.geometry} material={materials.PrimaryColor} />
         <mesh geometry={nodes.eye.geometry} material={materials.SkinColor} />
@@ -343,11 +343,11 @@ export default function Ghost(props) {
       </RigidBody>
     </group >
 
-    <group {...props} dispose={null} ref={ref10} >
+    <group {...props} dispose={null} ref={ref10} position={ghosts[9].path[0]}>
       <RigidBody
         ref={ghostRB10}
         type="kinematicPosition"
-        colliders="hull"
+        colliders="cuboid"
       >
         <mesh geometry={nodes.body.geometry} material={materials.PrimaryColor} />
         <mesh geometry={nodes.eye.geometry} material={materials.SkinColor} />
@@ -358,11 +358,11 @@ export default function Ghost(props) {
       </RigidBody>
     </group >
 
-    <group {...props} dispose={null} ref={ref11} >
+    <group {...props} dispose={null} ref={ref11} position={ghosts[10].path[0]}>
       <RigidBody
         ref={ghostRB11}
         type="kinematicPosition"
-        colliders="hull"
+        colliders="cuboid"
       >
         <mesh geometry={nodes.body.geometry} material={materials.PrimaryColor} />
         <mesh geometry={nodes.eye.geometry} material={materials.SkinColor} />
