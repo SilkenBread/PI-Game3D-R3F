@@ -264,45 +264,6 @@ export default function World4FOp(props) {
       />
       <mesh geometry={nodes.Blades_5.geometry} material={materials.terColor} />
     </group>
-
-    <RigidBody
-      colliders={false}
-      type="kinematicPosition"
-      name="Enemy"
-      lockRotations
-      ref={sensorMeshRef}
-      position={
-        // SkeletonRB.current?.position
-        [-4, 22, -503]
-      }
-    >
-      <BallCollider
-        onIntersectionEnter={(object) => {
-          if (object.rigidBodyObject.name === 'player') {
-            setTargetPosition(object.other.rigidBodyObject.position);
-            setInBoss(true);
-          } else {
-            setInBoss(false);
-          }
-        }}
-        args={[50]}
-        position={SkeletonRB.current?.position}
-        sensor
-      />
-    </RigidBody >
-
-    <RigidBody
-      colliders={false}
-      type="kinematicPosition"
-      ref={SkeletonRB}
-      position={[-4, 22, -503]}
-    >
-      <CylinderCollider
-        args={[2.8, 0.7]} // Height, Radius
-        position={[0, 3, 0.2]} // Relative position of the collider within the RigidBody
-      />
-    </RigidBody>
-
   </>
   );
 }
