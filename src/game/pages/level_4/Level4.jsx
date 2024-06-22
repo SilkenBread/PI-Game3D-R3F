@@ -84,15 +84,12 @@ export const Level4 = (props) => {
             {/* <Environments/> */}
             <Physics debug={true} timeStep={'vary'} gravity={[0, -8, 0]}>
               <World4FOp />
-              
+              <Villain3Skull position={[-4, 22, -503]} InBoss={false}/>
               <Ghost />
-              {/* <Villain3Skull position={[-4, 22, -503]} /> */}
               <CheckPointsLlv4 />
               <RewardLevel4 />
               <Player1 />
               <Player2 />
-              {/* <Avatar1 scale={0.002} position={[0, 10, 0]}/> */}
-              {/* <Avatar2 scale={0.0025} position={[0, 10, 0]}/> */}
             </Physics>
             <Contronls />
           </Suspense>

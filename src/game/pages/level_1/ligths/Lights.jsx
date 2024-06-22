@@ -1,7 +1,7 @@
 import { useHelper } from "@react-three/drei";
 import { useControls } from "leva";
 import { useMemo, useRef } from "react";
-import { DirectionalLightHelper, PointLightHelper } from "three";
+import { AmbientLight, DirectionalLightHelper, PointLightHelper } from "three";
 import { color, distance } from "three/examples/jsm/nodes/Nodes.js";
 
 const Lights = () => {
@@ -38,6 +38,8 @@ const Lights = () => {
         distance={distanceED}
         decay={decayED}
       /> */}
+
+      <ambientLight color="white" intensity={0.5}/>
 
       <directionalLight
         intensity={0.6}

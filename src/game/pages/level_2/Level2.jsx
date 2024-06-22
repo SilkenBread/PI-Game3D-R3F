@@ -75,7 +75,7 @@ export const Level2 = (props) => {
         <OrbitControls />
         <RecoilRoot>
           <Shooter />
-          <Perf position="top-left" />
+          {/* <Perf position="top-left" /> */}
           <Suspense fallback={null} >
             <Lights />
             <Environments />

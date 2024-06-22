@@ -78,7 +78,7 @@ export const Level1 = (props) => {
           <OrbitControls />
 
           <Lights />
-          {/* <BakeShadows /> */}
+          <BakeShadows />
           <Environments
             radius={100}
             count={3500}

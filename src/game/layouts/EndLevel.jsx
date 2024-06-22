@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "./stylesMsg.css";
+import { useNavigate } from "react-router-dom";
 
 export default function EndLevel() {
+  const starSoundRef = useRef(null);
+  const navigate = useNavigate();
+  const onHandleButtonLevel = () => {
+    if (
+      (starSoundRef.current = new Audio("/assets/sounds/alertasefxs/Play.wav"))
+    ) {
+      starSoundRef.current.volume = 0.5;
+      starSoundRef.current.play();
+    }
+    setTimeout(() => {
+      navigate("/LevelSelector");
+    }, 3000);
+  };
   return (
     <div className="main-box">
       <img

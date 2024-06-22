@@ -12,6 +12,8 @@ import Shooter from "../game/pages/level_2/world/Shooter";
 import RewardMsg from "../game/layouts/RewardMsg";
 import ControlPoint from "../game/layouts/ControlPoint";
 import EndLevel from "../game/layouts/EndLevel";
+import { MainScren } from "../game/pages/MainScreen/MainScren";
+import { LevelSelector } from "../game/pages/levelSelector/LevelSelector";
 
 export const NavigationRoutes = () => {
 
@@ -25,6 +27,8 @@ export const NavigationRoutes = () => {
       <Routes>
         <Route exact path="/" element={<Login />} />
         <Route exact path="test" element={<GameOverLy/>} />
+        <Route exact path="/mainScreen" element={<MainScren/>}/>
+        <Route exact path="/LevelSelector" element={<LevelSelector/>}/>
         <Route exact path="/Level1" element={<Level1 text={main_text_l1} position={[0, 1, 3.5]} size={0.3} rotation={[0, 97.40, 0]} />} />
         <Route exact path="/Level2" element={<Level2 text={main_text_l2} position={[15, 2, -11.75]} size={0.3} rotation={[0, 345, 0]} />} />
         <Route exact path="/Level3" element={<Level3 text={main_text_l3} position={[18, 4, 48]} size={2} rotation={[0, 97.35, 0]} />} />

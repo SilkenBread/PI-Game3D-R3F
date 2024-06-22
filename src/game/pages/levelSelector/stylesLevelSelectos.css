@@ -1,0 +1,119 @@
+.main-screnlvl {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    pointer-events: all;
+    overflow: hidden;
+    height: 100%;
+}
+
+.background-level {
+    background-size: cover;
+    animation: breathe 30s infinite ease-in-out;
+}
+
+.tittle-select{
+    position: absolute;
+    color: wheat;
+    font-size: 95px;
+    top: 5px;
+    z-index: 2;
+   }
+   
+
+@keyframes breathe {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+        /* Ajusta este valor para cambiar la intensidad de la animación */
+    }
+}
+
+.levels-container {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    top: 140px;
+}
+
+.main-screnlvl button {
+    background: none;
+    width: 16em;
+    height: 30em;
+    border-radius: 1.5em;
+    border: 3.5px solid rgba(114, 126, 128, 0.39);
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 400ms;
+    transition-property: color;
+    letter-spacing: 7px;
+    overflow: hidden;
+    display: inline-block;
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+
+
+.level-img {
+    scale: 3.3;
+    opacity: 85%;
+}
+
+
+.level-img2 {
+    scale: 4;
+    opacity: 85%;
+}
+
+.level-img3 {
+    scale: 3.3;
+    opacity: 85%;
+}
+
+.level-img4 {
+    scale: 4.2;
+    opacity: 85%;
+}
+
+
+.tittle-level1 {
+    position: relative;
+    z-index: 2;
+    top: 90px;
+    right: 20px;
+    font-size: 12px;
+}
+
+.tittle-level2 {
+    position: relative;
+    z-index: 2;
+    top: 90px;
+    right: 1px;
+    font-size: 12px;
+}
+
+.tittle-level3 {
+    position: relative;
+    z-index: 2;
+    top: 90px;
+    right: 8px;
+    font-size: 12px;
+}
+
+.tittle-level4 {
+    position: relative;
+    z-index: 2;
+    top: 90px;
+    right: 16px;
+    font-size: 12px;
+}

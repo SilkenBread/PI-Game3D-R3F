@@ -78,7 +78,7 @@ export const Level3 = (props) => {
           shadows={true}
         >
           <OrbitControls />
-          <Perf position="top-left" />
+          {/* <Perf position="top-left" /> */}
           <Suspense fallback={null}>
             <Lights />
             <BakeShadows />
