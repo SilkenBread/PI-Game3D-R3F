@@ -35,17 +35,23 @@ export default function Controls() {
       ({ walk, run, jump, attack, roll, death }) => {
         if (jump) {
           setAvatar({ ...avatar, animation: 'Jump' })
+          socket.emit('change-animation', 'Jump')
         } else if (run) {
           setAvatar({ ...avatar, animation: 'Run' })
+          socket.emit('change-animation', 'Run')
         } else if (walk) {
           setAvatar({ ...avatar, animation: 'Walk' })
+          socket.emit('change-animation', 'Walk')
         } else if (attack) {
           setAvatar({ ...avatar, animation: 'Attack' })
+          socket.emit('change-animation', 'Attack')
         } else if (roll) {
           setAvatar({ ...avatar, animation: 'Roll' })
+          socket.emit('change-animation', 'Roll')
         } else {
           walkSound.pause()
           setAvatar({ ...avatar, animation: 'Idle' })
+          socket.emit('change-animation', 'Idle')
         }
       }
     );

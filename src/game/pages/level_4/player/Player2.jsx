@@ -1,7 +1,7 @@
 import { CylinderCollider, RigidBody, quat, vec3 } from "@react-three/rapier";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { socket } from "../../../../socket/socket-manager";
-import { useGLTF } from "@react-three/drei";
+import { useAnimations, useGLTF } from "@react-three/drei";
 
 /**
  * Player2 component controls a player character in a 3D environment.
@@ -14,8 +14,26 @@ export default function Player2() {
   // Refs for the rigid body and player mesh
   const rbPlayer2Ref = useRef();
   const player2Ref = useRef();
+  const avatarRef = useRef();
 
   const { nodes, materials, animations } = useGLTF('/assets/models/characters/caracterKnigth.glb')
+  const { actions } = useAnimations(animations, avatarRef)
+  const [animation, setAnimation] = useState('Idle')
+
+  socket.on('updates-animation', (animation) => {
+    setAnimation(animation)
+  })
+
+  useEffect(() => {
+    actions['Death'].clampWhenFinished = true
+    actions['Death'].repetitions = 0
+    actions['Attack'].timeScale = 2
+    actions['Attack'].clampWhenFinished = true
+    actions[animation]?.reset().fadeIn(0.5).play()
+    return () => {
+      if (actions[animation]) actions[animation].fadeOut(0.5)
+    }
+  }, [actions, animation])
 
   /**
    * Moves the player to a new position and rotation.
@@ -51,7 +69,7 @@ export default function Player2() {
           position={[0, 0, 0]} // Relative position of the collider within the RigidBody
         />
       <mesh ref={player2Ref}>
-        <group name="Scene" position-y={-0.15}>
+        <group ref={avatarRef} name="Scene" position-y={-0.15}>
           <group
             name="Armature"
             rotation={[Math.PI / 2, 0, 0]}

@@ -1,8 +1,9 @@
 import Ecctrl from "ecctrl";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
-import { useGLTF, useKeyboardControls } from "@react-three/drei";
+import { useAnimations, useGLTF, useKeyboardControls } from "@react-three/drei";
 import { socket } from "../../../../socket/socket-manager";
+import { useAvatar } from "../../../../context/AvatarContext";
 
 /**
  * Player1 component controls a player character in a 3D environment.
@@ -15,8 +16,20 @@ export default function Player1() {
   // Refs for the rigid body and player mesh
   const rbPlayer1Ref = useRef();
   const player1Ref = useRef();
+  const avatarRef = useRef();
 
+  const { avatar, setAvatar } = useAvatar();
   const { nodes, materials, animations } = useGLTF('assets/models/characters/Robot.glb')
+  const { actions } = useAnimations(animations, avatarRef);
+
+  useEffect(() => {
+    actions[avatar.animation]?.reset().fadeIn(0.5).play();
+    return () => {
+      if (actions[avatar.animation])
+        actions[avatar.animation].fadeOut(0.5);
+    }
+
+  }, [actions, avatar.animation]);
 
   // Keyboard controls
   const [sub, get] = useKeyboardControls();
@@ -50,8 +63,8 @@ export default function Player1() {
       sprintJumpMult={1.4}
     >
       <mesh ref={player1Ref}>
-        <group name="Scene" position-y={-0.25}>
-          <group name="Armature" rotation={[Math.PI / 2, 0, 0]} scale={0.003}>
+        <group ref={avatarRef} name="Scene" position-y={-0.25}>
+          <group name="Armature" rotation={[Math.PI / 2, 0, 0]} scale={0.00285}>
             <skinnedMesh
               name="Abdomen"
               geometry={nodes.Abdomen.geometry}

@@ -11,8 +11,6 @@ import { Physics } from "@react-three/rapier";
 import { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import Contronls from "../../globals/controls/Controls";
-// import Avatar from "../../globals/player/Avatar";
-// import Avatar2 from "../../globals/player/Avatar2";
 import useMovements from "../../../utils/key-movements";
 import Ecctrl from "ecctrl";
 import WelcomeText from "../../globals/WelcomeText";
@@ -30,8 +28,6 @@ import { createUser, readUser } from "../../../db/users-collections";
 import { socket } from "../../../socket/socket-manager";
 import { useAtom } from "jotai";
 import { Players, playersAtom } from "../../../components/Players";
-import Avatar2 from "./player/Avatar2";
-import Avatar1 from "./player/Avatar1";
 import Player1 from "./player/Player1";
 import Player2 from "./player/Player2";
 
