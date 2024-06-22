@@ -6,11 +6,10 @@ import { useFrame } from "@react-three/fiber";
 
 export default function World4FOp(props) {
   const { nodes, materials } = useGLTF("assets/models/level_4/level4Op.glb");
-  const { avatar, setAvatar } = useAvatar();
+  const {avatar, setAvatar} = useAvatar();
   const platform1 = useRef();
   const verticalMovePlatformRef = useRef();
   const finalPlatform = useRef();
-
   const limitsCollision = (e) => {
     if (e.other.rigidBodyObject.name === "player") {
       e.other.rigidBody.setTranslation({ x: 0, y: 0, z: 0 }, true);
@@ -51,7 +50,6 @@ export default function World4FOp(props) {
     );
 
   });
-
   return (
     <group {...props} dispose={null}>
 
