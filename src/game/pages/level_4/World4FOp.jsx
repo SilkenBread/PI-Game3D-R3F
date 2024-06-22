@@ -6,7 +6,7 @@ import { useFrame } from "@react-three/fiber";
 
 export default function World4FOp(props) {
   const { nodes, materials } = useGLTF("assets/models/level_4/level4Op.glb");
-  const {avatar, setAvatar} = useAvatar();
+  const { avatar, setAvatar } = useAvatar();
   const platform1 = useRef();
   const verticalMovePlatformRef = useRef();
   const finalPlatform = useRef();
@@ -42,7 +42,7 @@ export default function World4FOp(props) {
     const moveZ = 45 * (Math.sin(clock.getElapsedTime() / 3.5) + 1) - 85;
     finalPlatform.current?.setNextKinematicTranslation(
       {
-        x: platform1.current?.translation().x ,
+        x: platform1.current?.translation().x,
         y: platform1.current?.translation().y,
         z: moveZ
       },
@@ -50,7 +50,7 @@ export default function World4FOp(props) {
     );
 
   });
-  return (
+  return (<>
     <group {...props} dispose={null}>
 
       {/*Elementos de movimiento*/}
@@ -264,6 +264,46 @@ export default function World4FOp(props) {
       />
       <mesh geometry={nodes.Blades_5.geometry} material={materials.terColor} />
     </group>
+
+    <RigidBody
+      colliders={false}
+      type="kinematicPosition"
+      name="Enemy"
+      lockRotations
+      ref={sensorMeshRef}
+      position={
+        // SkeletonRB.current?.position
+        [-4, 22, -503]
+      }
+    >
+      <BallCollider
+        onIntersectionEnter={(object) => {
+          if (object.rigidBodyObject.name === 'player') {
+            setTargetPosition(object.other.rigidBodyObject.position);
+            setInBoss(true);
+          } else {
+            setInBoss(false);
+          }
+        }}
+        args={[50]}
+        position={SkeletonRB.current?.position}
+        sensor
+      />
+    </RigidBody >
+
+    <RigidBody
+      colliders={false}
+      type="kinematicPosition"
+      ref={SkeletonRB}
+      position={[-4, 22, -503]}
+    >
+      <CylinderCollider
+        args={[2.8, 0.7]} // Height, Radius
+        position={[0, 3, 0.2]} // Relative position of the collider within the RigidBody
+      />
+    </RigidBody>
+
+  </>
   );
 }
 

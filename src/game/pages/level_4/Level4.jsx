@@ -50,13 +50,15 @@ export const Level4 = (props) => {
             {/* <Environments/> */}
             <Physics debug={false} gravity={[0, -8, 0]}>
               <World4FOp />
+              <Villain3Skull position={[-4, 22, -503]} InBoss={false}/>
               <Ecctrl
                 name="player"
                 camInitDis={-4}
                 camMaxDis={-2}
                 position={[
-                  // -4, 45, -485
-                  0, 1, 0
+                  -4, 45, -300
+                  // -485
+                  // 0, 1, 0
                 ]}
                 jumpVel={4.5}
                 slopJumpMult={0.1}
@@ -71,7 +73,6 @@ export const Level4 = (props) => {
                 <Avatar2 scale={0.002} />
               </Ecctrl>
               <Ghost />
-              <Villain3Skull position={[-4, 22, -503]} />
               <CheckPointsLlv4 />
               <RewardLevel4 />
             </Physics>
