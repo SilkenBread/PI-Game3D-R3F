@@ -75,14 +75,14 @@ export const Level4 = (props) => {
           }}
           shadows={true}
         >
-          <Perf position="top-left" />
+          {/* <Perf position="top-left" /> */}
           <OrbitControls />
           {/* <FlyControls rollSpeed={0.2} movementSpeed={5}/> */}
           <Suspense fallback={null}>
             <Lights />
             <BakeShadows />
             {/* <Environments/> */}
-            <Physics debug={true} timeStep={'vary'} gravity={[0, -8, 0]}>
+            <Physics debug={false} timeStep={'vary'} gravity={[0, -8, 0]}>
               <World4FOp />
               <Villain3Skull position={[-4, 22, -503]} InBoss={false}/>
               <Ghost />

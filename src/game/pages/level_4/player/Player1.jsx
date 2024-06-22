@@ -54,7 +54,7 @@ export default function Player1() {
   return (
     <Ecctrl
       ref={rbPlayer1Ref}
-      position={[0, 5, 0]}
+      position={[0, 10, 0]}
       jumpVel={4.5}
       slopJumpMult={0.1}
       moveImpulsePointY={1.5}

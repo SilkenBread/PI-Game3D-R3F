@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Box, useGLTF } from "@react-three/drei";
-import { RigidBody } from "@react-three/rapier";
+import { RigidBody, quat } from "@react-three/rapier";
 import { useAvatar } from "../../../context/AvatarContext";
 import { useFrame } from "@react-three/fiber";
 
@@ -51,14 +51,18 @@ export default function World4FOp(props) {
   const trampsMesh = useRef([]);
 
   const limitsCollision = (e) => {
-    if (e.other.rigidBodyObject.name === "player") {
-      e.other.rigidBody.setTranslation({ x: 0, y: 0, z: 0 }, true);
+    // if (e.other.rigidBodyObject.name === "player") {
+      e.other.rigidBody.setTranslation({ x: -22, y: 15.5, z: -58 }, true);
+      socket.emit("player-moving", {
+        translation: { x: -22, y: 15.5, z: -58 },
+        rotation: quat(0,0,0,1),
+      });
       if (avatar.vidas > 0) {
         setAvatar({ ...avatar, vidas: avatar.vidas - 1 });
       } else {
         setAvatar({ ...avatar, animation: "Death" });
       }
-    }
+    // }
   };
 
   useFrame(({ clock }) => {
