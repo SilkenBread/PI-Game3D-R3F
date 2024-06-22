@@ -209,6 +209,16 @@ export default function World3FOp(props) {
     });
   };
 
+  const pisosTrampa = [
+    nodes.PisoTrampa1,
+    nodes.PisoTrampa2,
+    nodes.PisoTrampa3,
+    nodes.PisoTrampa4,
+    nodes.PisoTrampa5,
+    nodes.PisoTrampa6,
+    nodes.PisoTrampa7,
+  ];
+
   // TRAMPAS PISO
   const fallTrapCollision = (e) => {
     if (e.other.rigidBodyObject.name === "player") {
@@ -229,16 +239,6 @@ export default function World3FOp(props) {
 
     }
   };
-
-  const pisosTrampa = [
-    nodes.PisoTrampa1,
-    nodes.PisoTrampa2,
-    nodes.PisoTrampa3,
-    nodes.PisoTrampa4,
-    nodes.PisoTrampa5,
-    nodes.PisoTrampa6,
-    nodes.PisoTrampa7,
-  ];
 
   const trampasPinchos = [
     { node: nodes.trapFloor2_1, material: materials["jadePrimary.001"] },

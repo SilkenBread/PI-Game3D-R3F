@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import "./stylesLevelSelectos.css";
 import { useNavigate } from "react-router-dom";
-import { Path } from "three";
+
 
 export const LevelSelector = () => {
   const audioRef = useRef(null);
