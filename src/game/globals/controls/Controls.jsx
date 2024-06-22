@@ -44,11 +44,8 @@ export default function Controls() {
         } else if (roll) {
           setAvatar({ ...avatar, animation: 'Roll' })
         } else {
-<<<<<<< HEAD
-            walkSound.pause()
-=======
+          walkSound.pause()
           setAvatar({ ...avatar, animation: 'Idle' })
->>>>>>> fdae0a58edfafe5c1889307d88189c5442cff9ac
         }
       }
     );
@@ -78,20 +75,20 @@ export default function Controls() {
   }, [play, avatar.animation])
 
   useFrame(() => {
-    const { forward, backward, leftward, rightward, jump, attack } = get()
-    if (forward || backward || leftward || rightward || jump || attack) {
+    const { forward, backward, leftward, rightward, jump } = get()
+    if (forward || backward || leftward || rightward) {
       setPlay(true)
-      socket.emit('player-moving', {
-        position: avatar.rigidBodyAvatarRef?.translation(),
-        rotation: avatar.rigidBodyAvatarRef?.rotation()
-      })
     } else {
       setPlay(false)
     }
-    const pressed = get().back
+
+    if (avatar.rigidBodyAvatarRef) {
+      console.log(avatar.rigidBodyAvatarRef?.translation());
+      socket.emit('player-moving', {
+        position: avatar.rigidBodyAvatarRef?.translation(),
+        rotation: avatar.rigidBodyAvatarRef?.rotation(),
+      })
+    }
   })
 
-  return (
-    null
-  )
 }

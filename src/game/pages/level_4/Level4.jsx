@@ -11,8 +11,8 @@ import { Physics } from "@react-three/rapier";
 import { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import Contronls from "../../globals/controls/Controls";
-import Avatar from "../../globals/player/Avatar";
-import Avatar2 from "../../globals/player/Avatar2";
+// import Avatar from "../../globals/player/Avatar";
+// import Avatar2 from "../../globals/player/Avatar2";
 import useMovements from "../../../utils/key-movements";
 import Ecctrl from "ecctrl";
 import WelcomeText from "../../globals/WelcomeText";
@@ -30,6 +30,10 @@ import { createUser, readUser } from "../../../db/users-collections";
 import { socket } from "../../../socket/socket-manager";
 import { useAtom } from "jotai";
 import { Players, playersAtom } from "../../../components/Players";
+import Avatar2 from "./player/Avatar2";
+import Avatar1 from "./player/Avatar1";
+import Player1 from "./player/Player1";
+import Player2 from "./player/Player2";
 
 export const Level4 = (props) => {
   const map = useMovements();
@@ -82,14 +86,17 @@ export const Level4 = (props) => {
             <Lights />
             <BakeShadows />
             {/* <Environments/> */}
-            <Physics debug={false} timeStep={'vary'} gravity={[0, -8, 0]}>
+            <Physics debug={true} timeStep={'vary'} gravity={[0, -8, 0]}>
               <World4FOp />
-              <Avatar2 scale={0.003} />
-              <Avatar scale={0.002} />
+              
               <Ghost />
               {/* <Villain3Skull position={[-4, 22, -503]} /> */}
               <CheckPointsLlv4 />
               <RewardLevel4 />
+              <Player1 />
+              <Player2 />
+              {/* <Avatar1 scale={0.002} position={[0, 10, 0]}/> */}
+              {/* <Avatar2 scale={0.0025} position={[0, 10, 0]}/> */}
             </Physics>
             <Contronls />
           </Suspense>

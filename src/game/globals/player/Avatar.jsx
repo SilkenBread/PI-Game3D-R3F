@@ -1,4 +1,4 @@
-import { CapsuleCollider, RigidBody, quat, vec3 } from "@react-three/rapier";
+import { RigidBody } from "@react-three/rapier";
 import { useEffect, useRef } from "react";
 import { useAvatar } from "../../../context/AvatarContext";
 import { useAnimations, useGLTF } from "@react-three/drei";
@@ -6,28 +6,15 @@ import { avatarPositionState, enemyPositionState, laserPositionState, scoreState
 import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
 import { useFrame } from "@react-three/fiber";
 import { TextureLoader } from "three";
-import Ecctrl from "ecctrl";
-import { socket } from "../../../socket/socket-manager";
 
 export default function Avatar(props) {
-  const rbPlayer2Ref = useRef();
-  const player2Ref = useRef();
-
+  const avatarRef = useRef();
+  const avatarBodyRef = useRef();
   const ammoRef = useRef();
   const { avatar, setAvatar } = useAvatar();
-  const { nodes, materials, animations } = useGLTF('/assets/models/characters/Robot.glb')
-  const { actions } = useAnimations(animations, rbPlayer2Ref);
+  const { nodes, materials, animations } = useGLTF('assets/models/characters/Robot.glb')
+  const { actions } = useAnimations(animations, avatarRef);
   let spawn = false;
-
-  const movePlayer = (transforms) => {
-    const { translation, rotation } = transforms;
-
-    const newTranslation = vec3(translation);
-    const newRotation = quat(rotation);
-
-    rbPlayer2Ref.current?.setTranslation(newTranslation, true);
-    rbPlayer2Ref.current?.setRotation(newRotation, true);
-  };
 
   useEffect(() => {
     actions[avatar.animation]?.reset().fadeIn(0.5).play();
@@ -38,128 +25,245 @@ export default function Avatar(props) {
 
   }, [actions, avatar.animation]);
 
-  useEffect(() => {
-    // Set up the WebSocket event listener for "player-moving"
-    socket.on("player-moving", (transforms) => movePlayer(transforms));
+  // Game settings.
+  const LASER_RANGE = 50;
+  const LASER_Z_VELOCITY = 0.5;
+  const GROUND_HEIGHT = -50;
 
-    // Clean up the event listener on component unmount
-    return () => {
-      socket.off("player-moving", (transforms) => movePlayer(transforms));
-    };
-  }, []);
+  function ArWing() {
+    const [shipPosition, setAvatarPosition] = useRecoilState(avatarPositionState);
+    useFrame(({ mouse }) => {
+      setAvatarPosition({
+        rotation: { z: 0, x: 0, y: -mouse.y * 0.2 },
+      });
+    });
 
-  return (
-    <RigidBody
-      ref={rbPlayer2Ref}
-      position={[0, 2, -6]}
-      type="dynamic"
-      colliders={false}
-      lockRotations
-    >
-      <group ref={player2Ref} name="Scene" position-y={-0.25} scale={0.003}>
-        <group name="Armature" rotation={[Math.PI / 2, 0, 0]}>
-          <skinnedMesh
-            name="Abdomen"
-            geometry={nodes.Abdomen.geometry}
-            material={materials['PrimaryColor.001']}
-            skeleton={nodes.Abdomen.skeleton}
-          />
-          <skinnedMesh
-            name="BaseCasco"
-            geometry={nodes.BaseCasco.geometry}
-            material={materials['PrimaryColor.001']}
-            skeleton={nodes.BaseCasco.skeleton}
-          />
-          <skinnedMesh
-            name="BrazoD_1"
-            geometry={nodes.BrazoD_1.geometry}
-            material={materials['SecondColor.001']}
-            skeleton={nodes.BrazoD_1.skeleton}
-          />
-          <skinnedMesh
-            name="BrazoD_2"
-            geometry={nodes.BrazoD_2.geometry}
-            material={materials['PrimaryColor.001']}
-            skeleton={nodes.BrazoD_2.skeleton}
-          />
-          <skinnedMesh
-            name="BrazoI_1"
-            geometry={nodes.BrazoI_1.geometry}
-            material={materials['SecondColor.001']}
-            skeleton={nodes.BrazoI_1.skeleton}
-          />
-          <skinnedMesh
-            name="BrazoI_2"
-            geometry={nodes.BrazoI_2.geometry}
-            material={materials['PrimaryColor.001']}
-            skeleton={nodes.BrazoI_2.skeleton}
-          />
-          <skinnedMesh
-            name="Casco"
-            geometry={nodes.Casco.geometry}
-            material={materials['HeadGlass.001']}
-            skeleton={nodes.Casco.skeleton}
-          />
-          <skinnedMesh
-            name="Cintura"
-            geometry={nodes.Cintura.geometry}
-            material={materials['SecondColor.001']}
-            skeleton={nodes.Cintura.skeleton}
-          />
-          <skinnedMesh
-            name="Cuello"
-            geometry={nodes.Cuello.geometry}
-            material={materials['PrimaryColor.001']}
-            skeleton={nodes.Cuello.skeleton}
-          />
-          <skinnedMesh
-            name="Cuerpo"
-            geometry={nodes.Cuerpo.geometry}
-            material={materials['SecondColor.001']}
-            skeleton={nodes.Cuerpo.skeleton}
-          />
-          <skinnedMesh
-            name="PechoE"
-            geometry={nodes.PechoE.geometry}
-            material={materials['HeadGlass.001']}
-            skeleton={nodes.PechoE.skeleton}
-          />
-          <skinnedMesh
-            name="PechoI"
-            geometry={nodes.PechoI.geometry}
-            material={materials['PrimaryColor.001']}
-            skeleton={nodes.PechoI.skeleton}
-          />
-          <skinnedMesh
-            name="PiernaD_1"
-            geometry={nodes.PiernaD_1.geometry}
-            material={materials['SecondColor.001']}
-            skeleton={nodes.PiernaD_1.skeleton}
-          />
-          <skinnedMesh
-            name="PiernaD_2"
-            geometry={nodes.PiernaD_2.geometry}
-            material={materials['PrimaryColor.001']}
-            skeleton={nodes.PiernaD_2.skeleton}
-          />
-          <skinnedMesh
-            name="PiernaI_1"
-            geometry={nodes.PiernaI_1.geometry}
-            material={materials['PrimaryColor.001']}
-            skeleton={nodes.PiernaI_1.skeleton}
-          />
-          <skinnedMesh
-            name="PiernaI_2"
-            geometry={nodes.PiernaI_2.geometry}
-            material={materials['SecondColor.001']}
-            skeleton={nodes.PiernaI_2.skeleton}
-          />
-          <primitive object={nodes.mixamorigHips} />
-        </group>
+    return (
+      null
+    );
+  }
+
+  function Target() {
+    const rearTarget = useRef();
+    const frontTarget = useRef();
+
+    const loader = new TextureLoader();
+    const texture = loader.load("/assets/models/level_2/target.png");
+
+    // useFrame(({ mouse }) => {
+    //   rearTarget.current.position.y = -mouse.y * 10;
+
+    //   frontTarget.current.position.y = -mouse.y * 20;
+    // });
+
+    return (
+      <group>
+        <sprite position={[0, 0, 8]} ref={rearTarget} >
+          <spriteMaterial attach="material" map={texture} />
+        </sprite>
+        <sprite position={[0, 0, 16]} ref={frontTarget}>
+          <spriteMaterial attach="material" map={texture} />
+        </sprite>
       </group>
-      <CapsuleCollider args={[0.35, 0.35]} />
-    </RigidBody>
+    );
+  }
 
+  function LaserController() {
+    const shipPosition = useRecoilValue(avatarPositionState);
+    const [lasers, setLasers] = useRecoilState(laserPositionState);
+
+    return (
+      <mesh
+        position={[0, 0, -1]}
+        rotation={[0, Math.PI, 0]}
+        onClick={() =>
+          setLasers([
+            // ...lasers,
+            {
+              id: 1, 
+              x: 0,
+              y: 0,
+              z: 2,
+              velocity: [shipPosition.rotation.x * 0.5, shipPosition.rotation.y * 0.5]
+            }
+          ])
+        }
+      >
+        <planeGeometry attach="geometry" args={[100, 100]} />
+        <meshStandardMaterial
+          attach="material"
+          color="orange"
+          emissive="#ff0860"
+          visible={false}
+        />
+      </mesh>
+    );
+  }
+
+  const onCollisionEnterBody = (e) => {
+    const [lasers, setLaserPositions] = useRecoilState(laserPositionState);
+    useFrame(({ mouse }) => {
+      // Move the Lasers and remove lasers at end of range or that have hit the ground.
+      setLaserPositions(
+        lasers
+          .map((laser) => ({
+            id: laser.id,
+            x: laser.x + laser.velocity[0],
+            y: laser.y + laser.velocity[1],
+            z: 50,
+            velocity: laser.velocity,
+          }))
+      );
+    });
+  }
+
+  function Lasers() {
+    const lasers = useRecoilValue(laserPositionState);
+
+    return (
+      <group>
+        {lasers.map((laser) => (
+          <RigidBody ref={ammoRef} position={[laser.x, laser.y, laser.z]} type={'dynamic'} onCollisionEnter={(e) => onCollisionEnterBody(e)}>
+            <mesh position={[laser.x, laser.y, laser.z]} key={`${laser.id}`}>
+              <boxGeometry attach="geometry" args={[1, 1, 1]} />
+              <meshStandardMaterial attach="material" emissive="white"  />
+            </mesh>
+          </RigidBody>
+        ))}
+      </group>
+    );
+  }
+
+  function GameTimer() {
+    const [lasers, setLaserPositions] = useRecoilState(laserPositionState);
+
+    useFrame(({ mouse }) => {
+      // Move the Lasers and remove lasers at end of range or that have hit the ground.
+      setLaserPositions(
+        lasers
+          .map((laser) => ({
+            id: laser.id,
+            x: laser.x + laser.velocity[0],
+            y: laser.y + laser.velocity[1],
+            z: laser.z + LASER_Z_VELOCITY,
+            velocity: laser.velocity,
+          }))
+          .filter((laser) => laser.z < LASER_RANGE)
+      );
+    });
+    return null;
+  }
+
+  return (<>
+    <RecoilRoot>
+      <ArWing />
+      <Target />
+      <Lasers />
+      <LaserController />
+      <GameTimer />
+    </RecoilRoot>
+    <group ref={avatarRef} name="Scene" position-y={-0.25}>
+      <group name="Armature" rotation={[Math.PI / 2, 0, 0]} scale={props.scale}>
+        <skinnedMesh
+          name="Abdomen"
+          geometry={nodes.Abdomen.geometry}
+          material={materials['PrimaryColor.001']}
+          skeleton={nodes.Abdomen.skeleton}
+        />
+        <skinnedMesh
+          name="BaseCasco"
+          geometry={nodes.BaseCasco.geometry}
+          material={materials['PrimaryColor.001']}
+          skeleton={nodes.BaseCasco.skeleton}
+        />
+        <skinnedMesh
+          name="BrazoD_1"
+          geometry={nodes.BrazoD_1.geometry}
+          material={materials['SecondColor.001']}
+          skeleton={nodes.BrazoD_1.skeleton}
+        />
+        <skinnedMesh
+          name="BrazoD_2"
+          geometry={nodes.BrazoD_2.geometry}
+          material={materials['PrimaryColor.001']}
+          skeleton={nodes.BrazoD_2.skeleton}
+        />
+        <skinnedMesh
+          name="BrazoI_1"
+          geometry={nodes.BrazoI_1.geometry}
+          material={materials['SecondColor.001']}
+          skeleton={nodes.BrazoI_1.skeleton}
+        />
+        <skinnedMesh
+          name="BrazoI_2"
+          geometry={nodes.BrazoI_2.geometry}
+          material={materials['PrimaryColor.001']}
+          skeleton={nodes.BrazoI_2.skeleton}
+        />
+        <skinnedMesh
+          name="Casco"
+          geometry={nodes.Casco.geometry}
+          material={materials['HeadGlass.001']}
+          skeleton={nodes.Casco.skeleton}
+        />
+        <skinnedMesh
+          name="Cintura"
+          geometry={nodes.Cintura.geometry}
+          material={materials['SecondColor.001']}
+          skeleton={nodes.Cintura.skeleton}
+        />
+        <skinnedMesh
+          name="Cuello"
+          geometry={nodes.Cuello.geometry}
+          material={materials['PrimaryColor.001']}
+          skeleton={nodes.Cuello.skeleton}
+        />
+        <skinnedMesh
+          name="Cuerpo"
+          geometry={nodes.Cuerpo.geometry}
+          material={materials['SecondColor.001']}
+          skeleton={nodes.Cuerpo.skeleton}
+        />
+        <skinnedMesh
+          name="PechoE"
+          geometry={nodes.PechoE.geometry}
+          material={materials['HeadGlass.001']}
+          skeleton={nodes.PechoE.skeleton}
+        />
+        <skinnedMesh
+          name="PechoI"
+          geometry={nodes.PechoI.geometry}
+          material={materials['PrimaryColor.001']}
+          skeleton={nodes.PechoI.skeleton}
+        />
+        <skinnedMesh
+          name="PiernaD_1"
+          geometry={nodes.PiernaD_1.geometry}
+          material={materials['SecondColor.001']}
+          skeleton={nodes.PiernaD_1.skeleton}
+        />
+        <skinnedMesh
+          name="PiernaD_2"
+          geometry={nodes.PiernaD_2.geometry}
+          material={materials['PrimaryColor.001']}
+          skeleton={nodes.PiernaD_2.skeleton}
+        />
+        <skinnedMesh
+          name="PiernaI_1"
+          geometry={nodes.PiernaI_1.geometry}
+          material={materials['PrimaryColor.001']}
+          skeleton={nodes.PiernaI_1.skeleton}
+        />
+        <skinnedMesh
+          name="PiernaI_2"
+          geometry={nodes.PiernaI_2.geometry}
+          material={materials['SecondColor.001']}
+          skeleton={nodes.PiernaI_2.skeleton}
+        />
+        <primitive object={nodes.mixamorigHips} />
+      </group>
+    </group>
+  </>
   )
 }
 
