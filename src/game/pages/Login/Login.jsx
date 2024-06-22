@@ -11,7 +11,7 @@ const Login = () => {
 
   const onHandleButtonLogin = async () => {
     await auth.loginWithGoogle()
-      .then((res) => navigate('/Level1'))
+      .then((res) => navigate('/mainScreen'))
       .catch((error) => console.error(error))
   }
 
