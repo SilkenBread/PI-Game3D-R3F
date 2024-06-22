@@ -12,9 +12,9 @@ export const useAvatar = () => {
 }
 export function AvatarProvider({children}) {
     const [avatar, setAvatar] = useState({
-        ref: null,
-        body: null,
         animation: "Idle",
+        rbPlayer1Ref: null,
+        rigidBodyAvatarRef: null,
         vidas: 5,
         recompensas: 0,
         keyUtily: 0,
