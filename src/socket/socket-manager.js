@@ -9,4 +9,4 @@ const urlDeployServer = "https://pi-game3d-websocket.onrender.com";
 /**
  * Socket connection
  */
-export const socket = socketIOClient(urlLocalServer);
+export const socket = socketIOClient(urlDeployServer);
