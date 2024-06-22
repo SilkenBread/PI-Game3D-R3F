@@ -44,17 +44,22 @@ export const Level4 = (props) => {
           <Perf position="top-left" />
           <OrbitControls />
           {/* <FlyControls rollSpeed={0.2} movementSpeed={5}/> */}
-
-          <Lights />
-          <BakeShadows />
-          {/* <Environments/> */}
-          <Physics debug={false} gravity={[0, -8, 0]}>
-            <World4FOp />
-            {/* <Ecctrl
+          <Suspense fallback={null}>
+            <Lights />
+            <BakeShadows />
+            {/* <Environments/> */}
+            <Physics debug={false} gravity={[0, -8, 0]}>
+              <World4FOp />
+              <Villain3Skull position={[-4, 22, -503]} InBoss={false}/>
+              <Ecctrl
                 name="player"
                 camInitDis={-4}
                 camMaxDis={-2}
-                position={[0, 0, 0]}
+                position={[
+                  -4, 45, -300
+                  // -485
+                  // 0, 1, 0
+                ]}
                 jumpVel={4.5}
                 slopJumpMult={0.1}
                 moveImpulsePointY={1.5}
@@ -62,17 +67,17 @@ export const Level4 = (props) => {
                 springK={0}
                 floatHeight={0}
                 sprintJumpMult={1.4}
-                // autoBalance={true}
-                // enabledRotations={[false,true,false]}
+              // autoBalance={true}
+              // enabledRotations={[false,true,false]}
               >
                 <Avatar2 scale={0.002} />
-              </Ecctrl> */}
-            <CheckPointsLlv4 />
-            <RewardLevel4 />
-            <Ghost />
-          </Physics>
-          <Villain3Skull position={[-4, 45, -503]} scale={7.4} />
-          <Contronls />
+              </Ecctrl>
+              <Ghost />
+              <CheckPointsLlv4 />
+              <RewardLevel4 />
+            </Physics>
+            <Contronls />
+          </Suspense>
         </Canvas>
       </KeyboardControls>
     </>

@@ -114,7 +114,9 @@ const Ligths = () => {
         decay={1.9}
       />
 
-      <ambientLight color={"#0083ff"} intensity={0.5} />
+      {/* <ambientLight color={"#0083ff"} intensity={0.5} /> */}
+
+      <ambientLight color={"white"} intensity={1} />
 
       <Sparkles
         position={[0, -14, -150]}

@@ -6,7 +6,7 @@ import { useFrame } from "@react-three/fiber";
 
 export default function World4FOp(props) {
   const { nodes, materials } = useGLTF("assets/models/level_4/level4Op.glb");
-  const {avatar, setAvatar} = useAvatar();
+  const { avatar, setAvatar } = useAvatar();
   const platform1 = useRef();
   const verticalMovePlatformRef = useRef();
   const finalPlatform = useRef();
@@ -42,7 +42,7 @@ export default function World4FOp(props) {
     const moveZ = 45 * (Math.sin(clock.getElapsedTime() / 3.5) + 1) - 85;
     finalPlatform.current?.setNextKinematicTranslation(
       {
-        x: platform1.current?.translation().x ,
+        x: platform1.current?.translation().x,
         y: platform1.current?.translation().y,
         z: moveZ
       },
@@ -50,7 +50,7 @@ export default function World4FOp(props) {
     );
 
   });
-  return (
+  return (<>
     <group {...props} dispose={null}>
 
       {/*Elementos de movimiento*/}
@@ -264,6 +264,7 @@ export default function World4FOp(props) {
       />
       <mesh geometry={nodes.Blades_5.geometry} material={materials.terColor} />
     </group>
+  </>
   );
 }
 
