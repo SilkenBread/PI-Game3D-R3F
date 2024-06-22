@@ -8,7 +8,7 @@ import Environments from "../../globals/Environments";
 import Lights from "./lights/Lights";
 import { Perf } from "r3f-perf";
 import { Physics } from "@react-three/rapier";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import Contronls from "../../globals/controls/Controls";
 import Avatar from "../../globals/player/Avatar";
@@ -25,16 +25,50 @@ import Ghost from "./GhostT";
 import Menu from "../../globals/menu/Menu";
 import AlertasUI from "../../globals/menu/AlertasUI";
 import MainLayaout from "../../layouts/MainLayaout";
+import { useAuth } from "../../../context/AuthContext";
+import { createUser, readUser } from "../../../db/users-collections";
+import { socket } from "../../../socket/socket-manager";
+import { useAtom } from "jotai";
+import { Players, playersAtom } from "../../../components/Players";
 
 export const Level4 = (props) => {
   const map = useMovements();
+  const auth = useAuth();
+  const [players] = useAtom(playersAtom)
+
+  useEffect(() => {
+    socket.emit("players-connected")
+  }, [])
+
+  const saveDataUser = async (valuesUser) => {
+    const { success } = await readUser(valuesUser.email)
+
+    if (!success)
+      await createUser(valuesUser)
+  }
+
+  const [dataUser, setDataUser] = useState('');
+
+  useEffect(() => {
+    if (auth.userLogged) {
+      console.log(auth.userLogged);
+      const { displayName, email, photoURL } = auth.userLogged
+
+      setDataUser({ displayName, email, photoURL });
+
+      saveDataUser({
+        name: displayName,
+        email: email,
+      })
+    }
+  }, [auth.userLogged])
 
   return (
     <>
       <KeyboardControls map={map}>
-        {/* <MainLayaout/> */}
-        <Menu/>
-        <AlertasUI/>
+        <MainLayaout info={dataUser} text={props.text} />
+        <Menu />
+        <AlertasUI />
         <Canvas
           camera={{
             position: [0, 4, 8],
@@ -48,31 +82,12 @@ export const Level4 = (props) => {
             <Lights />
             <BakeShadows />
             {/* <Environments/> */}
-            <Physics debug={false} gravity={[0, -8, 0]}>
+            <Physics debug={false} timeStep={'vary'} gravity={[0, -8, 0]}>
               <World4FOp />
-              <Villain3Skull position={[-4, 22, -503]} InBoss={false}/>
-              <Ecctrl
-                name="player"
-                camInitDis={-4}
-                camMaxDis={-2}
-                position={[
-                  -4, 45, -300
-                  // -485
-                  // 0, 1, 0
-                ]}
-                jumpVel={4.5}
-                slopJumpMult={0.1}
-                moveImpulsePointY={1.5}
-                maxVelLimit={3}
-                springK={0}
-                floatHeight={0}
-                sprintJumpMult={1.4}
-              // autoBalance={true}
-              // enabledRotations={[false,true,false]}
-              >
-                <Avatar2 scale={0.002} />
-              </Ecctrl>
+              <Avatar2 scale={0.003} />
+              <Avatar scale={0.002} />
               <Ghost />
+              {/* <Villain3Skull position={[-4, 22, -503]} /> */}
               <CheckPointsLlv4 />
               <RewardLevel4 />
             </Physics>
