@@ -15,7 +15,7 @@ export default function Villain3Skull(props) {
   const [targetPosition, setTargetPosition] = useState(new THREE.Vector3(-4, 22, -503));
   const [boxes, setBoxes] = useState([]);
   const [boxCount, setBoxCount] = useState(0);
-  const [InBoss, setInBoss] = useState(false);
+  const [InBoss, setInBoss] = useState(props.InBoss);
 
   useFrame((state, delta) => {
     const currentPosition = ref.current.position;
@@ -46,11 +46,16 @@ export default function Villain3Skull(props) {
           setBoxes([]);
           setBoxCount(0);
         }
+      } else {
+        setBoxes([]);
+        setBoxCount(0);
       }
     }, 4000);
 
     return () => clearInterval(interval);
   }, [targetPosition]);
+
+  console.log(InBoss);
 
   return (
     <>
@@ -74,7 +79,10 @@ export default function Villain3Skull(props) {
         name="Enemy"
         lockRotations
         ref={sensorMeshRef}
-        position={SkeletonRB.current?.position}
+        position={
+          // SkeletonRB.current?.position
+          [-4, 22, -503]
+        }
       >
         <BallCollider
           onIntersectionEnter={(object) => {
