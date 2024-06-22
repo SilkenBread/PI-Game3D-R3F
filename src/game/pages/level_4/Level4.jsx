@@ -56,7 +56,7 @@ export const Level4 = (props) => {
                 camInitDis={-4}
                 camMaxDis={-2}
                 position={[
-                  -4, 45, -300
+                  0,0,0
                   // -485
                   // 0, 1, 0
                 ]}
