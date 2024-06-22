@@ -68,7 +68,7 @@ export const Level3 = (props) => {
   return (
     <>
       <KeyboardControls map={map}>
-        <MainLayaout info={dataUser} text={props.text} />
+        {/* <MainLayaout info={dataUser} text={props.text} /> */}
         <Menu />
         <AlertasUI />
         <Canvas
@@ -78,7 +78,7 @@ export const Level3 = (props) => {
           shadows={true}
         >
           <OrbitControls />
-          <Perf position="top-left" />
+          {/* <Perf position="top-left" /> */}
           <Suspense fallback={null}>
             <Lights />
             <BakeShadows />
@@ -86,7 +86,7 @@ export const Level3 = (props) => {
             <Physics debug={false} gravity={[0, -9, 0]}>
               <World3FOp />
               <Golemmonk position={[38, 0.8, 26]} positions={positions} scale = {2.5}/>
-              <Ecctrl
+              {/* <Ecctrl
                 name="player"
                 capsuleHalfHeight={0.5}
                 capsuleRadius={0.38}
@@ -109,7 +109,7 @@ export const Level3 = (props) => {
                 floatHeight={0}
               >
                 <Avatar2 scale={0.003} />
-              </Ecctrl>
+              </Ecctrl> */}
               <RewardLevel3 />
               <CheckPointsLlv3 />
             </Physics>

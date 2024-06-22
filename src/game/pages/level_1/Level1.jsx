@@ -65,7 +65,7 @@ export const Level1 = (props) => {
   return (
     <Suspense fallback={null}>
       <KeyboardControls map={map}>
-        <MainLayaout info={dataUser} text={props.text} />
+        {/* <MainLayaout info={dataUser} text={props.text} /> */}
         <Menu />
         <AlertasUI />
         <Canvas
@@ -85,7 +85,7 @@ export const Level1 = (props) => {
           />
           <Physics debug={false} gravity={[0, -9, 0]}>
             <WorldOp />
-            <Ecctrl
+            {/* <Ecctrl
               name="player"
               debug={false}
               capsuleHalfHeight={0.5}
@@ -108,7 +108,7 @@ export const Level1 = (props) => {
             >
               <Avatar2 scale={0.003} />
 
-            </Ecctrl>
+            </Ecctrl> */}
             <Villain1 position={[-7.9, 52.5, -55]} />
             <RewardLevel1 />
           </Physics>

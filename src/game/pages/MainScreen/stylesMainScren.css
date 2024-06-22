@@ -1,0 +1,87 @@
+.main-screnbxb {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  pointer-events: all;
+  overflow: hidden;
+  height: 100%;
+}
+
+.background {
+  background-size: cover;
+  animation: breathe 40s infinite ease-in-out;
+  
+}
+
+@keyframes breathe {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.8); /* Ajusta este valor para cambiar la intensidad de la animación */
+    }
+  }
+
+.box-start {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  top: 65%;
+  z-index: 2;
+}
+
+.crytal-deco {
+  position: relative;
+  width: 12%;
+  height: auto;
+  scale: 1.5;
+}
+
+
+.main-screnbxb button {
+    font-size: 26px;
+    width: 10em;
+    color: #e1e1e1;
+    font-family: inherit;
+    font-weight: 800;
+    cursor: pointer;
+    position: relative;
+    border: none;
+    background: none;
+    text-transform: uppercase;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 400ms;
+    transition-property: color;
+    letter-spacing: 7px;
+  }
+  
+  .main-screnbxb button:focus,
+  .main-screnbxb button:hover {
+    color: #fff;
+  }
+  
+  .main-screnbxb button:focus:after,
+  .main-screnbxb button:hover:after {
+    width: 100%;
+    left: 0%;
+  }
+  
+  .main-screnbxb button:after {
+    content: "";
+    pointer-events: none;
+    bottom: -2px;
+    left: 50%;
+    position: absolute;
+    width: 0%;
+    height: 4px;
+    background-color: #fff;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 400ms;
+    transition-property: width, left;
+  }
